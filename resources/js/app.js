@@ -16,7 +16,7 @@ Vue.use(VueRouter,VueAxios,Axios);
 
 import App from './components/App.vue';
 import Test from './components/admin/Test.vue';
-import Test2 from './components/admin/test2.vue';
+import Kategori from './components/admin/Kategori.vue';
 
 // membuat router
 const routes = [
@@ -26,9 +26,9 @@ const routes = [
         component: Test
     },
     {
-        name: 'test2',
-        path: '/test2',
-        component: Test2
+        name: 'Kategori',
+        path: '/admin/kategori',
+        component: Kategori
     },
 ]
 
