@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAlatKesehatansTable extends Migration
+class CreateObatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,24 @@ class CreateAlatKesehatansTable extends Migration
      */
     public function up()
     {
-        Schema::create('alat_kesehatans', function (Blueprint $table) {
+        Schema::create('obats', function (Blueprint $table) {
             $table->string('id',15)->primary();
             $table->string('nama',50);
             $table->string('gambar',255)->nullable();
-            $table->string('tipe_produk',15);
+            $table->string('tipe_obat',15);
             $table->integer('harga')->length(10)->unsigned();
-            $table->string('indikasi',100)->nullable();
+            $table->string('indikasi',100);
             $table->integer('stok')->length(10)->unsigned();
             $table->string('satuan',10);
             $table->string('kemasan',255);
             $table->text('deskripsi')->nullable();
+            $table->string('komposisi',50);
+            $table->string('dosis',25);
+            $table->string('segmentasi',25);
             $table->string('manufaktur',50);
             $table->text('keterangan')->nullable();
             $table->date('deleted_at')->nullable();
+
         });
     }
 
@@ -37,6 +41,6 @@ class CreateAlatKesehatansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alat_kesehatans');
+        Schema::dropIfExists('obats');
     }
 }
