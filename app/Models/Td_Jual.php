@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Kategori extends Model
+class Td_Jual extends Model
 {
     protected $connection   = "mysql";
-    protected $table        = "kategoris";
+    protected $table        = "td_juals";
     protected $primaryKey   = "id";
     public $incrementing    = false;
     public $timestamps      = false;
