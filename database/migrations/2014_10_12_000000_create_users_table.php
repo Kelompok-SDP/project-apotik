@@ -13,14 +13,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+
+        Schema::connection('mysql')->create('users', function (Blueprint $table) {
             $table->string('id',10)->primary();
             $table->string('noHp',19)->unique();
             $table->string('nama',50);
             $table->string('email',100);
             $table->string('password',50);
-            $table->string('status')->default('active');
-            $table->date('deleted_at')->nullable();
+            $table->smallInteger('status')->length(10)->unsigned()->default('1')->comment('jika 1 active, 2 terbanned');
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::connection('mysql')->dropIfExists('users');
     }
 }

@@ -13,7 +13,7 @@ class CreateObatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('obats', function (Blueprint $table) {
+        Schema::connection('mysql')->create('obats', function (Blueprint $table) {
             $table->string('id',15)->primary();
             $table->string('nama',50);
             $table->string('gambar',255)->nullable();
@@ -41,6 +41,6 @@ class CreateObatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('obats');
+        Schema::connection('mysql')->dropIfExists('obats');
     }
 }

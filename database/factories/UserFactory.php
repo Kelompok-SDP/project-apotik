@@ -4,28 +4,27 @@
 
 use App\Models\User;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
 
+// php artisan db:seed --database="mysql"
 $factory->define(User::class, function (Faker $faker) {
+    $namaBaru = $faker->name;
+    $potongan = strtoupper(substr($namaBaru,0,2));
+    $hasil = DB::table('users')
+        ->select(DB::raw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newIndex'))
+        ->where('id','LIKE',"$potongan%")
+        ->get();
+    $first = $hasil->first()->newIndex;
+    var_dump($potongan.$first);
     return [
-        'id' => str_pad(substr($faker->name,0,1).
-        User::whereRaw("id = (select max(`id`) from `users` where `id` like '".substr($faker->name,0,2)."%`)")->get(),3,'0',STR_PAD_LEFT),
+        'id' => $potongan.$first,
         'noHp' =>$faker->tollFreePhoneNumber,
-        'nama' =>$faker->name,
+        'nama' =>$namaBaru,
         'email' =>$faker->freeEmail,
-        'password' =>'123',
-        'status'=> 'active',
-
+        'password' =>'123',        
     ];
 });
+
+// select LPAD(IFNULL(max(SUBSTRING(`id`,3,3)),0)+1,3,0)from `users` where `id` like "YO%"

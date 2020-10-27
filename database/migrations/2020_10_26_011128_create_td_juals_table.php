@@ -13,7 +13,7 @@ class CreateTdJualsTable extends Migration
      */
     public function up()
     {
-        Schema::create('td_juals', function (Blueprint $table) {
+        Schema::connection('mysql')->create('td_juals', function (Blueprint $table) {
             $table->string('id',15)->primary();
             $table->foreign('id_th_jual')->references('id')->on('th_juals');
             $table->string('id_th_jual',15);
@@ -31,6 +31,6 @@ class CreateTdJualsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('td_juals');
+        Schema::connection('mysql')->dropIfExists('td_juals');
     }
 }

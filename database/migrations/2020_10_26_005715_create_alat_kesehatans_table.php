@@ -13,7 +13,7 @@ class CreateAlatKesehatansTable extends Migration
      */
     public function up()
     {
-        Schema::create('alat_kesehatans', function (Blueprint $table) {
+        Schema::connection('mysql')->create('alat_kesehatans', function (Blueprint $table) {
             $table->string('id',15)->primary();
             $table->string('nama',50);
             $table->string('gambar',255)->nullable();
@@ -37,6 +37,6 @@ class CreateAlatKesehatansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alat_kesehatans');
+        Schema::connection('mysql')->dropIfExists('alat_kesehatans');
     }
 }

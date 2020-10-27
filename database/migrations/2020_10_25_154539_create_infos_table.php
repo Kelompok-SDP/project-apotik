@@ -13,7 +13,7 @@ class CreateInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('infos', function (Blueprint $table) {
+        Schema::connection('mysql')->create('infos', function (Blueprint $table) {
             $table->id();
             $table->string('nama',50);
             $table->string('nomor1',15);
@@ -29,6 +29,6 @@ class CreateInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('infos');
+        Schema::connection('mysql')->dropIfExists('infos');
     }
 }

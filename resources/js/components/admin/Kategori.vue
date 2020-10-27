@@ -53,7 +53,7 @@ export default {
         loadData(){
             axios.get('/api/admin/kategori')
                 .then((response) => {
-                    this.kategories = response.data;
+                    this.kategories = response.data.all_kategori;
                     
                 }).catch((error) => {
                     
