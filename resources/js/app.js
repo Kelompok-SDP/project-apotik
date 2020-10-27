@@ -18,6 +18,8 @@ import App from './components/App.vue';
 import Test from './components/admin/Test.vue';
 import Kategori from './components/admin/Kategori.vue';
 
+
+
 // membuat router
 const routes = [
     {
