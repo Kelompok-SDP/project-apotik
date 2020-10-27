@@ -17,7 +17,7 @@ Vue.use(VueRouter,VueAxios,Axios);
 import App from './components/App.vue';
 import Test from './components/admin/Test.vue';
 import Kategori from './components/admin/Kategori.vue';
-
+import Admin from './components/Admin.vue';
 
 
 // membuat router
@@ -28,11 +28,16 @@ const routes = [
         component: Test
     },
     {
+        name: 'Admin',
+        path: '/admin',
+        component: Admin
+    },
+    {
         name: 'Kategori',
         path: '/admin/kategori',
         component: Kategori
     },
 ]
-
 const router = new VueRouter({ mode: 'history', routes: routes });
 new Vue(Vue.util.extend({ router }, App)).$mount("#app");
+
