@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // php artisan db:seed --database="mysql"
         $this->call([
             KategoriSeeder::class,
             UserSeeder::class,
