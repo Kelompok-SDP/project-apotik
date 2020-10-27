@@ -5,8 +5,8 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <router-link to="/admin" class="nav-link">Home</router-link>
+        <li class="nav-item d-none d-sm-inline-block toHome">
+            <span to="/admin" class="nav-link" @click="setCurrent('')">Home</span>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -26,3 +26,26 @@
         </form>
     </nav>
 </template>
+
+<script>
+export default {
+    name: 'Navbar',
+    data(){
+        return{
+            currentState:'',
+        }
+    },
+    methods:{
+        setCurrent(value){
+            this.currentState = value;
+            this.$emit('click',this.currentState);
+        }
+    }
+}
+</script>
+
+<style scoped>
+    .toHome{
+        cursor: pointer;
+    }
+</style>

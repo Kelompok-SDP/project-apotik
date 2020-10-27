@@ -23,14 +23,14 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-         <li class="nav-item has-treeview">
-            <router-link class="nav-link" to="/admin/kategori">
+         <li class="nav-item has-treeview" @click="setCurrent('Kategori')">
+            <span class="nav-link" style="color:white;">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Master Kategori
                 <i class="fas fa-angle-left right"></i>
               </p>
-            </router-link>
+            </span>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
@@ -50,11 +50,21 @@
 
 <script>
 export default {
+    props:{
+      
+    },
     data(){
         return{
-
+            currentState:'',
         }
     },
+   methods:{
+      setCurrent(value){
+          this.currentState = value;
+          this.$emit('click',this.currentState);
+          console.log(value);
+      },
+   }
 }
 </script>
 
