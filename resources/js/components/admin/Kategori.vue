@@ -15,7 +15,8 @@
               <th style="width: 10px">No</th>
               <th>Nama</th>
               <th>Gambar</th>
-              <th>Slug</th>
+              <th>Url</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -33,6 +34,22 @@
                 />
               </td>
               <td>{{ kategori.slug }}</td>
+              <td>
+                <div
+                  class="btn btn-sm btn-primary"
+                  @click="getDetail(kategori)"
+                  data-toggle="modal"
+                  data-target="#myModal"
+                >
+                  Edit
+                </div>
+                <div
+                  class="btn btn-sm btn-danger"
+                  @click="deleteData(kategori)"
+                >
+                  Delete
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -90,7 +107,7 @@
                   type="file"
                   class="custom-file-input"
                   id=""
-                  @change="processFile($event)"
+                  @change="processFile($event, 'add')"
                 />
                 <span class="custom-file-label">{{ form.gambar }} </span>
                 <!-- <label class="" for=""> Pilih Gambar </label> -->
@@ -119,9 +136,106 @@
         </div>
       </form>
     </div>
+
+    <!-- modal -->
+    <div
+      class="modal fade show"
+      id="modal-edit"
+      style="display: hidden; padding-right: 16px"
+      aria-modal="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Kategori</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateData()">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="">Kode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Kode"
+                    v-model="editForm.kode"
+                    disabled
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="">Nama Kategori</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: Antibiotik"
+                    v-model="editForm.nama"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="">Gambar Kategori</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id=""
+                        @change="processFile($event, 'edit')"
+                      />
+                      <span class="custom-file-label"
+                        >{{ editForm.gambar }}
+                      </span>
+                      <!-- <label class="" for=""> Pilih Gambar </label> -->
+                    </div>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="btnUploadGambar"
+                        >Upload</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Url Kategori</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: anti-biotik"
+                    v-model="editForm.slug"
+                  />
+                </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Data
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
   </div>
 </template>
 
+<script src="./jquery.min.js" ></script>
 <script>
 export default {
   name: "Kategori",
@@ -134,13 +248,19 @@ export default {
         gambar: "Pilih Gambar",
         slug: "",
       },
+      editForm: {
+        kode: "",
+        nama: "",
+        gambar: "Pilih Gambar",
+        slug: "",
+      },
       errors: [],
       isLoading: false,
       isSuccess: false,
     };
   },
   mounted() {
-    this.loadData(), this.autogenKode();
+    this.loadData();
   },
   methods: {
     loadData() {
@@ -155,9 +275,12 @@ export default {
         })
         .catch((error) => {});
     },
-    processFile(event) {
-      this.form.gambar = event.target.files[0].name;
-      console.log(this.form.gambar);
+    processFile(event, mode) {
+      if (mode == "add") {
+        this.form.gambar = event.target.files[0].name;
+      } else {
+        this.editForm.gambar = event.target.files[0].name;
+      }
     },
     addData() {
       this.isLoading = true;
@@ -199,6 +322,46 @@ export default {
       if (this.form.nama.length < 2) {
         this.form.kode = "Kode";
       }
+    },
+    getDetail(kategori) {
+      //clone kategori supaya tidak merubah isi dari tabel
+      let kategoriClone = Object.assign({}, kategori);
+      $("#modal-edit").modal("show");
+      this.editForm = kategoriClone;
+      this.editForm.kode = kategoriClone.id;
+    },
+    updateData() {
+      axios
+        .post("/api/admin/kategori/update", {
+          id: this.editForm.kode,
+          nama: this.editForm.nama,
+          gambar: this.editForm.gambar,
+          slug: this.editForm.slug,
+        })
+        .then((response) => {
+          this.loadData();
+          $("#modal-edit").modal("hide");
+        })
+        .catch((response) => {
+          if (error.status === 422) {
+            this.errors = error.data.errors;
+          }
+        });
+    },
+    deleteData(kategori) {
+      axios
+        .post("/api/admin/kategori/delete", {
+          id: kategori.id,
+        })
+        .then((response) => {
+          this.loadData();
+          alert("berhasil delete");
+        })
+        .catch((response) => {
+          if (error.status === 422) {
+            this.errors = error.data.errors;
+          }
+        });
     },
   },
 };

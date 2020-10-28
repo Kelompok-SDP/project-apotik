@@ -2103,6 +2103,120 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Kategori",
   data: function data() {
@@ -2114,13 +2228,19 @@ __webpack_require__.r(__webpack_exports__);
         gambar: "Pilih Gambar",
         slug: ""
       },
+      editForm: {
+        kode: "",
+        nama: "",
+        gambar: "Pilih Gambar",
+        slug: ""
+      },
       errors: [],
       isLoading: false,
       isSuccess: false
     };
   },
   mounted: function mounted() {
-    this.loadData(), this.autogenKode();
+    this.loadData();
   },
   methods: {
     loadData: function loadData() {
@@ -2134,9 +2254,12 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.slug = "";
       })["catch"](function (error) {});
     },
-    processFile: function processFile(event) {
-      this.form.gambar = event.target.files[0].name;
-      console.log(this.form.gambar);
+    processFile: function processFile(event, mode) {
+      if (mode == "add") {
+        this.form.gambar = event.target.files[0].name;
+      } else {
+        this.editForm.gambar = event.target.files[0].name;
+      }
     },
     addData: function addData() {
       var _this2 = this;
@@ -2178,6 +2301,46 @@ __webpack_require__.r(__webpack_exports__);
       if (this.form.nama.length < 2) {
         this.form.kode = "Kode";
       }
+    },
+    getDetail: function getDetail(kategori) {
+      //clone kategori supaya tidak merubah isi dari tabel
+      var kategoriClone = Object.assign({}, kategori);
+      $("#modal-edit").modal("show");
+      this.editForm = kategoriClone;
+      this.editForm.kode = kategoriClone.id;
+    },
+    updateData: function updateData() {
+      var _this4 = this;
+
+      axios.post("/api/admin/kategori/update", {
+        id: this.editForm.kode,
+        nama: this.editForm.nama,
+        gambar: this.editForm.gambar,
+        slug: this.editForm.slug
+      }).then(function (response) {
+        _this4.loadData();
+
+        $("#modal-edit").modal("hide");
+      })["catch"](function (response) {
+        if (error.status === 422) {
+          _this4.errors = error.data.errors;
+        }
+      });
+    },
+    deleteData: function deleteData(kategori) {
+      var _this5 = this;
+
+      axios.post("/api/admin/kategori/delete", {
+        id: kategori.id
+      }).then(function (response) {
+        _this5.loadData();
+
+        alert("berhasil delete");
+      })["catch"](function (response) {
+        if (error.status === 422) {
+          _this5.errors = error.data.errors;
+        }
+      });
     }
   }
 });
@@ -38934,7 +39097,39 @@ var render = function() {
                     : _vm._e()
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(kategori.slug))])
+                _c("td", [_vm._v(_vm._s(kategori.slug))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: {
+                        "data-toggle": "modal",
+                        "data-target": "#myModal"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.getDetail(kategori)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Edit\n              ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "btn btn-sm btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteData(kategori)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Delete\n              ")]
+                  )
+                ])
               ])
             }),
             0
@@ -39036,7 +39231,7 @@ var render = function() {
                     attrs: { type: "file", id: "" },
                     on: {
                       change: function($event) {
-                        return _vm.processFile($event)
+                        return _vm.processFile($event, "add")
                       }
                     }
                   }),
@@ -39080,7 +39275,168 @@ var render = function() {
           _vm._m(5)
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade show",
+        staticStyle: { display: "hidden", "padding-right": "16px" },
+        attrs: { id: "modal-edit", "aria-modal": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.updateData()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Kode")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.kode,
+                            expression: "editForm.kode"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Kode",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.editForm.kode },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "kode", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Nama Kategori")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.nama,
+                            expression: "editForm.nama"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Co: Antibiotik"
+                        },
+                        domProps: { value: _vm.editForm.nama },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "nama", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Gambar Kategori")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            attrs: { type: "file", id: "" },
+                            on: {
+                              change: function($event) {
+                                return _vm.processFile($event, "edit")
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "custom-file-label" }, [
+                            _vm._v(
+                              _vm._s(_vm.editForm.gambar) +
+                                "\n                    "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(7)
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Url Kategori")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.slug,
+                            expression: "editForm.slug"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Co: anti-biotik"
+                        },
+                        domProps: { value: _vm.editForm.slug },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "slug", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(8)
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(9)
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -39104,7 +39460,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Gambar")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Slug")])
+        _c("th", [_vm._v("Url")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
     ])
   },
@@ -39175,6 +39533,66 @@ var staticRenderFns = [
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Tambahkan")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Edit Kategori")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c(
+        "span",
+        { staticClass: "input-group-text", attrs: { id: "btnUploadGambar" } },
+        [_vm._v("Upload")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("\n                Update Data\n              ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer justify-content-between" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("\n            Close\n          ")]
       )
     ])
   }

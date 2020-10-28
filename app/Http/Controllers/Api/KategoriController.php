@@ -24,7 +24,7 @@ class KategoriController extends Controller
     {
         $request->validate([
             'nama' => ['required', 'min:2'],
-            'gambar' => [new isPicture, new isTooBig],
+            // 'gambar' => [new isPicture, new isTooBig],
             'slug' => ['required', 'min:3'],
         ], [
             'nama.required' => ':attribute kategori harus diisi',
@@ -47,5 +47,21 @@ class KategoriController extends Controller
 
         $newKode = strtoupper($inisial) . $kode->first()->newKode;
         return $newKode;
+    }
+
+    public function update(Request $request)
+    {
+        $kategori = Kategori::find($request->id);
+        $kategori->update([
+            'nama' => $request->nama,
+            'gambar' => $request->gambar,
+            'slug' => $request->slug,
+        ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $kategori = Kategori::find($request->id);
+        $kategori->delete();
     }
 }
