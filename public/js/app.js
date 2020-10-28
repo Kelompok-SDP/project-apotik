@@ -2217,6 +2217,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Kategori",
   data: function data() {
@@ -2225,16 +2267,16 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         kode: "",
         nama: "",
-        gambar: "Pilih Gambar",
+        gambar: "",
         slug: ""
       },
       editForm: {
         kode: "",
         nama: "",
-        gambar: "Pilih Gambar",
+        gambar: "",
         slug: ""
       },
-      errors: [],
+      errors: {},
       isLoading: false,
       isSuccess: false
     };
@@ -2252,33 +2294,34 @@ __webpack_require__.r(__webpack_exports__);
         _this.form.nama = "";
         _this.form.gambar = "";
         _this.form.slug = "";
-      })["catch"](function (error) {});
+      });
     },
     processFile: function processFile(event, mode) {
       if (mode == "add") {
-        this.form.gambar = event.target.files[0].name;
+        this.form.gambar = event.target.files[0];
       } else {
-        this.editForm.gambar = event.target.files[0].name;
+        this.editForm.gambar = event.target.files[0];
       }
     },
     addData: function addData() {
       var _this2 = this;
 
+      this.errors = {};
       this.isLoading = true;
       this.isSuccess = false;
-      axios.post("/api/admin/kategori", {
-        id: this.form.kode,
-        nama: this.form.nama,
-        gambar: this.form.gambar,
-        slug: this.form.slug
-      }).then(function (response) {
+      var formData = new FormData();
+      formData.append("id", this.form.kode);
+      formData.append("nama", this.form.nama);
+      formData.append("gambar", this.form.gambar);
+      formData.append("slug", this.form.slug);
+      axios.post("/api/admin/kategori", formData).then(function (response) {
         _this2.isSuccess = true;
 
         _this2.loadData();
-      })["catch"](function (error) {
-        if (error.status === 422) {
-          _this2.errors = error.data.errors;
-        }
+      })["catch"](function (_ref) {
+        var response = _ref.response;
+        _this2.errors = response.data.errors;
+        console.log("error");
       })["finally"](function () {
         return _this2.isLoading = false;
       });
@@ -2291,10 +2334,9 @@ __webpack_require__.r(__webpack_exports__);
           nama: this.form.nama
         }).then(function (response) {
           _this3.form.kode = response.data;
-        })["catch"](function (response) {
-          if (error.status === 422) {
-            _this3.errors = error.data.errors;
-          }
+        })["catch"](function (_ref2) {
+          var response = _ref2.response;
+          _this3.errors = response.data.errors;
         });
       }
 
@@ -2303,28 +2345,36 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getDetail: function getDetail(kategori) {
-      //clone kategori supaya tidak merubah isi dari tabel
+      //clone kategori supaya tidak merubah isi dari tabel asli
       var kategoriClone = Object.assign({}, kategori);
       $("#modal-edit").modal("show");
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
+      this.editForm.gambar = kategoriClone.gambar;
+      console.log(this.editForm.gambar);
     },
     updateData: function updateData() {
       var _this4 = this;
 
-      axios.post("/api/admin/kategori/update", {
-        id: this.editForm.kode,
-        nama: this.editForm.nama,
-        gambar: this.editForm.gambar,
-        slug: this.editForm.slug
-      }).then(function (response) {
+      this.errors = {};
+      this.isLoading = true;
+      this.isSuccess = false;
+      var formData = new FormData();
+      formData.append("id", this.editForm.kode);
+      formData.append("nama", this.editForm.nama);
+      formData.append("gambar", this.editForm.gambar);
+      formData.append("slug", this.editForm.slug);
+      axios.post("/api/admin/kategori/update", formData).then(function (response) {
         _this4.loadData();
 
+        _this4.isSuccess = true;
         $("#modal-edit").modal("hide");
-      })["catch"](function (response) {
-        if (error.status === 422) {
-          _this4.errors = error.data.errors;
-        }
+      })["catch"](function (_ref3) {
+        var response = _ref3.response;
+        _this4.errors = response.data.errors;
+        console.log(_this4.errors);
+      })["finally"](function () {
+        _this4.isLoading = false;
       });
     },
     deleteData: function deleteData(kategori) {
@@ -2337,8 +2387,8 @@ __webpack_require__.r(__webpack_exports__);
 
         alert("berhasil delete");
       })["catch"](function (response) {
-        if (error.status === 422) {
-          _this5.errors = error.data.errors;
+        if (response.status === 422) {
+          console.log("error hapus");
         }
       });
     }
@@ -39152,6 +39202,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -39218,7 +39269,17 @@ var render = function() {
                     _vm.$set(_vm.form, "nama", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.errors.hasOwnProperty("nama")
+                ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                    _vm._v(
+                      "\n            " +
+                        _vm._s(_vm.errors.nama[0]) +
+                        "\n          "
+                    )
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
@@ -39227,6 +39288,7 @@ var render = function() {
               _c("div", { staticClass: "input-group" }, [
                 _c("div", { staticClass: "custom-file" }, [
                   _c("input", {
+                    ref: "file",
                     staticClass: "custom-file-input",
                     attrs: { type: "file", id: "" },
                     on: {
@@ -39237,11 +39299,19 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("span", { staticClass: "custom-file-label" }, [
-                    _vm._v(_vm._s(_vm.form.gambar) + " ")
+                    _vm._v(_vm._s(_vm.form.gambar.name) + " ")
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm.errors.hasOwnProperty("gambar")
+                  ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                      _vm._v(
+                        "\n              " +
+                          _vm._s(_vm.errors.gambar[0]) +
+                          "\n            "
+                      )
+                    ])
+                  : _vm._e()
               ])
             ]),
             _vm._v(" "),
@@ -39269,10 +39339,18 @@ var render = function() {
                   }
                 }
               })
-            ])
+            ]),
+            _vm._v(" "),
+            _vm.errors.hasOwnProperty("slug")
+              ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                  _vm._v(
+                    "\n          " + _vm._s(_vm.errors.slug[0]) + "\n        "
+                  )
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(5)
+          _vm._m(4)
         ]
       )
     ]),
@@ -39287,7 +39365,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(6),
+            _vm._m(5),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c(
@@ -39365,6 +39443,20 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
+                    _vm.errors.hasOwnProperty("nama")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.nama[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
                         _vm._v("Gambar Kategori")
@@ -39382,17 +39474,40 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _c("span", { staticClass: "custom-file-label" }, [
-                            _vm._v(
-                              _vm._s(_vm.editForm.gambar) +
-                                "\n                    "
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(7)
+                          _vm.editForm.gambar.name
+                            ? _c("span", { staticClass: "custom-file-label" }, [
+                                _vm._v(
+                                  _vm._s(_vm.editForm.gambar.name) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.editForm.gambar.name
+                            ? _c("span", { staticClass: "custom-file-label" }, [
+                                _vm._v(
+                                  _vm._s('"' + _vm.editForm.gambar + '"') +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
                       ])
                     ]),
+                    _vm._v(" "),
+                    _vm.errors.hasOwnProperty("gambar")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.gambar[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
@@ -39424,15 +39539,29 @@ var render = function() {
                           }
                         }
                       })
-                    ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasOwnProperty("slug")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.slug[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(8)
+                  _vm._m(6)
                 ]
               )
             ]),
             _vm._v(" "),
-            _vm._m(9)
+            _vm._m(7)
           ])
         ])
       ]
@@ -39516,18 +39645,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c(
-        "span",
-        { staticClass: "input-group-text", attrs: { id: "btnUploadGambar" } },
-        [_vm._v("Upload")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-footer" }, [
       _c(
         "button",
@@ -39554,18 +39671,6 @@ var staticRenderFns = [
           }
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-append" }, [
-      _c(
-        "span",
-        { staticClass: "input-group-text", attrs: { id: "btnUploadGambar" } },
-        [_vm._v("Upload")]
       )
     ])
   },

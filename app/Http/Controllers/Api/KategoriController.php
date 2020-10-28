@@ -22,19 +22,51 @@ class KategoriController extends Controller
 
     public function addKategori(Request $request)
     {
-        $request->validate([
-            'nama' => ['required', 'min:2'],
-            // 'gambar' => [new isPicture, new isTooBig],
-            'slug' => ['required', 'min:3'],
-        ], [
-            'nama.required' => ':attribute kategori harus diisi',
-            'nama.min' => 'Nama harus lebih panjang dari 1 huruf',
-            'slug.required' => 'url kategori harus diisi',
-            'slug.min' => 'Karakter harus lebih panjang dari 2 huruf',
-        ]);
+        // DD($request->all());
+        if ($request->gambar) {
+            $request->validate([
+                'nama' => ['required', 'min:2'],
+                'gambar' => ['mimes:png,jpg,jpeg', 'max:5048'],
+                'slug' => ['required', 'min:3'],
+            ], [
+                'nama.required' => ':attribute kategori harus diisi',
+                'nama.min' => 'Nama harus lebih panjang dari 1 huruf',
+                'slug.required' => 'url kategori harus diisi',
+                'slug.min' => 'Karakter harus lebih panjang dari 2 huruf',
+                'gambar.mimes' => 'Gambar harus bertipe png / jpg / jpeg',
+                'gambar.max' => 'ukuran maksimal gambar adalah 5,48mb'
+            ]);
 
 
-        return Kategori::create($request->all());
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/' . $nama_file;
+
+            return Kategori::create([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'gambar' => $pathDbGambar,
+                'slug' => $request->slug,
+            ]);
+        } else {
+            $request->validate([
+                'nama' => ['required', 'min:2'],
+                'slug' => ['required', 'min:3'],
+            ], [
+                'nama.required' => ':attribute kategori harus diisi',
+                'nama.min' => 'Nama harus lebih panjang dari 1 huruf',
+                'slug.required' => 'url kategori harus diisi',
+                'slug.min' => 'Karakter harus lebih panjang dari 2 huruf'
+            ]);
+
+            return Kategori::create([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'slug' => $request->slug,
+            ]);
+        }
     }
 
     public function generateID(Request $request)
@@ -52,11 +84,54 @@ class KategoriController extends Controller
     public function update(Request $request)
     {
         $kategori = Kategori::find($request->id);
-        $kategori->update([
-            'nama' => $request->nama,
-            'gambar' => $request->gambar,
-            'slug' => $request->slug,
-        ]);
+
+        //karena jika user tidak pencet apa-apa maka gambar akan menjadi string path pada DB
+        if (is_string($request->gambar)) {
+
+            $request->validate([
+                'nama' => ['required', 'min:2'],
+                'slug' => ['required', 'min:3'],
+            ], [
+                'nama.required' => ':attribute kategori harus diisi',
+                'nama.min' => 'Nama harus lebih panjang dari 1 huruf',
+                'slug.required' => 'url kategori harus diisi',
+                'slug.min' => 'Karakter harus lebih panjang dari 2 huruf'
+            ]);
+
+
+            $kategori->update([
+                'nama' => $request->nama,
+                'slug' => $request->slug,
+            ]);
+        } else {
+            //jika gambar bertipe object file maka update gambar pilihan user
+
+            $request->validate([
+                'nama' => ['required', 'min:2'],
+                'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048'],
+                'slug' => ['required', 'min:3'],
+            ], [
+                'nama.required' => ':attribute kategori harus diisi',
+                'nama.min' => 'Nama harus lebih panjang dari 1 huruf',
+                'slug.required' => 'url kategori harus diisi',
+                'slug.min' => 'Karakter harus lebih panjang dari 2 huruf',
+                'gambar.mimes' => 'Gambar harus bertipe png / jpg / jpeg',
+                'gambar.image' => 'Gambar harus bertipe png / jpg / jpeg',
+                'gambar.max' => 'ukuran maksimal gambar adalah 5,48mb'
+            ]);
+
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/' . $nama_file;
+
+            $kategori->update([
+                'nama' => $request->nama,
+                'gambar' => $pathDbGambar,
+                'slug' => $request->slug,
+            ]);
+        }
     }
 
     public function delete(Request $request)

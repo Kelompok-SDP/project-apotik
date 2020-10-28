@@ -24,6 +24,8 @@
               <td>{{ index + 1 }}</td>
               <td>{{ kategori.nama }}</td>
               <td>
+                <!-- contoh path img -->
+                <!-- /img_database/Screenshot (4).png -->
                 <span v-if="!kategori.gambar">Belum ada gambar</span>
                 <img
                   v-bind:src="kategori.gambar"
@@ -75,7 +77,7 @@
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form @submit.prevent="addData()">
+      <form enctype="multipart/form-data" @submit.prevent="addData()">
         <div class="card-body">
           <div class="form-group">
             <label for="">Kode</label>
@@ -98,7 +100,14 @@
               v-model="form.nama"
               @keyup="autogenKode()"
             />
+            <span
+              class="invalid-feedback d-block"
+              v-if="errors.hasOwnProperty('nama')"
+            >
+              {{ errors.nama[0] }}
+            </span>
           </div>
+
           <div class="form-group">
             <label for="">Gambar Kategori</label>
             <div class="input-group">
@@ -107,16 +116,17 @@
                   type="file"
                   class="custom-file-input"
                   id=""
+                  ref="file"
                   @change="processFile($event, 'add')"
                 />
-                <span class="custom-file-label">{{ form.gambar }} </span>
-                <!-- <label class="" for=""> Pilih Gambar </label> -->
+                <span class="custom-file-label">{{ form.gambar.name }} </span>
               </div>
-              <div class="input-group-append">
-                <span class="input-group-text" id="btnUploadGambar"
-                  >Upload</span
-                >
-              </div>
+              <span
+                class="invalid-feedback d-block"
+                v-if="errors.hasOwnProperty('gambar')"
+              >
+                {{ errors.gambar[0] }}
+              </span>
             </div>
           </div>
           <div class="form-group">
@@ -129,6 +139,12 @@
               v-model="form.slug"
             />
           </div>
+          <span
+            class="invalid-feedback d-block"
+            v-if="errors.hasOwnProperty('slug')"
+          >
+            {{ errors.slug[0] }}
+          </span>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -181,6 +197,13 @@
                     v-model="editForm.nama"
                   />
                 </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('nama')"
+                >
+                  {{ errors.nama[0] }}
+                </span>
                 <div class="form-group">
                   <label for="">Gambar Kategori</label>
                   <div class="input-group">
@@ -191,18 +214,30 @@
                         id=""
                         @change="processFile($event, 'edit')"
                       />
-                      <span class="custom-file-label"
-                        >{{ editForm.gambar }}
+
+                      <!-- akan dijalankan kalo file sudah dipilih -->
+                      <span
+                        class="custom-file-label"
+                        v-if="editForm.gambar.name"
+                        >{{ editForm.gambar.name }}
                       </span>
-                      <!-- <label class="" for=""> Pilih Gambar </label> -->
-                    </div>
-                    <div class="input-group-append">
-                      <span class="input-group-text" id="btnUploadGambar"
-                        >Upload</span
-                      >
+                      <!-- akan dijalankan kalo file dibiarkan user -->
+                      <span
+                        class="custom-file-label"
+                        v-if="!editForm.gambar.name"
+                        >{{ '"' + editForm.gambar + '"' }}
+                      </span>
                     </div>
                   </div>
                 </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('gambar')"
+                >
+                  {{ errors.gambar[0] }}
+                </span>
+
                 <div class="form-group">
                   <label for="">Url Kategori</label>
                   <input
@@ -213,6 +248,13 @@
                     v-model="editForm.slug"
                   />
                 </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('slug')"
+                >
+                  {{ errors.slug[0] }}
+                </span>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
@@ -245,16 +287,16 @@ export default {
       form: {
         kode: "",
         nama: "",
-        gambar: "Pilih Gambar",
+        gambar: "",
         slug: "",
       },
       editForm: {
         kode: "",
         nama: "",
-        gambar: "Pilih Gambar",
+        gambar: "",
         slug: "",
       },
-      errors: [],
+      errors: {},
       isLoading: false,
       isSuccess: false,
     };
@@ -264,42 +306,41 @@ export default {
   },
   methods: {
     loadData() {
-      axios
-        .get("/api/admin/kategori")
-        .then((response) => {
-          this.kategories = response.data.all_kategori;
-          this.form.kode = "";
-          this.form.nama = "";
-          this.form.gambar = "";
-          this.form.slug = "";
-        })
-        .catch((error) => {});
+      axios.get("/api/admin/kategori").then((response) => {
+        this.kategories = response.data.all_kategori;
+        this.form.kode = "";
+        this.form.nama = "";
+        this.form.gambar = "";
+        this.form.slug = "";
+      });
     },
     processFile(event, mode) {
       if (mode == "add") {
-        this.form.gambar = event.target.files[0].name;
+        this.form.gambar = event.target.files[0];
       } else {
-        this.editForm.gambar = event.target.files[0].name;
+        this.editForm.gambar = event.target.files[0];
       }
     },
     addData() {
+      this.errors = {};
       this.isLoading = true;
       this.isSuccess = false;
+
+      let formData = new FormData();
+      formData.append("id", this.form.kode);
+      formData.append("nama", this.form.nama);
+      formData.append("gambar", this.form.gambar);
+      formData.append("slug", this.form.slug);
+
       axios
-        .post("/api/admin/kategori", {
-          id: this.form.kode,
-          nama: this.form.nama,
-          gambar: this.form.gambar,
-          slug: this.form.slug,
-        })
+        .post("/api/admin/kategori", formData)
         .then((response) => {
           this.isSuccess = true;
           this.loadData();
         })
-        .catch((error) => {
-          if (error.status === 422) {
-            this.errors = error.data.errors;
-          }
+        .catch(({ response }) => {
+          this.errors = response.data.errors;
+          console.log("error");
         })
         .finally(() => (this.isLoading = false));
     },
@@ -312,10 +353,8 @@ export default {
           .then((response) => {
             this.form.kode = response.data;
           })
-          .catch((response) => {
-            if (error.status === 422) {
-              this.errors = error.data.errors;
-            }
+          .catch(({ response }) => {
+            this.errors = response.data.errors;
           });
       }
 
@@ -324,28 +363,38 @@ export default {
       }
     },
     getDetail(kategori) {
-      //clone kategori supaya tidak merubah isi dari tabel
+      //clone kategori supaya tidak merubah isi dari tabel asli
       let kategoriClone = Object.assign({}, kategori);
       $("#modal-edit").modal("show");
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
+      this.editForm.gambar = kategoriClone.gambar;
+      console.log(this.editForm.gambar);
     },
     updateData() {
+      this.errors = {};
+      this.isLoading = true;
+      this.isSuccess = false;
+
+      let formData = new FormData();
+      formData.append("id", this.editForm.kode);
+      formData.append("nama", this.editForm.nama);
+      formData.append("gambar", this.editForm.gambar);
+      formData.append("slug", this.editForm.slug);
+
       axios
-        .post("/api/admin/kategori/update", {
-          id: this.editForm.kode,
-          nama: this.editForm.nama,
-          gambar: this.editForm.gambar,
-          slug: this.editForm.slug,
-        })
+        .post("/api/admin/kategori/update", formData)
         .then((response) => {
           this.loadData();
+          this.isSuccess = true;
           $("#modal-edit").modal("hide");
         })
-        .catch((response) => {
-          if (error.status === 422) {
-            this.errors = error.data.errors;
-          }
+        .catch(({ response }) => {
+          this.errors = response.data.errors;
+          console.log(this.errors);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
     deleteData(kategori) {
@@ -358,8 +407,8 @@ export default {
           alert("berhasil delete");
         })
         .catch((response) => {
-          if (error.status === 422) {
-            this.errors = error.data.errors;
+          if (response.status === 422) {
+            console.log("error hapus");
           }
         });
     },
