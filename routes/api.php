@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/admin/kategori','Api\KategoriController@showAll');
-Route::post('/admin/kategori','Api\KategoriController@addKategori');
+Route::get('/admin/kategori', 'Api\KategoriController@showAll');
+Route::post('/admin/kategori', 'Api\KategoriController@addKategori');
+Route::post('/admin/kategori/generateID', 'Api\KategoriController@generateID');

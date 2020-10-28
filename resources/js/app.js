@@ -18,6 +18,7 @@ import App from './components/App.vue';
 import Test from './components/admin/Test.vue';
 import Kategori from './components/admin/Kategori.vue';
 import Admin from './components/Admin.vue';
+import PageNotFound from './components/PageNotFound.vue';
 
 
 // membuat router
@@ -37,6 +38,12 @@ const routes = [
         path: '/admin/kategori',
         component: Kategori
     },
+    {
+        name: 'PageNotFound',
+        path: '*',
+        component: PageNotFound
+    },
+
 ]
 const router = new VueRouter({ mode: 'history', routes: routes });
 new Vue(Vue.util.extend({ router }, App)).$mount("#app");
