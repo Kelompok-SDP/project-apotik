@@ -23,3 +23,7 @@ Route::post('/admin/kategori', 'Api\KategoriController@addKategori');
 Route::post('/admin/kategori/generateID', 'Api\KategoriController@generateID');
 Route::post('/admin/kategori/update', 'Api\KategoriController@update');
 Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
+
+Route::group(['prefix' => 'admin/obat'], function () {
+    Route::get('/', 'Api\ObatController@index');
+});

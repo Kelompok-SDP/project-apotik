@@ -13,11 +13,14 @@
 import Navbar from "./layouts/Navbar.vue";
 import Sidebar from "./layouts/Sidebar.vue";
 import Kategori from "./admin/Kategori.vue";
+import Obat from "./admin/Obat.vue";
+
 export default {
   components: {
     Navbar: Navbar,
     Sidebar: Sidebar,
     Kategori: Kategori,
+    Obat: Obat,
   },
   data() {
     return {
@@ -27,6 +30,11 @@ export default {
   methods: {
     getCompState(value) {
       this.currentState = value;
+
+      //biar ndak kelebaran waktu dimaster obat
+      if (value == "Obat") {
+        $(".content-wrapper").css("width", "83%");
+      }
     },
   },
 };
