@@ -25,5 +25,9 @@ Route::post('/admin/kategori/update', 'Api\KategoriController@update');
 Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
 
 Route::group(['prefix' => 'admin/obat'], function () {
-    Route::get('/', 'Api\ObatController@index');
+    Route::post('/', 'Api\ObatController@create');
+});
+
+Route::group(['prefix' => 'admin/info'], function () {
+    Route::post('/', 'Api\InfoController@create');
 });

@@ -14,23 +14,22 @@ class CreateObatsTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('obats', function (Blueprint $table) {
-            $table->string('id',15)->primary();
-            $table->string('nama',50);
-            $table->string('gambar',255)->nullable();
-            $table->string('tipe_obat',15);
+            $table->string('id', 15)->primary();
+            $table->string('nama', 50);
+            $table->string('gambar', 255)->nullable();
+            $table->string('tipe_obat', 15);
             $table->integer('harga')->length(10)->unsigned();
-            $table->string('indikasi',100);
+            $table->string('indikasi', 100);
             $table->integer('stok')->length(10)->unsigned();
-            $table->string('satuan',10);
-            $table->string('kemasan',255);
+            $table->string('satuan', 10);
+            $table->string('kemasan', 100);
             $table->text('deskripsi')->nullable();
-            $table->string('komposisi',50);
-            $table->string('dosis',25);
-            $table->string('segmentasi',25);
-            $table->string('manufaktur',50);
+            $table->string('komposisi', 255);
+            $table->string('dosis', 100);
+            $table->string('segmentasi', 25);
+            $table->string('manufaktur', 50);
             $table->text('keterangan')->nullable();
             $table->date('deleted_at')->nullable();
-
         });
     }
 

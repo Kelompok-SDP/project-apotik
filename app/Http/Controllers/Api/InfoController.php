@@ -13,74 +13,14 @@ class InfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function create(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'nama' => ['required', 'max:50', 'alpha'],
+            'nomor1' => ['required', 'max:15'],
+            'nomor2' => ['required', 'max:15'],
+        ]);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Info  $info
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Info $info)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Info  $info
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Info $info)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Info  $info
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Info $info)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Info  $info
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Info $info)
-    {
-        //
+        return Info::create($request->all());
     }
 }

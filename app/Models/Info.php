@@ -13,5 +13,7 @@ class Info extends Model
     public $incrementing    = true;
     public $timestamps      = false;
 
+    protected $guarded = ['created_at', 'updated_at'];
+
     use SoftDeletes;
 }
