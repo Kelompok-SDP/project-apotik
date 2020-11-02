@@ -14,13 +14,13 @@ class CreateTdJualsTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('td_juals', function (Blueprint $table) {
-            $table->string('id',15)->primary();
+            $table->string('id', 15)->primary();
             $table->foreign('id_th_jual')->references('id')->on('th_juals');
-            $table->string('id_th_jual',15);
-            $table->string('tipe_produk',15);
+            $table->string('id_th_jual', 15);
+            $table->string('tipe_produk', 15);
             $table->integer('harga')->length(10)->unsigned();
-            $table->string('jumlah',5);
-            $table->integer('subtotal')->length(10)->unsigned();
+            $table->string('jumlah', 5);
+            $table->integer('subtotal')->length(10)->aunsigned();
         });
     }
 

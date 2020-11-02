@@ -17,7 +17,6 @@ class CreateObatsTable extends Migration
             $table->string('id', 15)->primary();
             $table->string('nama', 50);
             $table->string('gambar', 255)->nullable();
-            $table->string('tipe_obat', 15);
             $table->integer('harga')->length(10)->unsigned();
             $table->string('indikasi', 100);
             $table->integer('stok')->length(10)->unsigned();
