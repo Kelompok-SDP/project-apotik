@@ -14,8 +14,10 @@ class CreateObatKategoriTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('obats_kategoris', function (Blueprint $table) {
-            $table->string("id_obats",15)->references("id")->on("obats");;
-            $table->string("id_kategoris",10)->references("id")->on("kategoris");;
+            $table->string("id_obats",15);
+            $table->string("id_kategoris",10);
+            $table->foreign("id_obats")->references("id")->on("obats");
+            $table->foreign("id_kategoris")->references("id")->on("kategoris");;
         });
     }
 
