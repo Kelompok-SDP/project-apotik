@@ -31,3 +31,11 @@ Route::group(['prefix' => 'admin/obat'], function () {
 Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/', 'Api\InfoController@create');
 });
+
+Route::group(['prefix' => 'admin/artikel'], function () {
+    Route::post('/', 'Api\ArtikelController@create');
+    Route::get('/', 'Api\ArtikelController@show');
+    Route::post('/generate', 'Api\ArtikelController@generate');
+    Route::post('/update', 'Api\ArtikelController@update');
+    Route::post('/delete', 'Api\ArtikelController@delete');
+});
