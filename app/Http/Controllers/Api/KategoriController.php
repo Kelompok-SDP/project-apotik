@@ -26,7 +26,6 @@ class KategoriController extends Controller
         $user = User::all();
         $all_kategori = Kategori::paginate($jumlah);
         $arrData = compact('user', 'all_kategori');
-        // DD($jumlah);
         return $arrData;
     }
 

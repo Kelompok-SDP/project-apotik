@@ -22,7 +22,7 @@
             />
           </div>
           <div class="form-group col-sm">
-            <label for="">Search Data Kategori</label>
+            <label for="">Search Nama Kategori</label>
             <div class="input-group">
               <input
                 type="text"
@@ -394,8 +394,13 @@ export default {
       this.loadData();
     },
     search() {
-      this.url =
-        "/api/admin/kategori/search/" + this.keywords + "/" + this.perPage;
+      if (this.keywords.length > 0) {
+        this.url =
+          "/api/admin/kategori/search/" + this.keywords + "/" + this.perPage;
+      } else {
+        this.url = "/api/admin/kategori";
+      }
+
       this.loadData();
     },
     heightAjust() {

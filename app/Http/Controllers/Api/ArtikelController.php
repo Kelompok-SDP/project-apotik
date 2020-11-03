@@ -143,9 +143,19 @@ class ArtikelController extends Controller
         $tags = Tag::all();
         return $tags;
     }
-    public function show()
-    {
 
-        return Artikel::paginate(2);
+    public function changePaginate($jumlah)
+    {
+        return Artikel::paginate($jumlah);
+    }
+
+    public function showAll()
+    {
+        return Artikel::paginate(5);
+    }
+
+    public function search($keywords, $jumlah)
+    {
+        return Artikel::where('title', 'LIKE', "$keywords%")->paginate($jumlah);
     }
 }

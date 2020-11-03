@@ -8,6 +8,118 @@
       <div class="card-header">
         <h3 class="card-title">Insert Artikel Baru</h3>
       </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm">
+            <label for="">Banyak Data pada Tabel</label>
+            <input
+              type="number"
+              class="form-control"
+              id=""
+              placeholder="Co: 2"
+              v-model="perPage"
+              @change="changePage"
+            />
+          </div>
+          <div class="form-group col-sm">
+            <label for="">Search Title Artikel</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="Co: Cara Pakai Puyer"
+                v-model="keywords"
+              />
+              <button class="btn btn-primary" @click="search">Cari</button>
+            </div>
+          </div>
+        </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 10px">No</th>
+              <th>Title</th>
+              <th>Gambar</th>
+              <th>Url</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(artikel, index) in artikels" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ artikel.title }}</td>
+              <td>
+                <!-- contoh path img -->
+                <!-- /img_database/Screenshot (4).png -->
+                <span v-if="!artikel.gambar">Belum ada gambar</span>
+                <img
+                  v-bind:src="artikel.gambar"
+                  v-if="artikel.gambar"
+                  alt=""
+                  srcset=""
+                  width="50px;"
+                />
+              </td>
+              <td>{{ artikel.slug }}</td>
+              <td>
+                <div
+                  class="btn btn-sm btn-primary"
+                  @click="getDetail(artikel)"
+                  data-toggle="modal"
+                  data-target="#myModal"
+                >
+                  Edit
+                </div>
+                <div class="btn btn-sm btn-danger" @click="deleteData(artikel)">
+                  Delete
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-footer clearfix">
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item">
+              <button
+                class="page-link"
+                :disabled="!pagination.prev_page_url"
+                @click="fetchPaginate(pagination.prev_page_url)"
+              >
+                Previous
+              </button>
+            </li>
+
+            <!-- <li
+            class="page-item"
+            v-for="(page, index) in parseInt(pagination.to)"
+            :key="index"
+          >
+            <button class="page-link" @click="fetchPaginate(index + 1)">
+              {{ index + 1 }}
+            </button>
+          </li> -->
+
+            <li class="page-item">
+              <button
+                class="page-link"
+                href="#"
+                :disabled="!pagination.next_page_url"
+                @click="fetchPaginate(pagination.next_page_url)"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+          <span
+            >Page {{ pagination.current_page }} of {{ pagination.last_page }}
+          </span>
+        </div>
+        <h2 v-if="artikels.length == 0" class="text-center mt-2">
+          Belum ada data artikel
+        </h2>
+      </div>
       <!-- /.card-header -->
       <!-- form start -->
       <form enctype="multipart/form-data" @submit.prevent="addData()">
@@ -133,7 +245,10 @@ export default {
   data() {
     return {
       artikels: [],
-      pageArtikels: [],
+      pagination: [],
+      perPage: 5,
+      url: "/api/admin/artikel",
+      keywords: "",
       tags: [],
       form: {
         kode: "",
@@ -162,14 +277,18 @@ export default {
   methods: {
     loadData() {
       axios
-        .get("/api/admin/artikel")
+        .get(this.url)
         .then((result) => {
           this.artikels = result.data.data;
-          this.pageArtikels = result.data.data;
+          this.pagination = result.data;
         })
         .catch((err) => {
           console.log("err");
         });
+    },
+    fetchPaginate(url) {
+      this.url = url;
+      this.loadData();
     },
     makePagination(data) {
       let pagination = {
@@ -178,8 +297,22 @@ export default {
         next_page_url: data.next_page_url,
         prev_page_url: data.prev_page_url,
       };
+      this.pagination = pagination;
+    },
+    changePage() {
+      this.url = "/api/admin/artikel/changePaginate/" + this.perPage;
+      this.loadData();
+    },
+    search() {
+      if (this.keywords.length > 0) {
+        this.url =
+          "/api/admin/artikel/search/" + this.keywords + "/" + this.perPage;
+        console.log(this.url);
+      } else {
+        this.url = "/api/admin/artikel";
+      }
 
-      this.pageArtikels = pagination;
+      this.loadData();
     },
     autogenKode() {
       axios
@@ -239,5 +372,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.wrapper-sub-kategori {
+  margin-left: 3rem;
+}
 </style>

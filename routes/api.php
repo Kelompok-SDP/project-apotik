@@ -36,7 +36,9 @@ Route::group(['prefix' => 'admin/info'], function () {
 
 Route::group(['prefix' => 'admin/artikel'], function () {
     Route::post('/', 'Api\ArtikelController@create');
-    Route::get('/', 'Api\ArtikelController@show');
+    Route::get('/', 'Api\ArtikelController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\ArtikelController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\ArtikelController@search');
     Route::post('/generate', 'Api\ArtikelController@generate');
     Route::post('/update', 'Api\ArtikelController@update');
     Route::post('/delete', 'Api\ArtikelController@delete');
