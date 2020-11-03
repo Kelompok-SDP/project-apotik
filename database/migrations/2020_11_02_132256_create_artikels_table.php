@@ -14,13 +14,13 @@ class CreateArtikelsTable extends Migration
     public function up()
     {
         Schema::connection('mysql')->create('artikels', function (Blueprint $table) {
-            $table->string("id",10)->primary();
-            $table->string("title",100);
-            $table->string("content",500);
-            $table->string("slug",50);
+            $table->string("id", 10)->primary();
+            $table->string("title", 100);
+            $table->string("content", 500);
+            $table->string("gambar", 255)->nullable();
+            $table->string("slug", 50);
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

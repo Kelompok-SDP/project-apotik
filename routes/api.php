@@ -38,4 +38,5 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::post('/generate', 'Api\ArtikelController@generate');
     Route::post('/update', 'Api\ArtikelController@update');
     Route::post('/delete', 'Api\ArtikelController@delete');
+    Route::get('/tag', 'Api\ArtikelController@showAlltag');
 });

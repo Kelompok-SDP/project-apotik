@@ -14,6 +14,7 @@ import Navbar from "./layouts/Navbar.vue";
 import Sidebar from "./layouts/Sidebar.vue";
 import Kategori from "./admin/Kategori.vue";
 import Obat from "./admin/Obat.vue";
+import Artikel from "./admin/Artikel.vue";
 
 export default {
   components: {
@@ -21,6 +22,7 @@ export default {
     Sidebar: Sidebar,
     Kategori: Kategori,
     Obat: Obat,
+    Artikel: Artikel,
   },
   data() {
     return {

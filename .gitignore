@@ -5,6 +5,7 @@
 /vendor
 .env.backup
 .env
+/public/img_database
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

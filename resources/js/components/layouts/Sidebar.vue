@@ -83,6 +83,30 @@
           role="menu"
           data-accordion="false"
         >
+          <li class="nav-item has-treeview" @click="setCurrent('Artikel')">
+            <span class="nav-link" style="color: white">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Master Artikel
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </span>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="pages/layout/top-nav.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Top Navigation</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul
+          class="nav nav-pills nav-sidebar flex-column"
+          data-widget="treeview"
+          role="menu"
+          data-accordion="false"
+        >
           <li class="nav-item has-treeview">
             <router-link class="nav-link" style="color: white" to="/">
               <i class="nav-icon fas fa-copy"></i>
@@ -116,6 +140,7 @@ export default {
       currentState: "",
     };
   },
+  mounted() {},
   methods: {
     setCurrent(value) {
       this.currentState = value;
@@ -126,5 +151,8 @@ export default {
 </script>
 
 <style scoped>
+.nav {
+  cursor: pointer;
+}
 </style>
     

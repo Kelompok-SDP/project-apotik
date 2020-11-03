@@ -40,9 +40,9 @@ class KategoriController extends Controller
 
             $file = $request->file('gambar');
             $nama_file = time() . '-' . $file->getClientOriginalName();
-            $tujuan = 'img_database';
+            $tujuan = 'img_database/kategori';
             $file->move($tujuan, $nama_file);
-            $pathDbGambar = '/img_database/' . $nama_file;
+            $pathDbGambar = '/img_database/kategori/' . $nama_file;
 
             return Kategori::create([
                 'id' => $request->id,
@@ -122,9 +122,9 @@ class KategoriController extends Controller
 
             $file = $request->file('gambar');
             $nama_file = time() . '-' . $file->getClientOriginalName();
-            $tujuan = 'img_database';
+            $tujuan = 'img_database/kategori';
             $file->move($tujuan, $nama_file);
-            $pathDbGambar = '/img_database/' . $nama_file;
+            $pathDbGambar = '/img_database/kategori/' . $nama_file;
 
             $kategori->update([
                 'nama' => $request->nama,

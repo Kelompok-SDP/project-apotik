@@ -313,6 +313,17 @@ export default {
         this.form.gambar = "";
         this.form.slug = "";
       });
+      this.heightAjust();
+    },
+    heightAjust() {
+      let heightWrapper = $(".content-wrapper").css("height");
+      let heightWrapper2 = $(".wrapper-sub-kategori").css("height");
+      console.log("content: " + heightWrapper);
+      console.log("wrapper: " + heightWrapper2);
+
+      $(".main-sidebar").css("height", heightWrapper);
+      let tst = $(".main-sidebar").css("height");
+      console.log(tst);
     },
     processFile(event, mode) {
       if (mode == "add") {

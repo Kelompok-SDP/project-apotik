@@ -4,18 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artikel;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArtikelController extends Controller
 {
     public function create(Request $request)
     {
+
         //adalah function buatan sendiri
         $this->validation($request);
         //karena unique hanya diperiksa waktu insert saja
         $request->validate([
             'title' => ['required', 'min:3', 'max:100', 'unique:artikels,title'],
-            'slug' => ['required', 'unique:artikels,slug']
+            'slug' => ['required', 'unique:artikels,slug'],
+
         ], [
             'slug.required' => ':attribute harus diisi',
             'slug.unique' => ':attribute sudah ada pada website silahkan pilih :attribute lain',
@@ -25,10 +28,29 @@ class ArtikelController extends Controller
             'title.required' => ':attribute harus diisi',
 
         ]);
-        Artikel::create($request->all());
+        $pathDbGambar = "";
+        if ($request->gambar) {
+            $this->validationGambar($request);
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database/artikel';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/artikel/' . $nama_file;
+        }
+
+        // DD($request->all());
+        $arrTag = explode(",", $request->tags);
+        // DD($arrTag);
+        Artikel::insert([
+            'id' => $request->id,
+            'title' => $request->title,
+            'gambar' => $pathDbGambar,
+            'content' => $request->content,
+            'slug' => $request->slug,
+        ]);
 
         $newArtikel = Artikel::find($request->id);
-        foreach ($request->tags as $tag) {
+        foreach ($arrTag as $tag) {
             $newArtikel->tags()->attach($tag);
         }
     }
@@ -64,8 +86,26 @@ class ArtikelController extends Controller
         $artikel = Artikel::find($request->id);
 
         $this->validation($request);
+        if (is_object($request->gambar)) {
+            $request->validate([
+                'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048']
+            ], [
+                'gambar.mimes' => 'Gambar harus bertipe png / jpg / jpeg',
+                'gambar.image' => 'Gambar harus bertipe png / jpg / jpeg',
+                'gambar.max' => 'ukuran maksimal gambar adalah 5,48mb'
+            ]);
 
-        $artikel->update($request->all());
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database/artikel';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/artikel/' . $nama_file;
+        }
+
+        $artikel->update([
+            'content' => $request->content,
+            'gambar' => $pathDbGambar,
+        ]);
     }
 
     public function delete(Request $request)
@@ -87,6 +127,22 @@ class ArtikelController extends Controller
         ]);
     }
 
+    public function validationGambar(Request $request)
+    {
+        $request->validate([
+            'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048']
+        ], [
+            'gambar.mimes' => 'Gambar harus bertipe png / jpg / jpeg',
+            'gambar.image' => 'Gambar harus bertipe png / jpg / jpeg',
+            'gambar.max' => 'ukuran maksimal gambar adalah 5,48mb'
+        ]);
+    }
+
+    public function showAlltag()
+    {
+        $tags = Tag::all();
+        return $tags;
+    }
     public function show()
     {
         return Artikel::all();
