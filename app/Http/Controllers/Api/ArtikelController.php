@@ -145,6 +145,7 @@ class ArtikelController extends Controller
     }
     public function show()
     {
-        return Artikel::all();
+
+        return Artikel::paginate(2);
     }
 }

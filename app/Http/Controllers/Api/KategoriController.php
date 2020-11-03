@@ -14,8 +14,26 @@ class KategoriController extends Controller
 {
     public function showAll()
     {
+        //user hanya coba coba saja tidak dipake
         $user = User::all();
-        $all_kategori = Kategori::all();
+        $all_kategori = Kategori::paginate(5);
+        $arrData = compact('user', 'all_kategori');
+        return $arrData;
+    }
+
+    public function changePaginate($jumlah)
+    {
+        $user = User::all();
+        $all_kategori = Kategori::paginate($jumlah);
+        $arrData = compact('user', 'all_kategori');
+        // DD($jumlah);
+        return $arrData;
+    }
+
+    public function search($keywords, $jumlah)
+    {
+        $user = User::all();
+        $all_kategori = Kategori::where('nama', 'LIKE', "$keywords%")->paginate($jumlah);
         $arrData = compact('user', 'all_kategori');
         return $arrData;
     }

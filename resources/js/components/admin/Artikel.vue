@@ -29,7 +29,7 @@
               type="text"
               class="form-control"
               id=""
-              placeholder="Co: Antibiotik"
+              placeholder="Co: Penyebab Pusing Kepala"
               v-model="form.title"
               @keyup="autogenKode()"
             />
@@ -87,7 +87,7 @@
               type="text"
               class="form-control"
               id=""
-              placeholder="Co: anti-biotik"
+              placeholder="Co: Penyebab-Pusing-Kepala"
               v-model="form.slug"
             />
           </div>
@@ -133,6 +133,7 @@ export default {
   data() {
     return {
       artikels: [],
+      pageArtikels: [],
       tags: [],
       form: {
         kode: "",
@@ -155,9 +156,31 @@ export default {
     };
   },
   mounted() {
+    this.loadData();
     this.getTags();
   },
   methods: {
+    loadData() {
+      axios
+        .get("/api/admin/artikel")
+        .then((result) => {
+          this.artikels = result.data.data;
+          this.pageArtikels = result.data.data;
+        })
+        .catch((err) => {
+          console.log("err");
+        });
+    },
+    makePagination(data) {
+      let pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url,
+      };
+
+      this.pageArtikels = pagination;
+    },
     autogenKode() {
       axios
         .post("/api/admin/artikel/generate", {

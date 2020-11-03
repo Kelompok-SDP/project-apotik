@@ -2123,6 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       artikels: [],
+      pageArtikels: [],
       tags: [],
       form: {
         kode: "",
@@ -2145,17 +2146,37 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    this.loadData();
     this.getTags();
   },
   methods: {
-    autogenKode: function autogenKode() {
+    loadData: function loadData() {
       var _this = this;
+
+      axios.get("/api/admin/artikel").then(function (result) {
+        _this.artikels = result.data.data;
+        _this.pageArtikels = result.data.data;
+      })["catch"](function (err) {
+        console.log("err");
+      });
+    },
+    makePagination: function makePagination(data) {
+      var pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url
+      };
+      this.pageArtikels = pagination;
+    },
+    autogenKode: function autogenKode() {
+      var _this2 = this;
 
       axios.post("/api/admin/artikel/generate", {
         title: this.form.title
       }).then(function (result) {
-        _this.form.kode = result.data.newId;
-        _this.form.slug = result.data.slug;
+        _this2.form.kode = result.data.newId;
+        _this2.form.slug = result.data.slug;
       })["catch"](function (err) {});
     },
     processFile: function processFile(event, mode) {
@@ -2166,7 +2187,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     addData: function addData() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.errors = {};
       this.isLoading = true;
@@ -2183,19 +2204,19 @@ __webpack_require__.r(__webpack_exports__);
       });
       formData.append("tags", idTags);
       axios.post("/api/admin/artikel", formData).then(function (response) {
-        _this2.isSuccess = true;
+        _this3.isSuccess = true;
       })["catch"](function (_ref) {
         var response = _ref.response;
-        _this2.errors = response.data.errors;
+        _this3.errors = response.data.errors;
       })["finally"](function () {
-        return _this2.isLoading = false;
+        return _this3.isLoading = false;
       });
     },
     getTags: function getTags() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("/api/admin/artikel/tag").then(function (result) {
-        _this3.tags = result.data;
+        _this4.tags = result.data;
       })["catch"](function (err) {});
     },
     makeCombobox: function makeCombobox() {
@@ -2495,11 +2516,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Kategori",
   data: function data() {
     return {
       kategories: [],
+      pagination: [],
+      perPage: 5,
+      url: "/api/admin/kategori",
+      keywords: "",
       form: {
         kode: "",
         nama: "",
@@ -2524,8 +2604,12 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/api/admin/kategori").then(function (response) {
-        _this.kategories = response.data.all_kategori;
+      // let $this = this;
+      axios.get(this.url).then(function (response) {
+        _this.kategories = response.data.all_kategori.data;
+
+        _this.makePagination(response.data.all_kategori);
+
         _this.form.kode = "";
         _this.form.nama = "";
         _this.form.gambar = "";
@@ -2533,14 +2617,32 @@ __webpack_require__.r(__webpack_exports__);
       });
       this.heightAjust();
     },
+    fetchPaginate: function fetchPaginate(url) {
+      this.url = url;
+      this.loadData();
+    },
+    makePagination: function makePagination(data) {
+      var pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url
+      };
+      this.pagination = pagination;
+    },
+    changePage: function changePage() {
+      this.url = "/api/admin/kategori/changePaginate/" + this.perPage;
+      this.loadData();
+    },
+    search: function search() {
+      this.url = "/api/admin/kategori/search/" + this.keywords + "/" + this.perPage;
+      this.loadData();
+    },
     heightAjust: function heightAjust() {
       var heightWrapper = $(".content-wrapper").css("height");
       var heightWrapper2 = $(".wrapper-sub-kategori").css("height");
-      console.log("content: " + heightWrapper);
-      console.log("wrapper: " + heightWrapper2);
       $(".main-sidebar").css("height", heightWrapper);
       var tst = $(".main-sidebar").css("height");
-      console.log(tst);
     },
     processFile: function processFile(event, mode) {
       if (mode == "add") {
@@ -2597,7 +2699,6 @@ __webpack_require__.r(__webpack_exports__);
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
       this.editForm.gambar = kategoriClone.gambar;
-      console.log(this.editForm.gambar);
     },
     updateData: function updateData() {
       var _this4 = this;
@@ -2618,7 +2719,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (_ref3) {
         var response = _ref3.response;
         _this4.errors = response.data.errors;
-        console.log(_this4.errors);
       })["finally"](function () {
         _this4.isLoading = false;
       });
@@ -39574,7 +39674,7 @@ var render = function() {
                   attrs: {
                     type: "text",
                     id: "",
-                    placeholder: "Co: Antibiotik"
+                    placeholder: "Co: Penyebab Pusing Kepala"
                   },
                   domProps: { value: _vm.form.title },
                   on: {
@@ -39688,7 +39788,7 @@ var render = function() {
                   attrs: {
                     type: "text",
                     id: "",
-                    placeholder: "Co: anti-biotik"
+                    placeholder: "Co: Penyebab-Pusing-Kepala"
                   },
                   domProps: { value: _vm.form.slug },
                   on: {
@@ -39830,13 +39930,80 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Banyak Data pada Tabel")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.perPage,
+                  expression: "perPage"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", id: "", placeholder: "Co: 2" },
+              domProps: { value: _vm.perPage },
+              on: {
+                change: _vm.changePage,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.perPage = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Search Data Kategori")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "", placeholder: "Co: Antibiotik" },
+                domProps: { value: _vm.keywords },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.search } },
+                [_vm._v("Cari")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
         _c("table", { staticClass: "table table-bordered" }, [
           _vm._m(1),
           _vm._v(" "),
           _c(
             "tbody",
             _vm._l(_vm.kategories, function(kategori, index) {
-              return _c("tr", { key: kategori.id }, [
+              return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(index + 1))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(kategori.nama))]),
@@ -39904,11 +40071,55 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _c("div", { staticClass: "card-footer clearfix" }, [
+        _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "button",
+              {
+                staticClass: "page-link",
+                attrs: { disabled: !_vm.pagination.prev_page_url },
+                on: {
+                  click: function($event) {
+                    return _vm.fetchPaginate(_vm.pagination.prev_page_url)
+                  }
+                }
+              },
+              [_vm._v("\n            Previous\n          ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "page-item" }, [
+            _c(
+              "button",
+              {
+                staticClass: "page-link",
+                attrs: { href: "#", disabled: !_vm.pagination.next_page_url },
+                on: {
+                  click: function($event) {
+                    return _vm.fetchPaginate(_vm.pagination.next_page_url)
+                  }
+                }
+              },
+              [_vm._v("\n            Next\n          ")]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("span", [
+          _vm._v(
+            "Page " +
+              _vm._s(_vm.pagination.current_page) +
+              " of " +
+              _vm._s(_vm.pagination.last_page) +
+              "\n      "
+          )
+        ])
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card card-primary" }, [
-      _vm._m(3),
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "form",
@@ -40061,7 +40272,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(3)
         ]
       )
     ]),
@@ -40076,7 +40287,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog modal-lg" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(5),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _c(
@@ -40267,12 +40478,12 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(5)
                 ]
               )
             ]),
             _vm._v(" "),
-            _vm._m(7)
+            _vm._m(6)
           ])
         ])
       ]
@@ -40303,44 +40514,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Url")]),
         _vm._v(" "),
         _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer clearfix" }, [
-      _c("ul", { staticClass: "pagination pagination-sm m-0 float-right" }, [
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("«")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("1")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("2")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("3")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "page-item" }, [
-          _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
-            _vm._v("»")
-          ])
-        ])
       ])
     ])
   },
