@@ -2355,52 +2355,6 @@ __webpack_require__.r(__webpack_exports__);
     makeCombobox: function makeCombobox() {
       this.getTags();
     }
-  },
-  getDetail: function getDetail(artikel) {
-    var artikelClone = Object.assign({}, artikel);
-    $("#modal-edit").modal("show");
-    this.editForm = artikelClone;
-    this.editForm.kode = artikelClone.id;
-    this.editForm.gambar = artikelClone.gambar;
-  },
-  updateData: function updateData() {
-    var _this5 = this;
-
-    this.errors = {};
-    this.isLoading = true;
-    this.isSuccess = false;
-    var formData = new FormData();
-    formData.append("id", this.editForm.kode);
-    formData.append("title", this.editForm.title);
-    formData.append("gambar", this.editForm.gambar);
-    formData.append("content", this.editForm.content);
-    formData.append("slug", this.editForm.slug);
-    axios.post("/api/admin/artikel/update", formData).then(function (response) {
-      _this5.loadData();
-
-      _this5.isSuccess = true;
-      $("#modal-edit").modal("hide");
-    })["catch"](function (_ref2) {
-      var response = _ref2.response;
-      _this5.errors = response.data.errors;
-    })["finally"](function () {
-      _this5.isLoading = false;
-    });
-  },
-  deleteData: function deleteData(artikel) {
-    var _this6 = this;
-
-    axios.post("/api/admin/artikel/delete", {
-      id: artikel.id
-    }).then(function (response) {
-      _this6.loadData();
-
-      alert("berhasil delete");
-    })["catch"](function (response) {
-      if (response.status === 422) {
-        console.log("error hapus");
-      }
-    });
   }
 });
 
