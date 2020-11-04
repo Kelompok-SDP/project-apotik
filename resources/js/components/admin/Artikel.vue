@@ -369,6 +369,54 @@ export default {
       this.getTags();
     },
   },
+  getDetail(artikel) {
+    let artikelClone = Object.assign({}, artikel);
+    $("#modal-edit").modal("show");
+    this.editForm = artikelClone;
+    this.editForm.kode = artikelClone.id;
+    this.editForm.gambar = artikelClone.gambar;
+  },
+  updateData() {
+    this.errors = {};
+    this.isLoading = true;
+    this.isSuccess = false;
+
+    let formData = new FormData();
+    formData.append("id", this.editForm.kode);
+    formData.append("title", this.editForm.title);
+    formData.append("gambar", this.editForm.gambar);
+    formData.append("content", this.editForm.content);
+    formData.append("slug", this.editForm.slug);
+
+    axios
+      .post("/api/admin/artikel/update", formData)
+      .then((response) => {
+        this.loadData();
+        this.isSuccess = true;
+        $("#modal-edit").modal("hide");
+      })
+      .catch(({ response }) => {
+        this.errors = response.data.errors;
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
+  },
+  deleteData(artikel) {
+    axios
+      .post("/api/admin/artikel/delete", {
+        id: artikel.id,
+      })
+      .then((response) => {
+        this.loadData();
+        alert("berhasil delete");
+      })
+      .catch((response) => {
+        if (response.status === 422) {
+          console.log("error hapus");
+        }
+      });
+  },
 };
 </script>
 
