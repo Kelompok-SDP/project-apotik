@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArtikelController extends Controller
 {
@@ -87,7 +88,7 @@ class ArtikelController extends Controller
         $artikel = Artikel::find($request->id);
 
         $this->validation($request);
-        DD($request->all());
+        // DD($request->all());
         if (is_object($request->gambar)) {
             $request->validate([
                 'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048']
@@ -111,6 +112,15 @@ class ArtikelController extends Controller
             $artikel->update([
                 'content' => $request->content,
             ]);
+        }
+
+        DB::table('tags_artikels')
+            ->where('id_artikel', $request->id)
+            ->delete();
+
+        $arrTag = explode(",", $request->tags);
+        foreach ($arrTag as $value) {
+            $artikel->tags()->attach($value);
         }
     }
 
