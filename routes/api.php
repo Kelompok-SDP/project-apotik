@@ -43,4 +43,5 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::post('/update', 'Api\ArtikelController@update');
     Route::post('/delete', 'Api\ArtikelController@delete');
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
+    Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
 });

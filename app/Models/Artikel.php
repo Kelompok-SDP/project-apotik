@@ -13,7 +13,7 @@ class Artikel extends Model
     public $incrementing    = false;
     public $timestamps      = true;
 
-    protected $guarded = ['deleted_at', 'created_at', 'updated_at'];
+    protected $guarded = ['deleted_at', 'updated_at'];
     use SoftDeletes;
 
     public function tags()

@@ -222,14 +222,21 @@
             />
           </div>
           <div class="form-group" v-for="i in parseInt(manyTags)" :key="i">
-            <select name="tag-pilihan" class="form-control" id="">
+            <select class="form-control tag-pilihan-insert" id="">
               <option v-for="tag in tags" :key="tag.id" :value="tag.id">
                 {{ tag.nama }}
               </option>
             </select>
           </div>
+          <span
+            class="invalid-feedback d-block"
+            v-if="errors.hasOwnProperty('tags')"
+          >
+            {{ errors.tags[0] }}
+          </span>
           <br />
         </div>
+
         <!-- /.card-body -->
         <div class="card-footer">
           <button type="submit" class="btn btn-primary">Tambahkan</button>
@@ -351,6 +358,44 @@
                   />
                 </div>
 
+                <div class="form-group">
+                  <label for="">Banyaknya Tag Artikel</label> <br />
+                  <label for="">Tag sebelumnya:</label>
+                  <span
+                    class="btn btn-sm btn-danger mr-2"
+                    v-for="tags in tagsUpdate"
+                    :key="tags"
+                  >
+                    {{ tags }}
+                  </span>
+                  <br />
+                  <input
+                    type="number"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: 2"
+                    v-model="manyTags"
+                    @change="makeCombobox"
+                  />
+                  <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('tags')"
+                  >
+                    {{ errors.tags[0] }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  v-for="i in parseInt(manyTags)"
+                  :key="i"
+                >
+                  <select class="form-control tag-pilihan-update" id="">
+                    <option v-for="tag in tags" :key="tag.id" :value="tag.id">
+                      {{ tag.nama }}
+                    </option>
+                  </select>
+                </div>
+
                 <span
                   class="invalid-feedback d-block"
                   v-if="errors.hasOwnProperty('slug')"
@@ -386,6 +431,7 @@ export default {
     return {
       artikels: [],
       pagination: [],
+      tagsUpdate: [],
       perPage: 5,
       url: "/api/admin/artikel",
       keywords: "",
@@ -421,6 +467,11 @@ export default {
         .then((result) => {
           this.artikels = result.data.data;
           this.pagination = result.data;
+          this.form.kode = "";
+          this.form.title = "";
+          this.form.gambar = "";
+          this.form.content = "";
+          this.form.slug = "";
         })
         .catch((err) => {
           console.log("err");
@@ -484,14 +535,17 @@ export default {
       formData.append("content", this.form.content);
       formData.append("slug", this.form.slug);
 
-      console.log($("input[type='select']").val());
-      //bikin array idTags isi nya id semua tag yang dipilih
-      let idTags = this.tags.map((tag) => tag.id);
-      formData.append("tags", idTags);
+      //bikin array selectedTags isi nya id semua tag yang dipilih
+      var selectedTags = $(".tag-pilihan-insert")
+        .map((_, el) => el.value)
+        .get();
+
+      formData.append("tags", selectedTags);
       axios
         .post("/api/admin/artikel", formData)
         .then((response) => {
           this.isSuccess = true;
+          this.loadData();
         })
         .catch(({ response }) => {
           this.errors = response.data.errors;
@@ -510,6 +564,7 @@ export default {
       this.getTags();
     },
     getDetail(artikel, id) {
+      //ambil pada content pada array artikels dengan cari id yang sama
       let content = this.artikels.filter((art) => art.id == id);
 
       let artikelClone = Object.assign({}, artikel);
@@ -517,10 +572,17 @@ export default {
       this.editForm = artikelClone;
       this.editForm.kode = artikelClone.id;
       this.editForm.content = content[0].content;
-      // console.table("ini content", content);
+
       if (artikelClone.gambar == null) {
         this.editForm.gambar = "Belum ada Gambar";
       }
+
+      axios
+        .get("/api/admin/artikel/getTag/" + id)
+        .then((result) => {
+          this.tagsUpdate = result.data;
+        })
+        .catch((err) => {});
     },
     updateData() {
       this.errors = {};
@@ -534,6 +596,12 @@ export default {
       formData.append("content", this.editForm.content);
       formData.append("slug", this.editForm.slug);
 
+      //bikin array selectedTags isi nya id semua tag yang dipilih
+      var selectedTags = $(".tag-pilihan-update")
+        .map((_, el) => el.value)
+        .get();
+
+      formData.append("tags", selectedTags);
       axios
         .post("/api/admin/artikel/update", formData)
         .then((response) => {

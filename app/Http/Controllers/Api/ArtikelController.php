@@ -28,7 +28,7 @@ class ArtikelController extends Controller
             'title.required' => ':attribute harus diisi',
 
         ]);
-        DD($request->all());
+        // DD($request->all());
         $pathDbGambar = "";
         if ($request->gambar) {
             $this->validationGambar($request);
@@ -124,12 +124,12 @@ class ArtikelController extends Controller
     {
         $request->validate([
             'content' => ['required', 'min:10', 'max:500'],
-            'tags.*' => ['required']
+            'tags' => ['required']
         ], [
             'content.required' => ':attribute harus diisi',
-            'tags.*.required' => ':attribute harus diisi',
-            'content.min' => ':attribute minimal banyak huruf :value',
-            'content.max' => ':attribute maximal banyak huruf :value',
+            'tags.required' => ':attribute harus diisi',
+            'content.min' => ':attribute minimal banyak huruf 10',
+            'content.max' => ':attribute maximal banyak huruf 500',
         ]);
     }
 
@@ -163,5 +163,19 @@ class ArtikelController extends Controller
     public function search($keywords, $jumlah)
     {
         return Artikel::where('title', 'LIKE', "$keywords%")->paginate($jumlah);
+    }
+
+    public function getTag($id)
+    {
+        $artikel = Artikel::find($id);
+
+        $arrTag = [];
+        foreach ($artikel->tags as $key => $value) {
+            $arrTag[] = $value->nama;
+        }
+
+        //asal for dari sini
+        // DD($artikel->tags[0]->nama, $artikel->tags[1]->nama);
+        return $arrTag;
     }
 }

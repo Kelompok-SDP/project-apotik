@@ -2370,12 +2370,58 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Artikel",
   data: function data() {
     return {
       artikels: [],
       pagination: [],
+      tagsUpdate: [],
       perPage: 5,
       url: "/api/admin/artikel",
       keywords: "",
@@ -2411,6 +2457,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.url).then(function (result) {
         _this.artikels = result.data.data;
         _this.pagination = result.data;
+        _this.form.kode = "";
+        _this.form.title = "";
+        _this.form.gambar = "";
+        _this.form.content = "";
+        _this.form.slug = "";
       })["catch"](function (err) {
         console.log("err");
       });
@@ -2470,15 +2521,16 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("title", this.form.title);
       formData.append("gambar", this.form.gambar);
       formData.append("content", this.form.content);
-      formData.append("slug", this.form.slug);
-      console.log($("input[type='select']").val()); //bikin array idTags isi nya id semua tag yang dipilih
+      formData.append("slug", this.form.slug); //bikin array selectedTags isi nya id semua tag yang dipilih
 
-      var idTags = this.tags.map(function (tag) {
-        return tag.id;
-      });
-      formData.append("tags", idTags);
+      var selectedTags = $(".tag-pilihan-insert").map(function (_, el) {
+        return el.value;
+      }).get();
+      formData.append("tags", selectedTags);
       axios.post("/api/admin/artikel", formData).then(function (response) {
         _this3.isSuccess = true;
+
+        _this3.loadData();
       })["catch"](function (_ref) {
         var response = _ref.response;
         _this3.errors = response.data.errors;
@@ -2497,6 +2549,9 @@ __webpack_require__.r(__webpack_exports__);
       this.getTags();
     },
     getDetail: function getDetail(artikel, id) {
+      var _this5 = this;
+
+      //ambil pada content pada array artikels dengan cari id yang sama
       var content = this.artikels.filter(function (art) {
         return art.id == id;
       });
@@ -2504,14 +2559,18 @@ __webpack_require__.r(__webpack_exports__);
       $("#modal-edit").modal("show");
       this.editForm = artikelClone;
       this.editForm.kode = artikelClone.id;
-      this.editForm.content = content[0].content; // console.table("ini content", content);
+      this.editForm.content = content[0].content;
 
       if (artikelClone.gambar == null) {
         this.editForm.gambar = "Belum ada Gambar";
       }
+
+      axios.get("/api/admin/artikel/getTag/" + id).then(function (result) {
+        _this5.tagsUpdate = result.data;
+      })["catch"](function (err) {});
     },
     updateData: function updateData() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.errors = {};
       this.isLoading = true;
@@ -2521,26 +2580,31 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("title", this.editForm.title);
       formData.append("gambar", this.editForm.gambar);
       formData.append("content", this.editForm.content);
-      formData.append("slug", this.editForm.slug);
-      axios.post("/api/admin/artikel/update", formData).then(function (response) {
-        _this5.loadData();
+      formData.append("slug", this.editForm.slug); //bikin array selectedTags isi nya id semua tag yang dipilih
 
-        _this5.isSuccess = true;
+      var selectedTags = $(".tag-pilihan-update").map(function (_, el) {
+        return el.value;
+      }).get();
+      formData.append("tags", selectedTags);
+      axios.post("/api/admin/artikel/update", formData).then(function (response) {
+        _this6.loadData();
+
+        _this6.isSuccess = true;
         $("#modal-edit").modal("hide");
       })["catch"](function (_ref2) {
         var response = _ref2.response;
-        _this5.errors = response.data.errors;
+        _this6.errors = response.data.errors;
       })["finally"](function () {
-        _this5.isLoading = false;
+        _this6.isLoading = false;
       });
     },
     deleteData: function deleteData(artikel) {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.post("/api/admin/artikel/delete", {
         id: artikel.id
       }).then(function (response) {
-        _this6.loadData();
+        _this7.loadData();
 
         alert("berhasil delete");
       })["catch"](function (response) {
@@ -40427,8 +40491,8 @@ var render = function() {
                   _c(
                     "select",
                     {
-                      staticClass: "form-control",
-                      attrs: { name: "tag-pilihan", id: "" }
+                      staticClass: "form-control tag-pilihan-insert",
+                      attrs: { id: "" }
                     },
                     _vm._l(_vm.tags, function(tag) {
                       return _c(
@@ -40447,6 +40511,14 @@ var render = function() {
                   )
                 ])
               }),
+              _vm._v(" "),
+              _vm.errors.hasOwnProperty("tags")
+                ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                    _vm._v(
+                      "\n          " + _vm._s(_vm.errors.tags[0]) + "\n        "
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("br")
             ],
@@ -40482,229 +40554,361 @@ var render = function() {
                   }
                 },
                 [
-                  _c("div", { staticClass: "card-body" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [_vm._v("Kode")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.kode,
-                            expression: "editForm.kode"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "",
-                          placeholder: "Kode",
-                          disabled: ""
-                        },
-                        domProps: { value: _vm.editForm.kode },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                  _c(
+                    "div",
+                    { staticClass: "card-body" },
+                    [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Kode")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.editForm.kode,
+                              expression: "editForm.kode"
                             }
-                            _vm.$set(_vm.editForm, "kode", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Title Artikel")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.title,
-                            expression: "editForm.title"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "",
-                          placeholder: "Co: Antibiotik"
-                        },
-                        domProps: { value: _vm.editForm.title },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.editForm, "title", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm.errors.hasOwnProperty("nama")
-                      ? _c(
-                          "span",
-                          { staticClass: "invalid-feedback d-block" },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(_vm.errors.title[0]) +
-                                "\n              "
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Gambar Artikel")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group" }, [
-                        _c("div", { staticClass: "custom-file" }, [
-                          _c("input", {
-                            staticClass: "custom-file-input",
-                            attrs: { type: "file", id: "" },
-                            on: {
-                              change: function($event) {
-                                return _vm.processFile($event, "edit")
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "",
+                            placeholder: "Kode",
+                            disabled: ""
+                          },
+                          domProps: { value: _vm.editForm.kode },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
                               }
+                              _vm.$set(
+                                _vm.editForm,
+                                "kode",
+                                $event.target.value
+                              )
                             }
-                          }),
-                          _vm._v(" "),
-                          _vm.editForm.gambar.name
-                            ? _c("span", { staticClass: "custom-file-label" }, [
-                                _vm._v(
-                                  _vm._s(_vm.editForm.gambar.name) +
-                                    "\n                    "
-                                )
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          !_vm.editForm.gambar.name
-                            ? _c("span", { staticClass: "custom-file-label" }, [
-                                _vm._v(
-                                  _vm._s('"' + _vm.editForm.gambar + '"') +
-                                    "\n                    "
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _vm.errors.hasOwnProperty("gambar")
-                      ? _c(
-                          "span",
-                          { staticClass: "invalid-feedback d-block" },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(_vm.errors.gambar[0]) +
-                                "\n              "
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Content Artikel")
+                          }
+                        })
                       ]),
                       _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.content,
-                            expression: "editForm.content"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { name: "", id: "", cols: "30", rows: "10" },
-                        domProps: { value: _vm.editForm.content },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Title Artikel")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.editForm.title,
+                              expression: "editForm.title"
                             }
-                            _vm.$set(
-                              _vm.editForm,
-                              "content",
-                              $event.target.value
-                            )
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "",
+                            placeholder: "Co: Antibiotik"
+                          },
+                          domProps: { value: _vm.editForm.title },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.editForm,
+                                "title",
+                                $event.target.value
+                              )
+                            }
                           }
-                        }
-                      }),
+                        })
+                      ]),
                       _vm._v(" "),
-                      _vm.errors.hasOwnProperty("content")
+                      _vm.errors.hasOwnProperty("nama")
                         ? _c(
                             "span",
                             { staticClass: "invalid-feedback d-block" },
                             [
                               _vm._v(
-                                "\n                  " +
-                                  _vm._s(_vm.errors.content[0]) +
-                                  "\n                "
+                                "\n                " +
+                                  _vm._s(_vm.errors.title[0]) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Gambar Artikel")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("div", { staticClass: "custom-file" }, [
+                            _c("input", {
+                              staticClass: "custom-file-input",
+                              attrs: { type: "file", id: "" },
+                              on: {
+                                change: function($event) {
+                                  return _vm.processFile($event, "edit")
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.editForm.gambar.name
+                              ? _c(
+                                  "span",
+                                  { staticClass: "custom-file-label" },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.editForm.gambar.name) +
+                                        "\n                    "
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            !_vm.editForm.gambar.name
+                              ? _c(
+                                  "span",
+                                  { staticClass: "custom-file-label" },
+                                  [
+                                    _vm._v(
+                                      _vm._s('"' + _vm.editForm.gambar + '"') +
+                                        "\n                    "
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("gambar")
+                        ? _c(
+                            "span",
+                            { staticClass: "invalid-feedback d-block" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.errors.gambar[0]) +
+                                  "\n              "
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Content Artikel")
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.editForm.content,
+                              expression: "editForm.content"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "", id: "", cols: "30", rows: "10" },
+                          domProps: { value: _vm.editForm.content },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.editForm,
+                                "content",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.errors.hasOwnProperty("content")
+                          ? _c(
+                              "span",
+                              { staticClass: "invalid-feedback d-block" },
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(_vm.errors.content[0]) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Url Artikel")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.editForm.slug,
+                              expression: "editForm.slug"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "text",
+                            id: "",
+                            placeholder: "Co: anti-biotik",
+                            disabled: ""
+                          },
+                          domProps: { value: _vm.editForm.slug },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.editForm,
+                                "slug",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("label", { attrs: { for: "" } }, [
+                            _vm._v("Banyaknya Tag Artikel")
+                          ]),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("label", { attrs: { for: "" } }, [
+                            _vm._v("Tag sebelumnya:")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.tagsUpdate, function(tags) {
+                            return _c(
+                              "span",
+                              {
+                                key: tags,
+                                staticClass: "btn btn-sm btn-danger mr-2"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(tags) +
+                                    "\n                "
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.manyTags,
+                                expression: "manyTags"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              id: "",
+                              placeholder: "Co: 2"
+                            },
+                            domProps: { value: _vm.manyTags },
+                            on: {
+                              change: _vm.makeCombobox,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.manyTags = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors.hasOwnProperty("tags")
+                            ? _c(
+                                "span",
+                                { staticClass: "invalid-feedback d-block" },
+                                [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(_vm.errors.tags[0]) +
+                                      "\n                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm._l(parseInt(_vm.manyTags), function(i) {
+                        return _c(
+                          "div",
+                          { key: i, staticClass: "form-group" },
+                          [
+                            _c(
+                              "select",
+                              {
+                                staticClass: "form-control tag-pilihan-update",
+                                attrs: { id: "" }
+                              },
+                              _vm._l(_vm.tags, function(tag) {
+                                return _c(
+                                  "option",
+                                  { key: tag.id, domProps: { value: tag.id } },
+                                  [
+                                    _vm._v(
+                                      "\n                    " +
+                                        _vm._s(tag.nama) +
+                                        "\n                  "
+                                    )
+                                  ]
+                                )
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("slug")
+                        ? _c(
+                            "span",
+                            { staticClass: "invalid-feedback d-block" },
+                            [
+                              _vm._v(
+                                "\n                " +
+                                  _vm._s(_vm.errors.slug[0]) +
+                                  "\n              "
                               )
                             ]
                           )
                         : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "" } }, [
-                        _vm._v("Url Artikel")
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.editForm.slug,
-                            expression: "editForm.slug"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "",
-                          placeholder: "Co: anti-biotik",
-                          disabled: ""
-                        },
-                        domProps: { value: _vm.editForm.slug },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.editForm, "slug", $event.target.value)
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm.errors.hasOwnProperty("slug")
-                      ? _c(
-                          "span",
-                          { staticClass: "invalid-feedback d-block" },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(_vm.errors.slug[0]) +
-                                "\n              "
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ]),
+                    ],
+                    2
+                  ),
                   _vm._v(" "),
                   _vm._m(4)
                 ]
