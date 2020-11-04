@@ -28,6 +28,7 @@ class ArtikelController extends Controller
             'title.required' => ':attribute harus diisi',
 
         ]);
+        DD($request->all());
         $pathDbGambar = "";
         if ($request->gambar) {
             $this->validationGambar($request);
@@ -86,6 +87,7 @@ class ArtikelController extends Controller
         $artikel = Artikel::find($request->id);
 
         $this->validation($request);
+        DD($request->all());
         if (is_object($request->gambar)) {
             $request->validate([
                 'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048']
@@ -100,12 +102,16 @@ class ArtikelController extends Controller
             $tujuan = 'img_database/artikel';
             $file->move($tujuan, $nama_file);
             $pathDbGambar = '/img_database/artikel/' . $nama_file;
-        }
 
-        $artikel->update([
-            'content' => $request->content,
-            'gambar' => $pathDbGambar,
-        ]);
+            $artikel->update([
+                'content' => $request->content,
+                'gambar' => $pathDbGambar,
+            ]);
+        } else {
+            $artikel->update([
+                'content' => $request->content,
+            ]);
+        }
     }
 
     public function delete(Request $request)

@@ -2230,6 +2230,146 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Artikel",
   data: function data() {
@@ -2330,7 +2470,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("title", this.form.title);
       formData.append("gambar", this.form.gambar);
       formData.append("content", this.form.content);
-      formData.append("slug", this.form.slug); //bikin array idTags isi nya id semua tag yang dipilih
+      formData.append("slug", this.form.slug);
+      console.log($("input[type='select']").val()); //bikin array idTags isi nya id semua tag yang dipilih
 
       var idTags = this.tags.map(function (tag) {
         return tag.id;
@@ -2354,6 +2495,59 @@ __webpack_require__.r(__webpack_exports__);
     },
     makeCombobox: function makeCombobox() {
       this.getTags();
+    },
+    getDetail: function getDetail(artikel, id) {
+      var content = this.artikels.filter(function (art) {
+        return art.id == id;
+      });
+      var artikelClone = Object.assign({}, artikel);
+      $("#modal-edit").modal("show");
+      this.editForm = artikelClone;
+      this.editForm.kode = artikelClone.id;
+      this.editForm.content = content[0].content; // console.table("ini content", content);
+
+      if (artikelClone.gambar == null) {
+        this.editForm.gambar = "Belum ada Gambar";
+      }
+    },
+    updateData: function updateData() {
+      var _this5 = this;
+
+      this.errors = {};
+      this.isLoading = true;
+      this.isSuccess = false;
+      var formData = new FormData();
+      formData.append("id", this.editForm.kode);
+      formData.append("title", this.editForm.title);
+      formData.append("gambar", this.editForm.gambar);
+      formData.append("content", this.editForm.content);
+      formData.append("slug", this.editForm.slug);
+      axios.post("/api/admin/artikel/update", formData).then(function (response) {
+        _this5.loadData();
+
+        _this5.isSuccess = true;
+        $("#modal-edit").modal("hide");
+      })["catch"](function (_ref2) {
+        var response = _ref2.response;
+        _this5.errors = response.data.errors;
+      })["finally"](function () {
+        _this5.isLoading = false;
+      });
+    },
+    deleteData: function deleteData(artikel) {
+      var _this6 = this;
+
+      axios.post("/api/admin/artikel/delete", {
+        id: artikel.id
+      }).then(function (response) {
+        _this6.loadData();
+
+        alert("berhasil delete");
+      })["catch"](function (response) {
+        if (response.status === 422) {
+          console.log("error hapus");
+        }
+      });
     }
   }
 });
@@ -2836,7 +3030,10 @@ __webpack_require__.r(__webpack_exports__);
       $("#modal-edit").modal("show");
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
-      this.editForm.gambar = kategoriClone.gambar;
+
+      if (kategoriClone.gambar == null) {
+        this.editForm.gambar = "Belum ada Gambar";
+      }
     },
     updateData: function updateData() {
       var _this4 = this;
@@ -39911,7 +40108,7 @@ var render = function() {
                       },
                       on: {
                         click: function($event) {
-                          return _vm.getDetail(artikel)
+                          return _vm.getDetail(artikel, artikel.id)
                         }
                       }
                     },
@@ -40231,7 +40428,7 @@ var render = function() {
                     "select",
                     {
                       staticClass: "form-control",
-                      attrs: { name: "", id: "" }
+                      attrs: { name: "tag-pilihan", id: "" }
                     },
                     _vm._l(_vm.tags, function(tag) {
                       return _c(
@@ -40259,7 +40456,266 @@ var render = function() {
           _vm._m(2)
         ]
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "modal fade show",
+        staticStyle: { display: "hidden", "padding-right": "16px" },
+        attrs: { id: "modal-edit", "aria-modal": "true" }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog modal-lg" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.updateData()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [_vm._v("Kode")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.kode,
+                            expression: "editForm.kode"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Kode",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.editForm.kode },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "kode", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Title Artikel")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.title,
+                            expression: "editForm.title"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Co: Antibiotik"
+                        },
+                        domProps: { value: _vm.editForm.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "title", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasOwnProperty("nama")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.title[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Gambar Artikel")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "custom-file" }, [
+                          _c("input", {
+                            staticClass: "custom-file-input",
+                            attrs: { type: "file", id: "" },
+                            on: {
+                              change: function($event) {
+                                return _vm.processFile($event, "edit")
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.editForm.gambar.name
+                            ? _c("span", { staticClass: "custom-file-label" }, [
+                                _vm._v(
+                                  _vm._s(_vm.editForm.gambar.name) +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          !_vm.editForm.gambar.name
+                            ? _c("span", { staticClass: "custom-file-label" }, [
+                                _vm._v(
+                                  _vm._s('"' + _vm.editForm.gambar + '"') +
+                                    "\n                    "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasOwnProperty("gambar")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.gambar[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Content Artikel")
+                      ]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.content,
+                            expression: "editForm.content"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "", id: "", cols: "30", rows: "10" },
+                        domProps: { value: _vm.editForm.content },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.editForm,
+                              "content",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("content")
+                        ? _c(
+                            "span",
+                            { staticClass: "invalid-feedback d-block" },
+                            [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(_vm.errors.content[0]) +
+                                  "\n                "
+                              )
+                            ]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Url Artikel")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editForm.slug,
+                            expression: "editForm.slug"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "",
+                          placeholder: "Co: anti-biotik",
+                          disabled: ""
+                        },
+                        domProps: { value: _vm.editForm.slug },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.editForm, "slug", $event.target.value)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.errors.hasOwnProperty("slug")
+                      ? _c(
+                          "span",
+                          { staticClass: "invalid-feedback d-block" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.errors.slug[0]) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._m(5)
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -40298,6 +40754,54 @@ var staticRenderFns = [
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Tambahkan")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Edit Kategori")]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("\n                Update Data\n              ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer justify-content-between" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("\n            Close\n          ")]
       )
     ])
   }

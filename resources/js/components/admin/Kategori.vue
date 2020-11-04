@@ -464,7 +464,9 @@ export default {
       $("#modal-edit").modal("show");
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
-      this.editForm.gambar = kategoriClone.gambar;
+      if (kategoriClone.gambar == null) {
+        this.editForm.gambar = "Belum ada Gambar";
+      }
     },
     updateData() {
       this.errors = {};

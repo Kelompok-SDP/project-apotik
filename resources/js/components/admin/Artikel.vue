@@ -66,7 +66,7 @@
               <td>
                 <div
                   class="btn btn-sm btn-primary"
-                  @click="getDetail(artikel)"
+                  @click="getDetail(artikel, artikel.id)"
                   data-toggle="modal"
                   data-target="#myModal"
                 >
@@ -222,7 +222,7 @@
             />
           </div>
           <div class="form-group" v-for="i in parseInt(manyTags)" :key="i">
-            <select name="" class="form-control" id="">
+            <select name="tag-pilihan" class="form-control" id="">
               <option v-for="tag in tags" :key="tag.id" :value="tag.id">
                 {{ tag.nama }}
               </option>
@@ -235,6 +235,146 @@
           <button type="submit" class="btn btn-primary">Tambahkan</button>
         </div>
       </form>
+    </div>
+
+    <div
+      class="modal fade show"
+      id="modal-edit"
+      style="display: hidden; padding-right: 16px"
+      aria-modal="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Kategori</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="updateData()">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="">Kode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Kode"
+                    v-model="editForm.kode"
+                    disabled
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="">Title Artikel</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: Antibiotik"
+                    v-model="editForm.title"
+                  />
+                </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('nama')"
+                >
+                  {{ errors.title[0] }}
+                </span>
+                <div class="form-group">
+                  <label for="">Gambar Artikel</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        id=""
+                        @change="processFile($event, 'edit')"
+                      />
+
+                      <!-- akan dijalankan kalo file sudah dipilih -->
+                      <span
+                        class="custom-file-label"
+                        v-if="editForm.gambar.name"
+                        >{{ editForm.gambar.name }}
+                      </span>
+                      <!-- akan dijalankan kalo file dibiarkan user -->
+                      <span
+                        class="custom-file-label"
+                        v-if="!editForm.gambar.name"
+                        >{{ '"' + editForm.gambar + '"' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('gambar')"
+                >
+                  {{ errors.gambar[0] }}
+                </span>
+
+                <div class="form-group">
+                  <label for="">Content Artikel</label>
+                  <textarea
+                    class="form-control"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="10"
+                    v-model="editForm.content"
+                  ></textarea>
+                  <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('content')"
+                  >
+                    {{ errors.content[0] }}
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="">Url Artikel</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: anti-biotik"
+                    disabled
+                    v-model="editForm.slug"
+                  />
+                </div>
+
+                <span
+                  class="invalid-feedback d-block"
+                  v-if="errors.hasOwnProperty('slug')"
+                >
+                  {{ errors.slug[0] }}
+                </span>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Update Data
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
     </div>
   </div>
 </template>
@@ -344,6 +484,7 @@ export default {
       formData.append("content", this.form.content);
       formData.append("slug", this.form.slug);
 
+      console.log($("input[type='select']").val());
       //bikin array idTags isi nya id semua tag yang dipilih
       let idTags = this.tags.map((tag) => tag.id);
       formData.append("tags", idTags);
@@ -367,6 +508,60 @@ export default {
     },
     makeCombobox() {
       this.getTags();
+    },
+    getDetail(artikel, id) {
+      let content = this.artikels.filter((art) => art.id == id);
+
+      let artikelClone = Object.assign({}, artikel);
+      $("#modal-edit").modal("show");
+      this.editForm = artikelClone;
+      this.editForm.kode = artikelClone.id;
+      this.editForm.content = content[0].content;
+      // console.table("ini content", content);
+      if (artikelClone.gambar == null) {
+        this.editForm.gambar = "Belum ada Gambar";
+      }
+    },
+    updateData() {
+      this.errors = {};
+      this.isLoading = true;
+      this.isSuccess = false;
+
+      let formData = new FormData();
+      formData.append("id", this.editForm.kode);
+      formData.append("title", this.editForm.title);
+      formData.append("gambar", this.editForm.gambar);
+      formData.append("content", this.editForm.content);
+      formData.append("slug", this.editForm.slug);
+
+      axios
+        .post("/api/admin/artikel/update", formData)
+        .then((response) => {
+          this.loadData();
+          this.isSuccess = true;
+          $("#modal-edit").modal("hide");
+        })
+        .catch(({ response }) => {
+          this.errors = response.data.errors;
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
+    deleteData(artikel) {
+      axios
+        .post("/api/admin/artikel/delete", {
+          id: artikel.id,
+        })
+        .then((response) => {
+          this.loadData();
+          alert("berhasil delete");
+        })
+        .catch((response) => {
+          if (response.status === 422) {
+            console.log("error hapus");
+          }
+        });
     },
   },
 };
