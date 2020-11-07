@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
             $user->id = $newIndex;
             $user->save();
         });
-        
 
-       
+
+
     }
 }

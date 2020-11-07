@@ -11,4 +11,9 @@ class Td_Obat_Racikans extends Model
     protected $primaryKey   = "id";
     public $incrementing    = false;
     public $timestamps      = false;
+
+    public function Obats()
+    {
+        $this->hasMany(Obat::class, "id_obat", "id");
+    }
 }

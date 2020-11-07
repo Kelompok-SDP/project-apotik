@@ -18,6 +18,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['prefix' => 'admin/user'], function () {
+    Route::get('/', 'Api\UserController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
+    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@UnbannedUser');
+    Route::post('/ban', 'Api\UserController@bannedUser');
+    Route::post('/unban', 'Api\UserController@UnbannedUser');
+});
+
+
+Route::group(['prefix' => 'admin/obatracikan'], function () {
+    Route::get('/', 'Api\ObatRacikansController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\ObatRacikansController@changePaginate');
+    Route::get('/showDetail/{id}', 'Api\ObatRacikansController@showDetail');
+    Route::get('/showObat', 'Api\ObatRacikansController@showAllObat');
+    Route::post('/generate', 'Api\ObatRacikansController@generate');
+    Route::post('/create', 'Api\ObatRacikansController@insert');
+
+});
+
 Route::get('/admin/kategori', 'Api\KategoriController@showAll');
 Route::get('/admin/kategori/changePaginate/{jumlah}', 'Api\KategoriController@changePaginate');
 Route::get('/admin/kategori/search/{keywords}/{jumlah}', 'Api\KategoriController@search');
