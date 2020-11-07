@@ -151,6 +151,12 @@
             >
               {{ errors.title[0] }}
             </span>
+            <span
+              class="invalid-feedback d-block"
+              v-if="errors.hasOwnProperty('slug')"
+            >
+              {{ errors.slug[0] }}
+            </span>
           </div>
 
           <div class="form-group">
@@ -192,23 +198,6 @@
               {{ errors.content[0] }}
             </span>
           </div>
-
-          <div class="form-group">
-            <label for="">Url Artikel</label>
-            <input
-              type="text"
-              class="form-control"
-              id=""
-              placeholder="Co: Penyebab-Pusing-Kepala"
-              v-model="form.slug"
-            />
-          </div>
-          <span
-            class="invalid-feedback d-block"
-            v-if="errors.hasOwnProperty('slug')"
-          >
-            {{ errors.slug[0] }}
-          </span>
 
           <div class="form-group">
             <label for="">Banyaknya Tag Artikel</label>
@@ -395,13 +384,6 @@
                     </option>
                   </select>
                 </div>
-
-                <span
-                  class="invalid-feedback d-block"
-                  v-if="errors.hasOwnProperty('slug')"
-                >
-                  {{ errors.slug[0] }}
-                </span>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">

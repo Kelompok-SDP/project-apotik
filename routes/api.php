@@ -67,3 +67,7 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
     Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
 });
+
+Route::post('/register', 'Api\UserController@register');
+Route::post('/login', 'Api\UserController@login');
+Route::get('/home', 'Api\UserController@home');
