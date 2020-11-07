@@ -7,33 +7,25 @@
       ></div>
 
       <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
-        <FormLogin />
+        <FormRegister />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import FormLogin from "./FormLogin";
+import FormRegister from "./FormRegister";
 export default {
-  name: "Login",
+  name: "Register",
   components: {
-    FormLogin: FormLogin,
+    FormRegister: FormRegister,
   },
   data() {
     return {
-      // code here
+      //   codehere
     };
   },
   methods: {},
 };
 </script>
 
-<style scoped>
-@import "/css/login&register/css/main.css";
-@import "/css/login&register/css/util.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap");
-.login100-form-title {
-  font-family: "Poppins", sans-serif;
-}
-</style>

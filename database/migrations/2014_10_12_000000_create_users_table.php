@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 100);
             $table->string('password', 50);
             $table->smallInteger('status')->length(10)->unsigned()->default('1')->comment('jika 1 active, 2 terbanned');
-            $table->smallInteger('role')->length(10)->unsigned()->comment('1 = admin 0 = user biasa');
+            $table->smallInteger('role')->length(10)->unsigned()->default('0')->comment('1 = admin 0 = user biasa');
             $table->softDeletes();
         });
     }
