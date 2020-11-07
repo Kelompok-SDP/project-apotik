@@ -49,11 +49,13 @@ class UserController extends Controller
             'password' => ['required']
         ]);
 
+
+
         $isLogin = User::where('email', $request->email)
             ->where('password', $request->password)->first();
-
         if ($isLogin) {
             $pesan = 'user terdaftar';
+            // $request->session()->put('isLogin', $isLogin);
             Cookie::queue('isLogin', json_encode($isLogin), 60);
             // return json_decode($request->cookie('isLogin'));
         } else {
@@ -65,6 +67,7 @@ class UserController extends Controller
     public function home(Request $request)
     {
         $isLogin = [];
+        // DD($request->session()->all());
         if (Cookie::has('isLogin')) {
             $isLogin = json_decode($request->cookie('isLogin'));
         }

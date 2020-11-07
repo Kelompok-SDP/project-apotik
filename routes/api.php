@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
 
 Route::get('/admin/kategori', 'Api\KategoriController@showAll');
 Route::get('/admin/kategori/changePaginate/{jumlah}', 'Api\KategoriController@changePaginate');
@@ -67,7 +73,3 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
     Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
 });
-
-Route::post('/register', 'Api\UserController@register');
-Route::post('/login', 'Api\UserController@login');
-Route::get('/home', 'Api\UserController@home');
