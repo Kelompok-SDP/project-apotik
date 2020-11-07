@@ -12,20 +12,16 @@
 <script>
 import Navbar from "./layouts/Navbar.vue";
 import Sidebar from "./layouts/Sidebar.vue";
-import User from "./admin/User.vue";
 import Kategori from "./admin/Kategori.vue";
 import Obat from "./admin/Obat.vue";
-import ObatRacikan from "./admin/ObatRacikan.vue";
 import Artikel from "./admin/Artikel.vue";
 
 export default {
   components: {
     Navbar: Navbar,
     Sidebar: Sidebar,
-    User: User,
     Kategori: Kategori,
     Obat: Obat,
-    ObatRacikan: ObatRacikan,
     Artikel: Artikel,
   },
   data() {

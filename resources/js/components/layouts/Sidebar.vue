@@ -35,30 +35,6 @@
           role="menu"
           data-accordion="false"
         >
-          <li class="nav-item has-treeview" @click="setCurrent('User')">
-            <span class="nav-link" style="color: white">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Master User
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </span>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ul
-          class="nav nav-pills nav-sidebar flex-column"
-          data-widget="treeview"
-          role="menu"
-          data-accordion="false"
-        >
           <li class="nav-item has-treeview" @click="setCurrent('Kategori')">
             <span class="nav-link" style="color: white">
               <i class="nav-icon fas fa-copy"></i>
@@ -88,30 +64,6 @@
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Master Obat
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </span>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Top Navigation</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ul
-          class="nav nav-pills nav-sidebar flex-column"
-          data-widget="treeview"
-          role="menu"
-          data-accordion="false"
-        >
-          <li class="nav-item has-treeview" @click="setCurrent('ObatRacikan')">
-            <span class="nav-link" style="color: white">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Master Obat Racikan
                 <i class="fas fa-angle-left right"></i>
               </p>
             </span>
@@ -193,7 +145,6 @@ export default {
     setCurrent(value) {
       this.currentState = value;
       this.$emit("click", this.currentState);
-      console.log(this.currentState);
     },
   },
 };
@@ -204,3 +155,4 @@ export default {
   cursor: pointer;
 }
 </style>
+    

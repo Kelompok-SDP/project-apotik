@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Th_Obat_Racikans;
+use App\th_obat_racikans;
 use Faker\Generator as Faker;
 
-$factory->define(Th_Obat_Racikans::class, function (Faker $faker) {
+$factory->define(th_obat_racikans::class, function (Faker $faker) {
     return [
         //
     ];

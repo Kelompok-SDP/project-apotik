@@ -13,6 +13,5 @@ class User extends Model
     public $incrementing    = false;
     public $timestamps      = false;
 
-    protected $guarded = ['deleted_at'];
     use SoftDeletes;
 }
