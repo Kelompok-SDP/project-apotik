@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href={{ url('css/login&register/css/main.css') }}>
+    <link rel="stylesheet" href={{ url('css/login&register/css/util.css') }}>
+
     <script src="{{ mix('js/app.js') }}" type="text/javascript" defer></script>
     <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">

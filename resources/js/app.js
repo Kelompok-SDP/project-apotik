@@ -15,18 +15,19 @@ import Axios from 'axios';
 Vue.use(VueRouter,VueAxios,Axios);
 
 import App from './components/App.vue';
-import Test from './components/admin/Test.vue';
 import Kategori from './components/admin/Kategori.vue';
 import Admin from './components/Admin.vue';
 import PageNotFound from './components/PageNotFound.vue';
 
 
+import Login from './components/user/login&register/Login.vue';
+
 // membuat router
 const routes = [
     {
-        name: 'test',
+        name: 'Login',
         path: '/',
-        component: Test
+        component: Login
     },
     {
         name: 'Admin',
