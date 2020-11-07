@@ -15,18 +15,26 @@ import Axios from 'axios';
 Vue.use(VueRouter,VueAxios,Axios);
 
 import App from './components/App.vue';
-import Test from './components/admin/Test.vue';
-import Kategori from './components/admin/Kategori.vue';
 import Admin from './components/Admin.vue';
 import PageNotFound from './components/PageNotFound.vue';
 
 
+import Login from './components/user/login&register/Login.vue';
+import Register from './components/user/login&register/Register.vue';
+
+import Home from './components/user/Home.vue'
+
 // membuat router
 const routes = [
     {
-        name: 'test',
+        name: 'Register',
         path: '/',
-        component: Test
+        component: Register
+    },
+    {
+        name: 'Login',
+        path: '/login',
+        component: Login
     },
     {
         name: 'Admin',
@@ -34,9 +42,9 @@ const routes = [
         component: Admin
     },
     {
-        name: 'Kategori',
-        path: '/admin/kategori',
-        component: Kategori
+        name: 'Home',
+        path: '/homepage',
+        component: Home
     },
     {
         name: 'PageNotFound',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArtikelController extends Controller
 {
@@ -28,6 +29,7 @@ class ArtikelController extends Controller
             'title.required' => ':attribute harus diisi',
 
         ]);
+        // DD($request->all());
         $pathDbGambar = "";
         if ($request->gambar) {
             $this->validationGambar($request);
@@ -86,6 +88,7 @@ class ArtikelController extends Controller
         $artikel = Artikel::find($request->id);
 
         $this->validation($request);
+        // DD($request->all());
         if (is_object($request->gambar)) {
             $request->validate([
                 'gambar' => ['image', 'mimes:png,jpg,jpeg', 'max:5048']
@@ -100,12 +103,25 @@ class ArtikelController extends Controller
             $tujuan = 'img_database/artikel';
             $file->move($tujuan, $nama_file);
             $pathDbGambar = '/img_database/artikel/' . $nama_file;
+
+            $artikel->update([
+                'content' => $request->content,
+                'gambar' => $pathDbGambar,
+            ]);
+        } else {
+            $artikel->update([
+                'content' => $request->content,
+            ]);
         }
 
-        $artikel->update([
-            'content' => $request->content,
-            'gambar' => $pathDbGambar,
-        ]);
+        DB::table('tags_artikels')
+            ->where('id_artikel', $request->id)
+            ->delete();
+
+        $arrTag = explode(",", $request->tags);
+        foreach ($arrTag as $value) {
+            $artikel->tags()->attach($value);
+        }
     }
 
     public function delete(Request $request)
@@ -118,12 +134,12 @@ class ArtikelController extends Controller
     {
         $request->validate([
             'content' => ['required', 'min:10', 'max:500'],
-            'tags.*' => ['required']
+            'tags' => ['required']
         ], [
             'content.required' => ':attribute harus diisi',
-            'tags.*.required' => ':attribute harus diisi',
-            'content.min' => ':attribute minimal banyak huruf :value',
-            'content.max' => ':attribute maximal banyak huruf :value',
+            'tags.required' => ':attribute harus diisi',
+            'content.min' => ':attribute minimal banyak huruf 10',
+            'content.max' => ':attribute maximal banyak huruf 500',
         ]);
     }
 
@@ -157,5 +173,19 @@ class ArtikelController extends Controller
     public function search($keywords, $jumlah)
     {
         return Artikel::where('title', 'LIKE', "$keywords%")->paginate($jumlah);
+    }
+
+    public function getTag($id)
+    {
+        $artikel = Artikel::find($id);
+
+        $arrTag = [];
+        foreach ($artikel->tags as $key => $value) {
+            $arrTag[] = $value->nama;
+        }
+
+        //asal for dari sini
+        // DD($artikel->tags[0]->nama, $artikel->tags[1]->nama);
+        return $arrTag;
     }
 }
