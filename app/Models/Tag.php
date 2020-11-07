@@ -10,7 +10,7 @@ class Tag extends Model
     protected $table        = "tags";
     protected $primaryKey   = "id";
     public $incrementing    = false;
-    public $timestamps      = true;
+    public $timestamps      = false;
 
     protected $guarded = ['deleted_at'];
 }

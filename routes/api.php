@@ -30,6 +30,28 @@ Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/', 'Api\ObatController@create');
 });
 
+Route::group(['prefix' => 'admin/tag'], function () {
+    Route::get('/', 'Api\TagController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\TagController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\TagController@search');
+
+    Route::post('/delete', 'Api\TagController@delete');
+    Route::post('/', 'Api\TagController@addTag');
+    Route::post('/generateID', 'Api\TagController@generateID');
+    Route::post('/update', 'Api\TagController@update');
+});
+
+Route::group(['prefix' => 'admin/alatkesehatan'], function () {
+    Route::get('/', 'Api\AlatKesehatanController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\AlatKesehatanController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\AlatKesehatanController@search');
+
+    Route::post('/', 'Api\AlatKesehatanController@create');
+    Route::post('/delete', 'Api\AlatKesehatanController@delete');
+    Route::post('/generateID', 'Api\AlatKesehatanController@generateID');
+    Route::post('/update', 'Api\AlatKesehatanController@update');
+});
+
 Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/', 'Api\InfoController@create');
 });
