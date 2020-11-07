@@ -17,6 +17,8 @@ import Kategori from "./admin/Kategori.vue";
 import Obat from "./admin/Obat.vue";
 import ObatRacikan from "./admin/ObatRacikan.vue";
 import Artikel from "./admin/Artikel.vue";
+import Tag from "./admin/Tag.vue";
+import Alat_Kesehatan from "./admin/Alat_Kesehatan.vue";
 
 export default {
   components: {
@@ -27,6 +29,8 @@ export default {
     Obat: Obat,
     ObatRacikan: ObatRacikan,
     Artikel: Artikel,
+    Tag: Tag,
+    Alat_Kesehatan: Alat_Kesehatan,
   },
   data() {
     return {
@@ -36,7 +40,8 @@ export default {
   methods: {
     getCompState(value) {
       this.currentState = value;
-
+      console.log(value);
+      console.log(this.currentState);
       //biar ndak kelebaran waktu dimaster obat
       if (value == "Obat") {
         $(".content-wrapper").css("width", "83%");

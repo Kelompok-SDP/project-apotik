@@ -16,7 +16,7 @@ export default {
   methods: {
     loadData() {
       axios
-        .get("/api/home")
+        .get("/home")
         .then((result) => {
           this.isLogin = result.data;
           console.log(result.data);

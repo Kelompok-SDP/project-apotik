@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+<<<<<<< HEAD
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
@@ -36,6 +41,8 @@ Route::group(['prefix' => 'admin/obatracikan'], function () {
     Route::post('/create', 'Api\ObatRacikansController@insert');
 
 });
+=======
+>>>>>>> b9276a46d771f7ac4f653fcbd8ca57c3b19a26ec
 
 
 Route::get('/admin/kategori', 'Api\KategoriController@showAll');
@@ -48,6 +55,28 @@ Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
 
 Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/', 'Api\ObatController@create');
+});
+
+Route::group(['prefix' => 'admin/tag'], function () {
+    Route::get('/', 'Api\TagController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\TagController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\TagController@search');
+
+    Route::post('/delete', 'Api\TagController@delete');
+    Route::post('/', 'Api\TagController@addTag');
+    Route::post('/generateID', 'Api\TagController@generateID');
+    Route::post('/update', 'Api\TagController@update');
+});
+
+Route::group(['prefix' => 'admin/alatkesehatan'], function () {
+    Route::get('/', 'Api\AlatKesehatanController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\AlatKesehatanController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\AlatKesehatanController@search');
+
+    Route::post('/', 'Api\AlatKesehatanController@create');
+    Route::post('/delete', 'Api\AlatKesehatanController@delete');
+    Route::post('/generateID', 'Api\AlatKesehatanController@generateID');
+    Route::post('/update', 'Api\AlatKesehatanController@update');
 });
 
 Route::group(['prefix' => 'admin/info'], function () {
@@ -65,7 +94,3 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
     Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
 });
-
-Route::post('/register', 'Api\UserController@register');
-Route::post('/login', 'Api\UserController@login');
-Route::get('/home', 'Api\UserController@home');

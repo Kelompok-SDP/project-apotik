@@ -13,6 +13,7 @@ class Alat_Kesehatan extends Model
     public $incrementing    = false;
     public $timestamps      = false;
 
+    protected $guarded = ['deleted_at'];
     protected $casts = [
         'id' => 'string',
     ];
