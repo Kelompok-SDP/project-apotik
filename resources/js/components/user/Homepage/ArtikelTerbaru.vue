@@ -1,21 +1,21 @@
 <template>
   <div class="container">
-    <h3 class="pt-5">Produk terlaris</h3>
+    <h3 class="pt-5">Artikel Terbaru</h3>
     <div class="card-deck">
-      <Produk
+      <Artikel
         :dataProduk="product"
         v-for="(product, index) in products"
         v-bind:key="index"
-      ></Produk>
+      ></Artikel>
     </div>
   </div>
 </template>
 
 <script>
-import Produk from "./Produk";
+import Artikel from "./Artikel";
 export default {
   components: {
-    Produk: Produk,
+    Artikel: Artikel,
   },
   data() {
     return {
@@ -23,14 +23,15 @@ export default {
     };
   },
   mounted() {
-    this.loadProduk();
+    this.loadArtikel();
   },
   methods: {
-    loadProduk() {
+    loadArtikel() {
       axios
-        .get("/api/produk")
+        .get("/api/admin/artikel")
         .then((result) => {
           this.products = result.data.data;
+          console.log(this.products);
         })
         .catch((err) => {});
     },

@@ -3,6 +3,7 @@
     <Navbar lokasi="home" />
     <Carousel />
     <ProdukTerlaris />
+    <ArtikelTerbaru />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import Navbar from "./Navbar";
 import Carousel from "./Carousel";
 import ProdukTerlaris from "./ProdukTerlaris";
+import ArtikelTerbaru from "./ArtikelTerbaru";
 export default {
   name: "Home",
   components: {
     Navbar: Navbar,
     Carousel: Carousel,
     ProdukTerlaris: ProdukTerlaris,
+    ArtikelTerbaru: ArtikelTerbaru,
   },
   data() {
     return {

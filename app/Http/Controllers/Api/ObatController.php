@@ -46,4 +46,11 @@ class ObatController extends Controller
 
         return Obat::create($request->all());
     }
+
+    //ini cuman coba buat home
+    public function show()
+    {
+        // var_dump(Obat::all());
+        return Obat::paginate(5);
+    }
 }
