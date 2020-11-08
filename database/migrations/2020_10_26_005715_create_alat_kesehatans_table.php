@@ -21,6 +21,7 @@ class CreateAlatKesehatansTable extends Migration
             $table->string('indikasi', 100)->nullable();
             $table->integer('stok')->length(10)->unsigned();
             $table->string('satuan', 10);
+            $table->string('slug',50);
             $table->string('kemasan', 255);
             $table->text('deskripsi')->nullable();
             $table->string('manufaktur', 50);

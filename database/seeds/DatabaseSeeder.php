@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         // php artisan db:seed --database="mysql"
         $this->call([
-            KategoriSeeder::class,
-            UserSeeder::class,
+            // KategoriSeeder::class,
+            // UserSeeder::class,
+            TagSeeder::class,
         ]);
     }
 }

@@ -9,6 +9,33 @@
         <h3 class="card-title">List Semua Kategori</h3>
       </div>
       <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm">
+            <label for="">Banyak Data pada Tabel</label>
+            <input
+              type="number"
+              class="form-control"
+              id=""
+              placeholder="Co: 2"
+              v-model="perPage"
+              @change="changePage"
+            />
+          </div>
+          <div class="form-group col-sm">
+            <label for="">Search Nama Kategori</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="Co: Antibiotik"
+                v-model="keywords"
+              />
+              <button class="btn btn-primary" @click="search">Cari</button>
+            </div>
+          </div>
+        </div>
+
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -20,7 +47,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(kategori, index) in kategories" :key="kategori.id">
+            <tr v-for="(kategori, index) in kategories" :key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ kategori.nama }}</td>
               <td>
@@ -62,12 +89,40 @@
       </div>
       <div class="card-footer clearfix">
         <ul class="pagination pagination-sm m-0 float-right">
-          <li class="page-item"><a class="page-link" href="#">«</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">»</a></li>
+          <li class="page-item">
+            <button
+              class="page-link"
+              :disabled="!pagination.prev_page_url"
+              @click="fetchPaginate(pagination.prev_page_url)"
+            >
+              Previous
+            </button>
+          </li>
+
+          <!-- <li
+            class="page-item"
+            v-for="(page, index) in parseInt(pagination.to)"
+            :key="index"
+          >
+            <button class="page-link" @click="fetchPaginate(index + 1)">
+              {{ index + 1 }}
+            </button>
+          </li> -->
+
+          <li class="page-item">
+            <button
+              class="page-link"
+              href="#"
+              :disabled="!pagination.next_page_url"
+              @click="fetchPaginate(pagination.next_page_url)"
+            >
+              Next
+            </button>
+          </li>
         </ul>
+        <span
+          >Page {{ pagination.current_page }} of {{ pagination.last_page }}
+        </span>
       </div>
     </div>
 
@@ -284,6 +339,10 @@ export default {
   data() {
     return {
       kategories: [],
+      pagination: [],
+      perPage: 5,
+      url: "/api/admin/kategori",
+      keywords: "",
       form: {
         kode: "",
         nama: "",
@@ -306,8 +365,10 @@ export default {
   },
   methods: {
     loadData() {
-      axios.get("/api/admin/kategori").then((response) => {
-        this.kategories = response.data.all_kategori;
+      // let $this = this;
+      axios.get(this.url).then((response) => {
+        this.kategories = response.data.all_kategori.data;
+        this.makePagination(response.data.all_kategori);
         this.form.kode = "";
         this.form.nama = "";
         this.form.gambar = "";
@@ -315,15 +376,39 @@ export default {
       });
       this.heightAjust();
     },
+    fetchPaginate(url) {
+      this.url = url;
+      this.loadData();
+    },
+    makePagination(data) {
+      let pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url,
+      };
+      this.pagination = pagination;
+    },
+    changePage() {
+      this.url = "/api/admin/kategori/changePaginate/" + this.perPage;
+      this.loadData();
+    },
+    search() {
+      if (this.keywords.length > 0) {
+        this.url =
+          "/api/admin/kategori/search/" + this.keywords + "/" + this.perPage;
+      } else {
+        this.url = "/api/admin/kategori";
+      }
+
+      this.loadData();
+    },
     heightAjust() {
       let heightWrapper = $(".content-wrapper").css("height");
       let heightWrapper2 = $(".wrapper-sub-kategori").css("height");
-      console.log("content: " + heightWrapper);
-      console.log("wrapper: " + heightWrapper2);
 
       $(".main-sidebar").css("height", heightWrapper);
       let tst = $(".main-sidebar").css("height");
-      console.log(tst);
     },
     processFile(event, mode) {
       if (mode == "add") {
@@ -379,8 +464,9 @@ export default {
       $("#modal-edit").modal("show");
       this.editForm = kategoriClone;
       this.editForm.kode = kategoriClone.id;
-      this.editForm.gambar = kategoriClone.gambar;
-      console.log(this.editForm.gambar);
+      if (kategoriClone.gambar == null) {
+        this.editForm.gambar = "Belum ada Gambar";
+      }
     },
     updateData() {
       this.errors = {};
@@ -402,7 +488,6 @@ export default {
         })
         .catch(({ response }) => {
           this.errors = response.data.errors;
-          console.log(this.errors);
         })
         .finally(() => {
           this.isLoading = false;
