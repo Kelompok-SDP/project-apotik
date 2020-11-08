@@ -14,6 +14,8 @@
               <th style="width: 10px">No</th>
               <th>Nama</th>
               <th>Gambar</th>
+              <th>Harga</th>
+              <th>Stok</th>
               <th>Keterangan</th>
               <th>Dosis</th>
               <th>Action</th>
@@ -35,23 +37,26 @@
                   width="50px;"
                 />
               </td>
-              <td>{{ obat.Keterangan }}</td>
-              <!-- <td>
+              <td>{{ obat.harga }}</td>
+              <td>{{ obat.stok }}</td>
+              <td>{{ obat.keterangan }}</td>
+                <td>{{ obat.dosis }}</td>
+
+               <td>
                 <div
                   class="btn btn-sm btn-primary"
-                  @click="getDetail(kategori)"
-                  data-toggle="modal"
-                  data-target="#myModal"
+                  @click="getDetail(obat)"
+
                 >
                   Edit
                 </div>
                 <div
                   class="btn btn-sm btn-danger"
-                  @click="deleteData(kategori)"
+                  @click="deleteData(obat)"
                 >
                   Delete
                 </div>
-              </td> -->
+              </td>
             </tr>
           </tbody>
         </table>
@@ -72,10 +77,21 @@
     </div>
     <div class="card card-primary">
       <div class="card-header">
-        <h3 class="card-title">Insert Obat Baru</h3>
+        <h3 class="card-title" v-if="form.tp == 1">Insert Obat Baru </h3>
+                <h3 class="card-title" v-if="form.tp == 2">Edit Obat   <div
+                  class="btn btn-sm btn-danger"
+                  @click="loadData()"
+                  style="margin-left:20vw"
+                >
+                  Insert baru
+                </div></h3>
+
       </div>
     </div>
     <form enctype="multipart/form-data" @submit.prevent="addData()">
+    <input type="hidden"
+        v-model ="form.tp"
+    >
     <div class="row row-cols-1 row-cols-md-2">
       <div class="col mb-4">
         <div class="card">
@@ -106,6 +122,12 @@
                   v-model="form.nama"
                   @keyup="autogenKode()"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('nama')"
+                    >
+                    {{ errors.nama[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Gambar Obat</label>
@@ -118,8 +140,15 @@
                       ref="file"
                       @change="processFile($event, 'add')"
                     />
-                    <span class="custom-file-label"> Pilih Gambar </span>
+                    <span class="custom-file-label" v-if="form.tp ==1"> {{ form.gambar.name }} </span>
+                    <span class="custom-file-label" v-if="form.tp ==2"> {{ form.gambar }} </span>
                   </div>
+                  <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('gambar')"
+                    >
+                    {{ errors.gambar[0] }}
+                </span>
                 </div>
               </div>
               <div class="form-group">
@@ -130,6 +159,12 @@
                   id=""
                   v-model="form.harga"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('harga')"
+                    >
+                    {{ errors.harga[0] }}
+                </span>
               </div>
             </div>
 
@@ -151,6 +186,12 @@
                   placeholder="Indikasi"
                   v-model="form.indikasi"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('indikasi')"
+                    >
+                    {{ errors.indikasi[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Stok Obat</label>
@@ -161,6 +202,12 @@
                   placeholder=""
                   v-model="form.stok"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('stok')"
+                    >
+                    {{ errors.stok[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Satuan Obat</label>
@@ -171,6 +218,12 @@
                   placeholder=""
                   v-model ="form.satuan"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('satuan')"
+                    >
+                    {{ errors.satuan[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Kemasan Obat</label>
@@ -181,6 +234,12 @@
                   placeholder=""
                   v-model ="form.kemasan"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('kemasan')"
+                    >
+                    {{ errors.kemasan[0] }}
+                </span>
               </div>
             </div>
 
@@ -201,12 +260,24 @@
                 <textarea name="comment" class="form-control" placeholder="Enter text here..."
                   v-model ="form.deskripsi"
                 ></textarea>
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('deskripsi')"
+                    >
+                    {{ errors.deskripsi[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Komposisi Obat</label>
                 <textarea name="comment" class="form-control" placeholder="Enter text here..."
                   v-model="form.komposisi"
                 ></textarea>
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('komposisi')"
+                    >
+                    {{ errors.komposisi[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Dosis Obat</label>
@@ -214,6 +285,12 @@
                placeholder="Dosis Obat"
                 v-model ="form.dosis"
               >
+               <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('dosis')"
+                    >
+                    {{ errors.dosis[0] }}
+                </span>
               </div>
               <div class="form-group">
                  <label for="">Segmentasi Obat</label>
@@ -221,6 +298,12 @@
                 placeholder="Segmentasi"
                   v-model ="form.segmentasi"
                 >
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('segmentasi')"
+                    >
+                    {{ errors.segmentasi[0] }}
+                </span>
               </div>
             </div>
 
@@ -242,17 +325,31 @@
                   placeholder="Manufaktur"
                   v-model ="form.manufaktur"
                 />
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('manufaktur')"
+                    >
+                    {{ errors.gambar[0] }}
+                </span>
               </div>
               <div class="form-group">
                 <label for="">Keterangan Obat</label>
                 <textarea name="comment" class="form-control"
                  placeholder="Enter text here..."
                  v-model ="form.keterangan"></textarea>
-
+                 <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('keterangan')"
+                    >
+                    {{ errors.keterangan[0] }}
+                </span>
               </div>
             </div>
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Tambahkan</button>
+              <button type="submit" class="btn btn-primary">
+                  <span v-if="form.tp ==1">Tambahkan</span>
+                  <span v-if="form.tp ==2">Simpan Perubahan</span>
+             </button>
             </div>
         </div>
       </div>
@@ -289,7 +386,8 @@ export default {
         dosis:"",
         segmentasi:"",
         manufaktur:"",
-        keterangan:""
+        keterangan:"",
+        tp:1
       },
       errors: {},
       isLoading: false,
@@ -317,6 +415,7 @@ export default {
         this.form.segmentasi = "";
         this.form.manufaktur = "";
         this.form.keterangan = "";
+        this.form.tp = 1;
       });
     },
     addData() {
@@ -324,41 +423,65 @@ export default {
       this.isLoading = true;
       this.isSuccess = false;
 
-      let formData = new FormData();
-      formData.append("id", this.form.kode);
-      formData.append("nama", this.form.nama);
-      formData.append("gambar", this.form.gambar);
-      formData.append("harga", this.form.harga);
-      formData.append("indikasi", this.form.indikasi);
-      formData.append("stok", this.form.stok);
-      formData.append("satuan", this.form.satuan);
-      formData.append("kemasan", this.form.kemasan);
-      formData.append("deskripsi", this.form.deskripsi);
-      formData.append("komposisi", this.form.komposisi);
-      formData.append("dosis", this.form.dosis);
-      formData.append("segmentasi", this.form.segmentasi);
-      formData.append("manufaktur", this.form.manufaktur);
-      formData.append("keterangan", this.form.keterangan);
+        if(this.form.tp == 1){
+                  let formData = new FormData();
+                    formData.append("id", this.form.kode);
+                    formData.append("nama", this.form.nama);
+                    formData.append("gambar", this.form.gambar);
+                    formData.append("harga", this.form.harga);
+                    formData.append("indikasi", this.form.indikasi);
+                    formData.append("stok", this.form.stok);
+                    formData.append("satuan", this.form.satuan);
+                    formData.append("kemasan", this.form.kemasan);
+                    formData.append("deskripsi", this.form.deskripsi);
+                    formData.append("komposisi", this.form.komposisi);
+                    formData.append("dosis", this.form.dosis);
+                    formData.append("segmentasi", this.form.segmentasi);
+                    formData.append("manufaktur", this.form.manufaktur);
+                    formData.append("keterangan", this.form.keterangan);
 
-      axios
-        .post("/api/admin/obat", formData)
-        .then((response) => {
-          this.isSuccess = true;
-          this.loadData();
-        })
-        .catch(({ response }) => {
-          this.errors = response.data.errors;
-         alert(this.errors)
-        })
-        .finally(() => (this.isLoading = false));
+                    axios
+                        .post("/api/admin/obat", formData)
+                        .then((response) => {
+                        this.isSuccess = true;
+                        this.loadData();
+                        })
+                        .catch(({ response }) => {
+                        this.errors = response.data.errors;
+                        alert(this.errors)
+                        })
+                        .finally(() => (this.isLoading = false));
+        }else{
+            let formData = new FormData();
+                    formData.append("id", this.form.kode);
+                    formData.append("nama", this.form.nama);
+                    formData.append("gambar", this.form.gambar);
+                    formData.append("harga", this.form.harga);
+                    formData.append("indikasi", this.form.indikasi);
+                    formData.append("stok", this.form.stok);
+                    formData.append("satuan", this.form.satuan);
+                    formData.append("kemasan", this.form.kemasan);
+                    formData.append("deskripsi", this.form.deskripsi);
+                    formData.append("komposisi", this.form.komposisi);
+                    formData.append("dosis", this.form.dosis);
+                    formData.append("segmentasi", this.form.segmentasi);
+                    formData.append("manufaktur", this.form.manufaktur);
+                    formData.append("keterangan", this.form.keterangan);
+
+                    axios
+                        .post("/api/admin/obat/update", formData)
+                        .then((response) => {
+                        this.isSuccess = true;
+                        this.loadData();
+                        })
+                        .catch(({ response }) => {
+                        this.errors = response.data.errors;
+                        alert(this.errors)
+                        })
+                        .finally(() => (this.isLoading = false));
+        }
     },
-    processFile(event, mode) {
-      if (mode == "add") {
-        this.form.gambar = event.target.files[0];
-      } else {
-        this.editForm.gambar = event.target.files[0];
-      }
-    },
+
      processFile(event, mode) {
       if (mode == "add") {
         this.form.gambar = event.target.files[0];
@@ -383,6 +506,41 @@ export default {
       if (this.form.nama.length < 2) {
         this.form.kode = "Kode";
       }
+    },
+    getDetail(obat) {
+      //clone kategori supaya tidak merubah isi dari tabel asli
+      let kategoriClone = Object.assign({}, obat);
+      this.form = kategoriClone;
+      this.form.kode = kategoriClone.id;
+     this.form.nama = kategoriClone.nama;
+        this.form.gambar = kategoriClone.gambar;
+        this.form.harga = kategoriClone.harga;
+        this.form.indikasi = kategoriClone.indikasi;
+        this.form.stok = kategoriClone.stok;
+        this.form.satuan = kategoriClone.satuan;
+        this.form.kemasan = kategoriClone.kemasan;
+        this.form.deskripsi = kategoriClone.deskripsi;
+        this.form.komposisi = kategoriClone.komposisi;
+        this.form.dosis = kategoriClone.dosis;
+        this.form.segmentasi = kategoriClone.segmentasi;
+        this.form.manufaktur = kategoriClone.manufaktur;
+        this.form.keterangan = kategoriClone.keterangan;
+        this.form.tp = 2;
+    },
+     deleteData(artikel) {
+      axios
+        .post("/api/admin/obat/delete", {
+          id: artikel.id,
+        })
+        .then((response) => {
+          this.loadData();
+          alert("berhasil delete");
+        })
+        .catch((response) => {
+          if (response.status === 422) {
+            console.log("error hapus");
+          }
+        });
     },
 
   },

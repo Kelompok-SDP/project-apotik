@@ -28,6 +28,12 @@ class ObatController extends Controller
         return $newKode;
     }
 
+    public function delete(Request $request)
+    {
+        $obat = Obat::find($request->id);
+        $obat->delete();
+    }
+
 
     public function create(Request $request)
     {
@@ -46,8 +52,35 @@ class ObatController extends Controller
                 'segmentasi' => ['required'],
                 'manufaktur' => ['required'],
             ]);
+
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database/obat';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/obat/' . $nama_file;
+
+            return Obat::create([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'gambar' => $pathDbGambar,
+                'harga' => $request->harga,
+                'indikasi' => $request->indikasi,
+                'stok' => $request->stok,
+                'satuan' => $request->satuan,
+                'kemasan' => $request->kemasan,
+                'deskripsi' => $request->deskripsi,
+                'komposisi' => $request->komposisi,
+                'dosis' => $request->dosis,
+                'segmentasi' => $request->segmentasi,
+                'manufaktur' => $request->manufaktur,
+                'keterangan' => $request->keterangan,
+            ]);
+
+
+
+
         } else {
-            $validasi = $request->validate([
+             $request->validate([
                 'nama' => ['required', 'max:50'],
                 'harga' => ['required', 'numeric'],
                 'indikasi' => ['required'],
@@ -59,9 +92,107 @@ class ObatController extends Controller
                 'segmentasi' => ['required'],
                 'manufaktur' => ['required'],
             ]);
+
+
+            return Obat::create([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'gambar' =>"",
+                'harga' => $request->harga,
+                'indikasi' => $request->indikasi,
+                'stok' => $request->stok,
+                'satuan' => $request->satuan,
+                'kemasan' => $request->kemasan,
+                'deskripsi' => $request->deskripsi,
+                'komposisi' => $request->komposisi,
+                'dosis' => $request->dosis,
+                'segmentasi' => $request->segmentasi,
+                'manufaktur' => $request->manufaktur,
+                'keterangan' => $request->keterangan,
+            ]);
         }
 
-        return Obat::create($request->all());
+
+    }
+
+    public function update(Request $request){
+
+        $obat = Obat::find($request->id);
+        if (is_string($request->gambar)) {
+            $request->validate([
+                'nama' => ['required', 'max:50'],
+                'harga' => ['required', 'numeric'],
+                'indikasi' => ['required'],
+                'stok' => ['required', 'numeric'],
+                'satuan' => ['required'],
+                'kemasan' => ['required'],
+                'komposisi' => ['required'],
+                'dosis' => ['required', 'max:100'],
+                'segmentasi' => ['required'],
+                'manufaktur' => ['required'],
+            ]);
+
+            $obat->update([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'gambar' =>$request->gambar,
+                'harga' => $request->harga,
+                'indikasi' => $request->indikasi,
+                'stok' => $request->stok,
+                'satuan' => $request->satuan,
+                'kemasan' => $request->kemasan,
+                'deskripsi' => $request->deskripsi,
+                'komposisi' => $request->komposisi,
+                'dosis' => $request->dosis,
+                'segmentasi' => $request->segmentasi,
+                'manufaktur' => $request->manufaktur,
+                'keterangan' => $request->keterangan,
+            ]);
+
+
+        } else {
+
+
+            $request->validate([
+                'nama' => ['required', 'max:50'],
+                'gambar' => ['file', 'image', 'mimes:png,jpg,jpeg', 'max:5048'],
+                'harga' => ['required', 'numeric'],
+                'indikasi' => ['required'],
+                'stok' => ['required', 'numeric'],
+                'satuan' => ['required'],
+                'kemasan' => ['required'],
+                'komposisi' => ['required'],
+                'dosis' => ['required', 'max:100'],
+                'segmentasi' => ['required'],
+                'manufaktur' => ['required'],
+            ]);
+
+
+            $file = $request->file('gambar');
+            $nama_file = time() . '-' . $file->getClientOriginalName();
+            $tujuan = 'img_database/obat';
+            $file->move($tujuan, $nama_file);
+            $pathDbGambar = '/img_database/obat/' . $nama_file;
+
+            $obat->update([
+                'id' => $request->id,
+                'nama' => $request->nama,
+                'gambar' => $pathDbGambar,
+                'harga' => $request->harga,
+                'indikasi' => $request->indikasi,
+                'stok' => $request->stok,
+                'satuan' => $request->satuan,
+                'kemasan' => $request->kemasan,
+                'deskripsi' => $request->deskripsi,
+                'komposisi' => $request->komposisi,
+                'dosis' => $request->dosis,
+                'segmentasi' => $request->segmentasi,
+                'manufaktur' => $request->manufaktur,
+                'keterangan' => $request->keterangan,
+            ]);
+
+
+        }
     }
 
     //ini cuman coba buat home
