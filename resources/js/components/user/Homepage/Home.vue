@@ -1,10 +1,22 @@
 <template>
-  <h1>halo,{{ isLogin.nama }}</h1>
+  <div>
+    <Navbar lokasi="home" />
+    <Carousel />
+    <ProdukTerlaris />
+  </div>
 </template>
 
 <script>
+import Navbar from "./Navbar";
+import Carousel from "./Carousel";
+import ProdukTerlaris from "./ProdukTerlaris";
 export default {
   name: "Home",
+  components: {
+    Navbar: Navbar,
+    Carousel: Carousel,
+    ProdukTerlaris: ProdukTerlaris,
+  },
   data() {
     return {
       isLogin: {},
@@ -27,5 +39,5 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 </style>

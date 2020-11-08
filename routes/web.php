@@ -13,7 +13,6 @@ Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
 
 
-
 Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');
