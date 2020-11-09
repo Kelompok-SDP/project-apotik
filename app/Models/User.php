@@ -15,6 +15,6 @@ class User extends Authenticatable
     public $incrementing    = false;
     public $timestamps      = false;
 
-    public $guarded = ['role', 'deleted_at', 'status'];
+    public $guarded = ['role', 'deleted_at'];
     use SoftDeletes;
 }

@@ -22,7 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
@@ -41,8 +40,6 @@ Route::group(['prefix' => 'admin/obatracikan'], function () {
     Route::post('/create', 'Api\ObatRacikansController@insert');
 
 });
-=======
->>>>>>> b9276a46d771f7ac4f653fcbd8ca57c3b19a26ec
 
 
 Route::get('/admin/kategori', 'Api\KategoriController@showAll');
