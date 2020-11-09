@@ -22,6 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/produk', 'Api\ObatController@show');
+
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
@@ -38,7 +40,6 @@ Route::group(['prefix' => 'admin/obatracikan'], function () {
     Route::get('/showObat', 'Api\ObatRacikansController@showAllObat');
     Route::post('/generate', 'Api\ObatRacikansController@generate');
     Route::post('/create', 'Api\ObatRacikansController@insert');
-
 });
 
 
@@ -52,6 +53,11 @@ Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
 
 Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/', 'Api\ObatController@create');
+    Route::get('/', 'Api\ObatController@showAll');
+    Route::post('/delete', 'Api\ObatController@delete');
+    Route::post('/update', 'Api\ObatController@update');
+    Route::post('/generateID', 'Api\ObatController@generateID');
+
 });
 
 Route::group(['prefix' => 'admin/tag'], function () {

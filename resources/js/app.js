@@ -22,13 +22,18 @@ import PageNotFound from './components/PageNotFound.vue';
 import Login from './components/user/login&register/Login.vue';
 import Register from './components/user/login&register/Register.vue';
 
-import Home from './components/user/Home.vue'
+import Home from './components/user/Homepage/Home.vue'
 
 // membuat router
 const routes = [
     {
-        name: 'Register',
+        name: 'Home',
         path: '/',
+        component: Home
+    },
+    {
+        name: 'Register',
+        path: '/register',
         component: Register
     },
     {
@@ -41,11 +46,7 @@ const routes = [
         path: '/admin',
         component: Admin
     },
-    {
-        name: 'Home',
-        path: '/homepage',
-        component: Home
-    },
+    
     {
         name: 'PageNotFound',
         path: '*',

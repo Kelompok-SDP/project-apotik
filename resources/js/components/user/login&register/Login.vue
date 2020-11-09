@@ -32,8 +32,8 @@ export default {
 <style scoped>
 @import "/css/login&register/css/main.css";
 @import "/css/login&register/css/util.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap");
 .login100-form-title {
   font-family: "Poppins", sans-serif;
-}
+} */
 </style>

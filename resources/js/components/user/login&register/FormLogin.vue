@@ -37,7 +37,7 @@
         <button class="login100-form-btn">Login</button>
       </div>
 
-      <router-link to="/">Go To Register</router-link>
+      <router-link to="/register">Go To Register</router-link>
     </div>
   </form>
 </template>
@@ -67,7 +67,7 @@ export default {
             alert(result.data);
           } else {
             console.table(result.data);
-            this.$router.push("/homepage");
+            this.$router.push("/");
           }
         })
         .catch(({ response }) => {
