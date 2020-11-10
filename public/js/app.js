@@ -4532,6 +4532,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ObatRacikan",
   data: function data() {
@@ -4544,10 +4550,6 @@ __webpack_require__.r(__webpack_exports__);
       detObats: [],
       manyObats: 1,
       obats: [],
-      choose: "",
-      idObats: [],
-      jmlObats: [],
-      jumlah: 1,
       form: {
         kode: "",
         nobatr: "",
@@ -4617,21 +4619,21 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("nama_dokter", this.form.ndokter);
       formData.append("keterangan", this.form.keterangan); //bikin array idTags isi nya id semua tag yang dipilih
 
-      for (var index = 0; index < this.manyObats; index++) {
-        this.idObats.push(this.choose);
-        this.jmlObats.push(parseInt(this.jumlah));
-      }
-
-      formData.append("id_obat", this.idObats);
-      formData.append("jml_obat", this.jmlObats);
+      var selectedObats = $(".obat-pilihan-insert").map(function (_, el) {
+        return el.value;
+      }).get();
+      var totalObats = $(".jumlah-obat-insert").map(function (_, el) {
+        return el.value;
+      }).get();
+      formData.append("id_obat", selectedObats);
+      formData.append("jml_obat", totalObats);
       axios.post("/api/admin/obatracikan/create", formData).then(function (response) {
         _this3.isSuccess = true;
-        console.log(_this3.jmlObats);
-        console.log(_this3.idObats);
+        console.log(selectedObats);
       })["catch"](function (_ref) {
         var response = _ref.response;
         _this3.errors = response.data.errors;
-        console.log(idObats);
+        console.log(selectedObats);
       })["finally"](function () {
         return _this3.isLoading = false;
       });
@@ -47093,9 +47095,7 @@ var render = function() {
                   attrs: { type: "number", id: "", placeholder: "Co: 2" },
                   domProps: { value: _vm.manyObats },
                   on: {
-                    change: function($event) {
-                      return _vm.makeCombobox()
-                    },
+                    change: _vm.makeCombobox,
                     input: function($event) {
                       if ($event.target.composing) {
                         return
@@ -47113,31 +47113,8 @@ var render = function() {
                   _c(
                     "select",
                     {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.choose,
-                          expression: "choose"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { name: "", id: "" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.choose = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
+                      staticClass: "form-control obat-pilihan-insert",
+                      attrs: { name: "", id: "" }
                     },
                     _vm._l(_vm.obats, function(obat) {
                       return _c(
@@ -47158,30 +47135,28 @@ var render = function() {
                   _c("label", { attrs: { for: "" } }, [_vm._v("Jumlah Obat")]),
                   _vm._v(" "),
                   _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.jumlah,
-                        expression: "jumlah"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "number", id: "", placeholder: "Co: 2" },
-                    domProps: { value: _vm.jumlah },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.jumlah = $event.target.value
-                      }
+                    staticClass: "form-control jumlah-obat-insert",
+                    attrs: {
+                      type: "number",
+                      id: "",
+                      placeholder: "Co: 2",
+                      value: "1"
                     }
                   }),
                   _vm._v(" "),
                   _c("hr")
                 ])
               }),
+              _vm._v(" "),
+              _vm.errors.hasOwnProperty("jml_obat")
+                ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.errors.jml_obat[0]) +
+                        "\n          "
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c("br")
             ],

@@ -146,12 +146,12 @@
               id=""
               placeholder="Co: 2"
               v-model="manyObats"
-              @change="makeCombobox()"
+              @change="makeCombobox"
             />
           </div>
             <div class="form-group" v-for="i in parseInt(manyObats)" :key="i">
                 <label for="">Nama Obat</label>
-                <select name="" class="form-control" id="" v-model="choose" >
+                <select name="" class="form-control obat-pilihan-insert" id="">
                 <option v-for="obat in obats" :key="obat.id" :value="obat.id">
                     {{ obat.nama }}
                 </option>
@@ -160,12 +160,18 @@
                 <input
                     type="number"
                     id=""
-                    class="form-control"
+                    class="form-control jumlah-obat-insert"
                     placeholder="Co: 2"
-                    v-model="jumlah"
+                    value=1
                 />
                 <hr>
             </div>
+             <span
+                class="invalid-feedback d-block"
+                v-if="errors.hasOwnProperty('jml_obat')"
+            >
+                {{ errors.jml_obat[0] }}
+            </span>
           <br />
         </div>
         <!-- /.card-body -->
@@ -240,10 +246,6 @@ export default {
         detObats: [],
         manyObats: 1,
         obats: [],
-        choose: "",
-        idObats: [],
-        jmlObats: [],
-        jumlah: 1,
         form: {
             kode: "",
             nobatr: "",
@@ -307,22 +309,24 @@ export default {
             formData.append("nama_dokter", this.form.ndokter);
             formData.append("keterangan", this.form.keterangan);
             //bikin array idTags isi nya id semua tag yang dipilih
-            for (let index = 0; index < this.manyObats; index++) {
-                this.idObats.push(this.choose);
-                this.jmlObats.push(parseInt(this.jumlah));
-            }
-            formData.append("id_obat", this.idObats);
-            formData.append("jml_obat", this.jmlObats);
+            var selectedObats = $(".obat-pilihan-insert")
+            .map((_, el) => el.value)
+            .get();
+
+            var totalObats = $(".jumlah-obat-insert")
+            .map((_, el) => el.value)
+            .get();
+            formData.append("id_obat", selectedObats);
+            formData.append("jml_obat", totalObats);
             axios
                 .post("/api/admin/obatracikan/create", formData)
                 .then((response) => {
                     this.isSuccess = true;
-                    console.log(this.jmlObats);
-                    console.log(this.idObats);
+                    console.log(selectedObats);
                 })
                 .catch(({ response }) => {
                     this.errors = response.data.errors;
-                    console.log(idObats);
+                    console.log(selectedObats);
                 })
                 .finally(() => (this.isLoading = false));
         },

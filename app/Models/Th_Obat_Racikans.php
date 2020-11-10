@@ -12,6 +12,8 @@ class Th_Obat_Racikans extends Model
     public $incrementing    = false;
     public $timestamps      = false;
 
+    protected $guarded = [];
+
     public function DetailRacikan()
     {
         $this->hasMany(Td_Obat_Racikans::class, "id_th_obat_racikans", "id");

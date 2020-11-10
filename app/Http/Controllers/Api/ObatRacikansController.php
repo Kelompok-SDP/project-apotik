@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Obat;
 use App\Models\Td_Obat_Racikans;
 use App\Models\Th_Obat_Racikans;
+use App\Rules\CheckInteger;
 use Illuminate\Http\Request;
 
 class ObatRacikansController extends Controller
@@ -53,9 +54,9 @@ class ObatRacikansController extends Controller
 
         $depan = strtoupper($depan);
 
+
         $kodeId = Th_Obat_Racikans::selectRaw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newIndex')
-            ->where('id', 'LIKE', "$depan%")
-            ->first();
+        ->first();
         $newId = "TH". $depan . $kodeId->newIndex;
         return $newId;
     }
@@ -63,8 +64,9 @@ class ObatRacikansController extends Controller
     public function insert(Request $request)
     {
         $request->validate([
-            'nama_obat_racikan' => ['required', 'min:3', 'max:50', 'unique:obats,nama'],
+            'nama_obat_racikan' => ['required', 'min:3', 'max:50', 'unique:th_obat_racikans,nama'],
             'nama_dokter' => ['required', 'min:3', 'max:50'],
+            'jml_obat' => [new CheckInteger]
         ], [
             'unique' => ':attribute sudah ada pada website silahkan isi :attribute lain',
             'min' => ':attribute minimal :min huruf',
@@ -74,17 +76,25 @@ class ObatRacikansController extends Controller
 
         $hitung = 0;
         $total = 0;
-        $tmpid = [];
-        $tmpid = $request->id_obat;
-        $tmpjml = [];
-        $tmpjml = $request->jml_obat;
+        $tmp = $request->id_obat;
+        $tmpid = explode(",",$tmp);
+        $tmp2 = $request->jml_obat;
+        $tmpjml = explode(",",$tmp2);
         $tmphar = [];
         for ($i=0; $i < count($tmpid); $i++) {
             $row = Obat::where("id", $tmpid[$i])->get();
             foreach ($row as $item) {
-                $tmphar.array_push($tmphar, $item->harga);
+                array_push($tmphar, $item->harga);
             }
         }
+
+        Th_Obat_Racikans::insert([
+            'id' => $request->id,
+            'nama' => $request->nama_obat_racikan,
+            'nama_dokter' => $request->nama_dokter,
+            'total' => 0,
+            'keterangan' => $request->keterangan,
+        ]);
 
         for ($i=0; $i < count($tmpid); $i++) {
             $kodeId = Td_Obat_Racikans::selectRaw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newIndex')->first();
@@ -93,7 +103,7 @@ class ObatRacikansController extends Controller
             $total = $total + $hitung;
             Td_Obat_Racikans::insert([
                 'id' => $newId,
-                'th_obat_racikans' => $request->kode,
+                'id_th_obat_racikans' => $request->id,
                 'id_obat' => $tmpid[$i],
                 'jumlah' => $tmpjml[$i],
                 'harga' => $tmphar[$i],
@@ -102,14 +112,11 @@ class ObatRacikansController extends Controller
             $hitung = 0;
         }
 
+        $rowUp = Th_Obat_Racikans::find($request->id);
+        $rowUp->update(["total" => $total]);
 
-        Th_Obat_Racikans::insert([
-            'id' => $request->id,
-            'nama' => $request->nama_obat_racikan,
-            'nama_dokter' => $request->nama_dokter,
-            'total' => $total,
-            'keterangan' => $request->keterangan,
-        ]);
+
+
 
     }
 }
