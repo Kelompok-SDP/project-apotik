@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 use function GuzzleHttp\json_decode;
 
@@ -68,8 +70,8 @@ class UserController extends Controller
             ->where('id', 'LIKE', "$namaDepan%")->first();
 
         $id = $namaDepan . str_pad($newIndex->newIndex, 3, '0', STR_PAD_LEFT);
-        // var_dump($id);
         $data['id'] = $id;
+        $data['password'] = Hash::make($request->password);
         User::create($data);
     }
 
@@ -80,15 +82,18 @@ class UserController extends Controller
             'password' => ['required']
         ]);
 
+        // $isLogin = User::where('email', $request->email)
+        //     ->where('password', $request->password)->first();
 
-
-        $isLogin = User::where('email', $request->email)
-            ->where('password', $request->password)->first();
-        if ($isLogin) {
+        $credential = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+        // DD(Auth::guard('web')->attempt($credential), Auth::guard('web'));
+        if (Auth::guard('web')->attempt($credential)) {
             $pesan = 'user terdaftar';
-            // $request->session()->put('isLogin', $isLogin);
+            $isLogin = Auth::user();
             Cookie::queue('isLogin', json_encode($isLogin), 60);
-            // return json_decode($request->cookie('isLogin'));
         } else {
             $pesan = 'user tidak ada';
             return $pesan;

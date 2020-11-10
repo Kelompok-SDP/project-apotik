@@ -23,6 +23,8 @@ import Login from './components/user/login&register/Login.vue';
 import Register from './components/user/login&register/Register.vue';
 
 import Home from './components/user/Homepage/Home.vue'
+import Artikel from './components/user/Artikel/ArtikelPage.vue'
+// import Produk from './components/user/Homepage/Home.vue'
 
 // membuat router
 const routes = [
@@ -30,6 +32,11 @@ const routes = [
         name: 'Home',
         path: '/',
         component: Home
+    },
+    {
+        name: 'Artikel',
+        path: '/artikel',
+        component: Artikel
     },
     {
         name: 'Register',
@@ -46,7 +53,6 @@ const routes = [
         path: '/admin',
         component: Admin
     },
-    
     {
         name: 'PageNotFound',
         path: '*',

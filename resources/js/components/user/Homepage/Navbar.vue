@@ -15,21 +15,19 @@
     ></button>
 
     <div class="d-flex flex-row m-auto">
-      <div class="p-2 mx-4">
+      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.home }">
         <router-link to="/" class="navbar-text">Home</router-link>
       </div>
-      <div class="p-2 mx-4">
-        <router-link to="/" class="navbar-text" :class="lokasi == 'artikel'"
-          >Artikel</router-link
-        >
+      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.artikel }">
+        <router-link to="/artikel" class="navbar-text">Artikel</router-link>
       </div>
-      <div class="p-2 mx-4">
-        <router-link to="/" class="navbar-text" :class="lokasi == 'obat'"
+      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.obat }">
+        <router-link to="/produk" class="navbar-text"
           >Obat & Vitamin</router-link
         >
       </div>
-      <div class="p-2 mx-4">
-        <router-link to="/" class="navbar-text" :class="lokasi == 'kontak'"
+      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.kontak }">
+        <router-link to="/kontak" class="navbar-text"
           >Kontak Apotik</router-link
         >
       </div>
@@ -52,9 +50,9 @@ export default {
       isLogin: {},
       cssLokasi: {
         home: false,
-        artikel: "",
-        obat: "",
-        kontak: "",
+        artikel: false,
+        obat: false,
+        kontak: false,
       },
     };
   },
@@ -65,10 +63,22 @@ export default {
   },
   methods: {
     getLokasi() {
+      this.resetLokasi();
       if (this.lokasi == "home") {
         this.cssLokasi.home = true;
-        console.log(this.cssLokasi.home);
+      } else if (this.lokasi == "artikel") {
+        this.cssLokasi.artikel = true;
+      } else if (this.lokasi == "obat") {
+        this.cssLokasi.obat = true;
+      } else if (this.lokasi == "kontak") {
+        this.cssLokasi.kontak = true;
       }
+    },
+    resetLokasi() {
+      this.cssLokasi.home = false;
+      this.cssLokasi.artikel = false;
+      this.cssLokasi.lokasi = false;
+      this.cssLokasi.kontak = false;
     },
     loadData() {
       axios
@@ -84,7 +94,13 @@ export default {
 </script>
 
 <style scoped>
+router-link {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-weight: bold;
+  color: red;
+}
 .active {
-  background: red;
+  border-bottom: 2px solid red;
 }
 </style>
