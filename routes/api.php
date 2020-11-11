@@ -57,7 +57,6 @@ Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/delete', 'Api\ObatController@delete');
     Route::post('/update', 'Api\ObatController@update');
     Route::post('/generateID', 'Api\ObatController@generateID');
-
 });
 
 Route::group(['prefix' => 'admin/tag'], function () {
@@ -88,7 +87,7 @@ Route::group(['prefix' => 'admin/info'], function () {
 
 Route::group(['prefix' => 'admin/artikel'], function () {
     Route::post('/', 'Api\ArtikelController@create');
-    Route::get('/', 'Api\ArtikelController@showAll');
+    Route::get('/', 'Api\ArtikelController@showLatest');
     Route::get('/changePaginate/{jumlah}', 'Api\ArtikelController@changePaginate');
     Route::get('/search/{keywords}/{jumlah}', 'Api\ArtikelController@search');
     Route::post('/generate', 'Api\ArtikelController@generate');

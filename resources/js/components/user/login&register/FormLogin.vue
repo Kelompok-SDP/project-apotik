@@ -63,7 +63,10 @@ export default {
       axios
         .post("/login", formData)
         .then((result) => {
-          if (result.data == "user tidak ada") {
+          if (
+            result.data == "user tidak ada" ||
+            result.data == "user sudah terbanned"
+          ) {
             alert(result.data);
           } else {
             console.table(result.data);
@@ -79,10 +82,4 @@ export default {
 </script>
 
 <style scoped>
-/* @import "/css/login&register/css/main.css";
-@import "/css/login&register/css/util.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,700&display=swap"); */
-/* .login100-form-title {
-  color: red;
-} */
 </style>

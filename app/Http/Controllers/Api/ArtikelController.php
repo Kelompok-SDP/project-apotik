@@ -22,7 +22,6 @@ class ArtikelController extends Controller
 
         ], [
             'slug.required' => ':attribute harus diisi',
-            'slug.unique' => ':attribute sudah ada pada website silahkan pilih :attribute lain',
             'title.unique' => ':attribute sudah ada pada website silahkan pilih :attribute lain',
             'title.min' => ':attribute minimal banyak huruf :value',
             'title.max' => ':attribute maximal banyak huruf :value',
@@ -165,9 +164,9 @@ class ArtikelController extends Controller
         return Artikel::paginate($jumlah);
     }
 
-    public function showAll()
+    public function showLatest()
     {
-        return Artikel::paginate(5);
+        return Artikel::orderBy('created_at', 'DESC')->paginate(5);
     }
 
     public function search($keywords, $jumlah)

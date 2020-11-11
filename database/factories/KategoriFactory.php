@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Kategori::class, function (Faker $faker) {
     return [
-        //
+        'nama' => $faker->lastName,
+        'gambar' => $faker->imageUrl(640, 480)
     ];
 });

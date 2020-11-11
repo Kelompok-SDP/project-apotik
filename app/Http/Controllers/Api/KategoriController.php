@@ -95,7 +95,13 @@ class KategoriController extends Controller
             ->where('id', 'LIKE', "$inisial%")->get();
 
         $newKode = strtoupper($inisial) . $kode->first()->newKode;
-        return $newKode;
+
+        $slug = $request->nama;
+        if (strpos($request->nama, ' ') !== false) {
+            $slug = str_replace(' ', '-', $slug);
+        }
+
+        return compact('newKode', 'slug');
     }
 
     public function update(Request $request)

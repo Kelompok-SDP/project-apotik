@@ -192,6 +192,7 @@
               id=""
               placeholder="Co: anti-biotik"
               v-model="form.slug"
+              disabled
             />
           </div>
           <span
@@ -301,6 +302,7 @@
                     id=""
                     placeholder="Co: anti-biotik"
                     v-model="editForm.slug"
+                    disabled
                   />
                 </div>
 
@@ -447,7 +449,8 @@ export default {
             nama: this.form.nama,
           })
           .then((response) => {
-            this.form.kode = response.data;
+            this.form.kode = response.data.newKode;
+            this.form.slug = response.data.slug;
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;

@@ -89,8 +89,12 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ];
-        // DD(Auth::guard('web')->attempt($credential), Auth::guard('web'));
+
         if (Auth::guard('web')->attempt($credential)) {
+            if (Auth::user()->status == 2) {
+                Auth::guard('web')->logout();
+                return 'user sudah terbanned';
+            }
             $pesan = 'user terdaftar';
             $isLogin = Auth::user();
             Cookie::queue('isLogin', json_encode($isLogin), 60);
@@ -103,7 +107,6 @@ class UserController extends Controller
     public function home(Request $request)
     {
         $isLogin = [];
-        // DD($request->session()->all());
         if (Cookie::has('isLogin')) {
             $isLogin = json_decode($request->cookie('isLogin'));
         }

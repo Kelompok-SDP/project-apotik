@@ -12,9 +12,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class,10)->make()->each(function($user){
-            $fakeUser = User::selectRaw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newIndex')->first();
-            $newIndex = 'USER'.$fakeUser->newIndex;
+        factory(User::class, 10)->make()->each(function ($user) {
+            $depan = strtoupper(substr($user->nama, 0, 2));
+            $fakeUser =
+                User::selectRaw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newIndex')
+                ->where('id', 'LIKE', "$depan%")
+                ->first();
+            $newIndex = $depan . $fakeUser->newIndex;
             $user->id = $newIndex;
             $user->save();
         });
