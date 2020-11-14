@@ -9,11 +9,14 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
 });
 
 Route::group(['middleware' => ['validLogin']], function () {
-    Route::get('/addCart/{id}', 'Api\ObatPageController@addCart');
+    Route::post('/addCart', 'Api\ObatPageController@addCart');
     Route::get('/profile', function () {
         return view('main');
     });
 });
+
+Route::get('/kategori', 'Api\ObatPageController@showAll');
+Route::get('/kategori/{slug}', 'Api\ObatPageController@showDetail');
 
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');

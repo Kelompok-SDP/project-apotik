@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Obat;
 use App\Rules\isTipeObat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+
+use function GuzzleHttp\json_decode;
 
 class ObatController extends Controller
 {
@@ -192,10 +195,5 @@ class ObatController extends Controller
     {
         // var_dump(Obat::all());
         return Obat::paginate(8);
-    }
-
-    public function addCart($id)
-    {
-        # code...
     }
 }
