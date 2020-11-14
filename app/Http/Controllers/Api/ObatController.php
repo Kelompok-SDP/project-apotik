@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Obat;
+use App\Models\Td_Jual;
 use App\Rules\isTipeObat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -190,8 +191,11 @@ class ObatController extends Controller
     //ini cuman coba buat home
     public function show()
     {
-        // var_dump(Obat::all());
-        return Obat::paginate(8);
+        $barangTerlaris=DB::table("td_juals")
+        ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product,obats.nama,obats.gambar,obats.harga"))
+        ->join("obats","td_juals.id_product","obats.id")
+        ->groupBy("td_juals.id_product","obats.nama","obats.gambar","obats.harga")->paginate(8);
+        return $barangTerlaris;
     }
 
     public function addCart($id)

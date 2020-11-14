@@ -8,6 +8,7 @@
           v-for="(product, index) in products"
           v-bind:key="index"
         ></Produk>
+
       </div>
     </div>
   </div>
