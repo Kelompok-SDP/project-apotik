@@ -104,6 +104,13 @@ class UserController extends Controller
         }
     }
 
+    public function profil(Request $request){
+        $userLogin = null;
+        if(Cookie::has('isLogin')){
+            $userLogin = json_decode($request->cookie('isLogin'));
+        }
+    }
+
     public function home(Request $request)
     {
         $isLogin = [];

@@ -22,6 +22,8 @@ Route::get('/kategori/{slug}', 'Api\ObatPageController@showDetail');
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
+Route::get('/profilUser', 'Api\UserController@profil');
+
 
 
 Route::get('/{any}', function () {
