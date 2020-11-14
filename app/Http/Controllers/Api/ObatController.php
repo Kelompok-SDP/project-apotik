@@ -7,7 +7,10 @@ use App\Models\Obat;
 use App\Models\Td_Jual;
 use App\Rules\isTipeObat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+
+use function GuzzleHttp\json_decode;
 
 class ObatController extends Controller
 {
@@ -196,10 +199,5 @@ class ObatController extends Controller
         ->join("obats","td_juals.id_product","obats.id")
         ->groupBy("td_juals.id_product","obats.nama","obats.gambar","obats.harga")->paginate(8);
         return $barangTerlaris;
-    }
-
-    public function addCart($id)
-    {
-        # code...
     }
 }

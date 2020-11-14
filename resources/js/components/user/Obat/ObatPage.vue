@@ -39,7 +39,7 @@ export default {
   methods: {
     loadKategori() {
       axios
-        .get("/api/kategori")
+        .get("/kategori")
         .then((result) => {
           this.listKategori = result.data;
           this.listUrl = this.listKategori.map((k) => "/produk/" + k.slug);

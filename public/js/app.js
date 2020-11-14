@@ -5962,7 +5962,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      urlProduk: ""
+      urlProduk: "",
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
   },
   mounted: function mounted() {
@@ -5971,6 +5972,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     loadUrl: function loadUrl() {
       this.urlProduk = "/addCart/" + this.dataProduk.id;
+    },
+    addToCart: function addToCart() {
+      axios.post("/addCart", {
+        id: this.dataProduk.id
+      });
     }
   }
 });
@@ -6128,7 +6134,7 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/api/kategori/" + this.$route.params.slug).then(function (result) {
+      axios.get("/kategori/" + this.$route.params.slug).then(function (result) {
         _this.kategori = result.data.kategori;
         _this.listObat = result.data.obats;
       })["catch"](function (err) {});
@@ -6190,7 +6196,7 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/api/kategori").then(function (result) {
+      axios.get("/kategori").then(function (result) {
         _this.listKategori = result.data;
         _this.listUrl = _this.listKategori.map(function (k) {
           return "/produk/" + k.slug;
@@ -49297,18 +49303,16 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-footer text-center" },
-        [
-          _c("router-link", { attrs: { to: _vm.urlProduk } }, [
-            _c("div", { staticClass: "btn btn-outline-danger rounded" }, [
-              _vm._v("Tambah")
-            ])
-          ])
-        ],
-        1
-      )
+      _c("div", { staticClass: "card-footer text-center" }, [
+        _c(
+          "div",
+          {
+            staticClass: "btn btn-outline-danger rounded",
+            on: { click: _vm.addToCart }
+          },
+          [_vm._v("\n        Tambah\n      ")]
+        )
+      ])
     ])
   ])
 }

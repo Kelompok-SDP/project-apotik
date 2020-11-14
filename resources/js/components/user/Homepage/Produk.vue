@@ -9,9 +9,9 @@
         </p>
       </div>
       <div class="card-footer text-center">
-        <router-link v-bind:to="urlProduk">
-          <div class="btn btn-outline-danger rounded">Tambah</div>
-        </router-link>
+        <div class="btn btn-outline-danger rounded" @click="addToCart">
+          Tambah
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +26,9 @@ export default {
   data() {
     return {
       urlProduk: "",
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
     };
   },
   mounted() {
@@ -34,6 +37,11 @@ export default {
   methods: {
     loadUrl() {
       this.urlProduk = "/addCart/" + this.dataProduk.id;
+    },
+    addToCart() {
+      axios.post("/addCart", {
+        id: this.dataProduk.id,
+      });
     },
   },
 };
