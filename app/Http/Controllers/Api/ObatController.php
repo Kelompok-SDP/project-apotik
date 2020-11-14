@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class ObatController extends Controller
 {
-    public function showAll(){
+    public function showAll()
+    {
         $dataObat = Obat::all();
-        $arrData = compact( 'dataObat');
+        $arrData = compact('dataObat');
         return $dataObat;
     }
 
@@ -24,7 +25,7 @@ class ObatController extends Controller
         $kode = Obat::select(DB::raw('LPAD(IFNULL(MAX(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newKode'))
             ->where('id', 'LIKE', "$inisial%")->get();
 
-        $newKode = "OB".strtoupper($inisial) . $kode->first()->newKode;
+        $newKode = "OB" . strtoupper($inisial) . $kode->first()->newKode;
         return $newKode;
     }
 
@@ -75,12 +76,8 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
-
-
         } else {
-             $request->validate([
+            $request->validate([
                 'nama' => ['required', 'max:50'],
                 'harga' => ['required', 'numeric'],
                 'indikasi' => ['required'],
@@ -97,7 +94,7 @@ class ObatController extends Controller
             return Obat::create([
                 'id' => $request->id,
                 'nama' => $request->nama,
-                'gambar' =>"",
+                'gambar' => "",
                 'harga' => $request->harga,
                 'indikasi' => $request->indikasi,
                 'stok' => $request->stok,
@@ -111,11 +108,10 @@ class ObatController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
         }
-
-
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         $obat = Obat::find($request->id);
         if (is_string($request->gambar)) {
@@ -135,7 +131,7 @@ class ObatController extends Controller
             $obat->update([
                 'id' => $request->id,
                 'nama' => $request->nama,
-                'gambar' =>$request->gambar,
+                'gambar' => $request->gambar,
                 'harga' => $request->harga,
                 'indikasi' => $request->indikasi,
                 'stok' => $request->stok,
@@ -148,8 +144,6 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
         } else {
 
 
@@ -190,8 +184,6 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
         }
     }
 
@@ -199,6 +191,11 @@ class ObatController extends Controller
     public function show()
     {
         // var_dump(Obat::all());
-        return Obat::paginate(5);
+        return Obat::paginate(8);
+    }
+
+    public function addCart($id)
+    {
+        # code...
     }
 }

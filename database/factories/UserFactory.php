@@ -4,7 +4,7 @@
 
 use App\Models\User;
 use Faker\Generator as Faker;
-
+use Illuminate\Support\Facades\Hash;
 
 $factory->define(User::class, function (Faker $faker) {
 
@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
         'noHp' =>$faker->tollFreePhoneNumber,
         'nama' =>$faker->name,
         'email' =>$faker->freeEmail,
-        'password' =>'123',
+        'password' =>Hash::make('123'),
         "role"=>"0"
     ];
 });

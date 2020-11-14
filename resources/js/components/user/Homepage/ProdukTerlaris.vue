@@ -2,11 +2,13 @@
   <div class="container">
     <h3 class="pt-5">Produk terlaris</h3>
     <div class="card-deck">
-      <Produk
-        :dataProduk="product"
-        v-for="(product, index) in products"
-        v-bind:key="index"
-      ></Produk>
+      <div class="row">
+        <Produk
+          :dataProduk="product"
+          v-for="(product, index) in products"
+          v-bind:key="index"
+        ></Produk>
+      </div>
     </div>
   </div>
 </template>
