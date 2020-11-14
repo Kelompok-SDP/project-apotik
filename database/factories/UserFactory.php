@@ -7,12 +7,13 @@ use Faker\Generator as Faker;
 
 
 $factory->define(User::class, function (Faker $faker) {
-    
+
     return [
         'noHp' =>$faker->tollFreePhoneNumber,
         'nama' =>$faker->name,
         'email' =>$faker->freeEmail,
-        'password' =>'123',        
+        'password' =>'123',
+        "role"=>"0"
     ];
 });
 

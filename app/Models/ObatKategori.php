@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Td_Jual extends Model
+class ObatKategori extends Model
 {
     protected $connection   = "mysql";
-    protected $table        = "td_juals";
-    protected $primaryKey   = "id";
+    protected $table        = "obats_kategoris";
+    protected $primaryKey   = null;
     public $incrementing    = false;
     public $timestamps      = false;
 
-    // use SoftDeletes;
 }

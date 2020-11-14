@@ -17,6 +17,7 @@ class CreateTdJualsTable extends Migration
             $table->string('id', 15)->primary();
             $table->foreign('id_th_jual')->references('id')->on('th_juals');
             $table->string('id_th_jual', 15);
+            $table->string('id_product', 15);
             $table->string('tipe_produk', 15);
             $table->integer('harga')->length(10)->unsigned();
             $table->string('jumlah', 5);

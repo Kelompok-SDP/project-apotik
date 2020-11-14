@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Artikel;
+use App\Models\ObatKategori;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,10 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // php artisan db:seed --database="mysql"
         $this->call([
-            UserSeeder::class,
-            KategoriSeeder::class,
-            TagSeeder::class,
-            ArtikelSeeder::class
+            // UserSeeder::class,
+            // KategoriSeeder::class,
+            // ObatSeeder::class,
+            ThJualSeeder::class,
+            // ThJualSeeder::class,
+            // TagSeeder::class,
+            // ArtikelSeeder::class
         ]);
     }
 }
