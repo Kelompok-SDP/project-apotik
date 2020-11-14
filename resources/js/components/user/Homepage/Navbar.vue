@@ -36,9 +36,13 @@
     <button class="btn btn-secondary" v-if="!isLogin.nama">
       <router-link to="/login" class="text-light">Login</router-link>
     </button>
-    <button class="btn btn-secondary" v-if="isLogin.nama">
+    <div class="btn btn-secondary nav-link dropdown-toggle" v-if="isLogin.nama" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       halo,{{ isLogin.nama }}
-    </button>
+    </div>
+    <div class="dropdown-menu" aria-labelledby="dropdown03" >
+       <router-link to="/profilUser" class='dropdown-item'>Your Profile</router-link>
+       <router-link to="" class='dropdown-item'>Log Out</router-link>
+    </div>
   </nav>
 </template>
 
