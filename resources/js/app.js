@@ -26,6 +26,7 @@ import Home from './components/user/Homepage/Home.vue'
 import Artikel from './components/user/Artikel/ArtikelPage.vue'
 import ObatPage from './components/user/Obat/ObatPage'
 import KategoriPage from './components/user/Obat/KategoriPage'
+import CartPage from './components/user/Cart/CartPage.vue'
 
 // membuat router
 const routes = [
@@ -48,6 +49,11 @@ const routes = [
         name: 'KategoriPage',
         path: '/produk/:slug',
         component: KategoriPage
+    },
+    {
+        name: 'CartPage',
+        path: '/lihatCart',
+        component: CartPage
     },
     {
         name: 'Register',

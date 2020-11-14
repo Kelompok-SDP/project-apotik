@@ -36,6 +36,12 @@
     <button class="btn btn-secondary" v-if="!isLogin.nama">
       <router-link to="/login" class="text-light">Login</router-link>
     </button>
+    <router-link to="/lihatCart" class="text-light">
+      <button class="btn btn-primary" v-if="isLogin.nama">
+        Keranjang Belanja
+      </button>
+    </router-link>
+
     <button class="btn btn-secondary" v-if="isLogin.nama">
       halo,{{ isLogin.nama }}
     </button>

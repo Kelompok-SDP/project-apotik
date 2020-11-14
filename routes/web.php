@@ -10,6 +10,7 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
 
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');
+    Route::post('/lihatCart', 'Api\CartPageController@show');
     Route::get('/profile', function () {
         return view('main');
     });

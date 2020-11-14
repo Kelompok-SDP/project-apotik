@@ -26,9 +26,6 @@ export default {
   data() {
     return {
       urlProduk: "",
-      csrf: document
-        .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content"),
     };
   },
   mounted() {
