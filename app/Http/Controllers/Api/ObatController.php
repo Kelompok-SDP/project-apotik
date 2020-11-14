@@ -193,4 +193,9 @@ class ObatController extends Controller
         // var_dump(Obat::all());
         return Obat::paginate(8);
     }
+
+    public function addCart($id)
+    {
+        # code...
+    }
 }

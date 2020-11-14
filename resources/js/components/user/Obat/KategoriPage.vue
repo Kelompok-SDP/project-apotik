@@ -14,7 +14,15 @@
         <span class="h4">{{ kategori.nama }}</span>
       </div>
       <div class="mt-5">
-        <h3>asdad</h3>
+        <div class="card-deck">
+          <div class="row">
+            <Produk
+              :dataProduk="obat"
+              v-for="(obat, index) in listObat"
+              v-bind:key="index"
+            ></Produk>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -22,14 +30,17 @@
 
 <script>
 import Navbar from "../Homepage/Navbar";
+import Produk from "../Homepage/Produk";
 export default {
   name: "KategoriPage",
   components: {
     Navbar: Navbar,
+    Produk: Produk,
   },
   data() {
     return {
       kategori: {},
+      listObat: {},
     };
   },
   mounted() {
@@ -41,6 +52,7 @@ export default {
         .get("/api/kategori/" + this.$route.params.slug)
         .then((result) => {
           this.kategori = result.data.kategori;
+          this.listObat = result.data.obats;
         })
         .catch((err) => {});
     },

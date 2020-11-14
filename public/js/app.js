@@ -5953,10 +5953,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Produk",
   props: {
     dataProduk: Object
+  },
+  data: function data() {
+    return {
+      urlProduk: ""
+    };
+  },
+  mounted: function mounted() {
+    this.loadUrl();
+  },
+  methods: {
+    loadUrl: function loadUrl() {
+      this.urlProduk = "/addCart/" + this.dataProduk.id;
+    }
   }
 });
 
@@ -6060,6 +6075,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Homepage/Navbar */ "./resources/js/components/user/Homepage/Navbar.vue");
+/* harmony import */ var _Homepage_Produk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Homepage/Produk */ "./resources/js/components/user/Homepage/Produk.vue");
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6083,14 +6107,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "KategoriPage",
   components: {
-    Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Produk: _Homepage_Produk__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      kategori: {}
+      kategori: {},
+      listObat: {}
     };
   },
   mounted: function mounted() {
@@ -6102,6 +6129,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/kategori/" + this.$route.params.slug).then(function (result) {
         _this.kategori = result.data.kategori;
+        _this.listObat = result.data.obats;
       })["catch"](function (err) {});
     }
   }
@@ -49276,22 +49304,22 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "div",
+        { staticClass: "card-footer text-center" },
+        [
+          _c("router-link", { attrs: { to: _vm.urlProduk } }, [
+            _c("div", { staticClass: "btn btn-outline-danger rounded" }, [
+              _vm._v("Tambah")
+            ])
+          ])
+        ],
+        1
+      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c("small", { staticClass: "text-muted" }, [
-        _vm._v("Last updated 3 mins ago")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -49416,20 +49444,24 @@ var render = function() {
           _c("span", { staticClass: "h4" }, [_vm._v(_vm._s(_vm.kategori.nama))])
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "mt-5" }, [
+          _c("div", { staticClass: "card-deck" }, [
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.listObat, function(obat, index) {
+                return _c("Produk", { key: index, attrs: { dataProduk: obat } })
+              }),
+              1
+            )
+          ])
+        ])
       ])
     ],
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-5" }, [_c("h3", [_vm._v("asdad")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

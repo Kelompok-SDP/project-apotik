@@ -9,6 +9,7 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
 });
 
 Route::group(['middleware' => ['validLogin']], function () {
+    Route::get('/addCart/{id}', 'Api\ObatPageController@addCart');
     Route::get('/profile', function () {
         return view('main');
     });
