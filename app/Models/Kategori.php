@@ -15,4 +15,9 @@ class Kategori extends Model
 
     protected $guarded = ['deleted_at'];
     use SoftDeletes;
+
+    public function obats()
+    {
+        return $this->belongsToMany(Obat::class, 'obats_kategoris', 'id_kategoris', 'id_obats');
+    }
 }

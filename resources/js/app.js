@@ -24,7 +24,8 @@ import Register from './components/user/login&register/Register.vue';
 
 import Home from './components/user/Homepage/Home.vue'
 import Artikel from './components/user/Artikel/ArtikelPage.vue'
-// import Produk from './components/user/Homepage/Home.vue'
+import ObatPage from './components/user/Obat/ObatPage'
+import KategoriPage from './components/user/Obat/KategoriPage'
 
 // membuat router
 const routes = [
@@ -37,6 +38,16 @@ const routes = [
         name: 'Artikel',
         path: '/artikel',
         component: Artikel
+    },
+    {
+        name: 'ObatPage',
+        path: '/produk',
+        component: ObatPage
+    },
+    {
+        name: 'KategoriPage',
+        path: '/produk/:slug',
+        component: KategoriPage
     },
     {
         name: 'Register',

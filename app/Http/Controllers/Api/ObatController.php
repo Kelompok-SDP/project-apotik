@@ -4,15 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Obat;
+use App\Models\Td_Jual;
 use App\Rules\isTipeObat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+
+use function GuzzleHttp\json_decode;
 
 class ObatController extends Controller
 {
-    public function showAll(){
+    public function showAll()
+    {
         $dataObat = Obat::all();
-        $arrData = compact( 'dataObat');
+        $arrData = compact('dataObat');
         return $dataObat;
     }
 
@@ -24,7 +29,7 @@ class ObatController extends Controller
         $kode = Obat::select(DB::raw('LPAD(IFNULL(MAX(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newKode'))
             ->where('id', 'LIKE', "$inisial%")->get();
 
-        $newKode = "OB".strtoupper($inisial) . $kode->first()->newKode;
+        $newKode = "OB" . strtoupper($inisial) . $kode->first()->newKode;
         return $newKode;
     }
 
@@ -75,12 +80,8 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
-
-
         } else {
-             $request->validate([
+            $request->validate([
                 'nama' => ['required', 'max:50'],
                 'harga' => ['required', 'numeric'],
                 'indikasi' => ['required'],
@@ -97,7 +98,7 @@ class ObatController extends Controller
             return Obat::create([
                 'id' => $request->id,
                 'nama' => $request->nama,
-                'gambar' =>"",
+                'gambar' => "",
                 'harga' => $request->harga,
                 'indikasi' => $request->indikasi,
                 'stok' => $request->stok,
@@ -111,11 +112,10 @@ class ObatController extends Controller
                 'keterangan' => $request->keterangan,
             ]);
         }
-
-
     }
 
-    public function update(Request $request){
+    public function update(Request $request)
+    {
 
         $obat = Obat::find($request->id);
         if (is_string($request->gambar)) {
@@ -135,7 +135,7 @@ class ObatController extends Controller
             $obat->update([
                 'id' => $request->id,
                 'nama' => $request->nama,
-                'gambar' =>$request->gambar,
+                'gambar' => $request->gambar,
                 'harga' => $request->harga,
                 'indikasi' => $request->indikasi,
                 'stok' => $request->stok,
@@ -148,8 +148,6 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
         } else {
 
 
@@ -190,15 +188,16 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
-
-
         }
     }
 
     //ini cuman coba buat home
     public function show()
     {
-        // var_dump(Obat::all());
-        return Obat::paginate(5);
+        $barangTerlaris=DB::table("td_juals")
+        ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product,obats.nama,obats.gambar,obats.harga"))
+        ->join("obats","td_juals.id_product","obats.id")
+        ->groupBy("td_juals.id_product","obats.nama","obats.gambar","obats.harga")->paginate(8);
+        return $barangTerlaris;
     }
 }

@@ -15,4 +15,9 @@ class Obat extends Model
 
     protected $guarded = ['deleted_at'];
     use SoftDeletes;
+
+    public function th_jual(){
+        return $this->belongsToMany(Th_Jual::class,"td_jual","id_product","id_th_jual")
+                    ->withPivot("tipe_produk","harga","jumlah","subtotal");
+    }
 }

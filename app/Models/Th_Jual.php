@@ -13,5 +13,5 @@ class Th_Jual extends Model
     public $incrementing    = false;
     public $timestamps      = false;
 
-    use SoftDeletes;
+    // use SoftDeletes;
 }
