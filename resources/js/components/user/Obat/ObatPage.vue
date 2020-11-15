@@ -5,7 +5,7 @@
       <h4>Obat & Alat Kesehatan Berdasarkan Kategori</h4>
       <div class="row mt-4">
         <div
-          class="col-lg-4"
+          class="col-lg-3"
           v-for="(kategori, index) in listKategori"
           :key="kategori.id"
         >

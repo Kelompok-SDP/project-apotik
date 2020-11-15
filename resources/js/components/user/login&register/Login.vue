@@ -30,7 +30,7 @@ export default {
 </script>
 
 
-<style>
-@import "/css/login&register/css/main.css";
+<style scoped>
+/* @import "/css/login&register/css/main.css"; */
 @import "/css/login&register/css/util.css";
 </style>
