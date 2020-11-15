@@ -54,9 +54,15 @@ Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
 Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/', 'Api\ObatController@create');
     Route::get('/', 'Api\ObatController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\ObatController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\ObatController@search');
     Route::post('/delete', 'Api\ObatController@delete');
     Route::post('/update', 'Api\ObatController@update');
     Route::post('/generateID', 'Api\ObatController@generateID');
+    Route::get('/kategori', 'Api\ObatController@showAllkategori');
+    Route::get('/getKategori/{id}', 'Api\ObatController@getKategori');
+
+
 });
 
 Route::group(['prefix' => 'admin/tag'], function () {

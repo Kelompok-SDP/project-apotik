@@ -15,13 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // php artisan db:seed --database="mysql"
         $this->call([
-            // UserSeeder::class,
-            // KategoriSeeder::class,
-            // ObatSeeder::class,
+             UserSeeder::class,
+            KategoriSeeder::class,
+            ObatSeeder::class,
             ThJualSeeder::class,
-            // ThJualSeeder::class,
-            // TagSeeder::class,
-            // ArtikelSeeder::class
+             TagSeeder::class,
+             ArtikelSeeder::class
         ]);
     }
 }

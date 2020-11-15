@@ -22,10 +22,12 @@ import PageNotFound from './components/PageNotFound.vue';
 import Login from './components/user/login&register/Login.vue';
 import Register from './components/user/login&register/Register.vue';
 
-import Home from './components/user/Homepage/Home.vue'
-import Artikel from './components/user/Artikel/ArtikelPage.vue'
-import ObatPage from './components/user/Obat/ObatPage'
-import KategoriPage from './components/user/Obat/KategoriPage'
+import Home from './components/user/Homepage/Home.vue';
+import Artikel from './components/user/Artikel/ArtikelPage.vue';
+import ObatPage from './components/user/Obat/ObatPage';
+import KategoriPage from './components/user/Obat/KategoriPage';
+import Profil from './components/user/Homepage/Profil.vue';
+
 
 // membuat router
 const routes = [
@@ -63,6 +65,11 @@ const routes = [
         name: 'Admin',
         path: '/admin',
         component: Admin
+    },
+    {
+        name: 'Profil',
+        path: '/profilUser',
+        component: Profil
     },
     {
         name: 'PageNotFound',
