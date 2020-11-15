@@ -228,10 +228,12 @@ class ObatController extends Controller
     //ini cuman coba buat home
     public function show()
     {
-        $barangTerlaris=DB::table("td_juals")
-        ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product,obats.nama,obats.gambar,obats.harga"))
-        ->join("obats","td_juals.id_product","obats.id")
-        ->groupBy("td_juals.id_product","obats.nama","obats.gambar","obats.harga")->paginate(8);
+        $barangTerlaris = DB::table("td_juals")
+            ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama,obats.gambar,obats.harga"))
+            ->join("obats", "td_juals.id_product", "obats.id")
+            ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga")
+            ->orderBy('jum', 'desc')
+            ->paginate(8);
         return $barangTerlaris;
     }
 

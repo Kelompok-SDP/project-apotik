@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //kalo ada error dulu composer dumpautoload
         // php artisan db:seed --database="mysql"
         $this->call([
              UserSeeder::class,

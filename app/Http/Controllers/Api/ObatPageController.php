@@ -48,11 +48,11 @@ class ObatPageController extends Controller
 
             if ($found) {
                 session()->put('cartUser' . $isLogin->id, $cartUser);
-                return session()->get('cartUser' . $isLogin->id);
+                return response()->json(session()->get('cartUser' . $isLogin->id));
             }
         }
 
         session()->push('cartUser' . $isLogin->id, $cart);
-        return session()->get('cartUser' . $isLogin->id);
+        return response()->json(session()->get('cartUser' . $isLogin->id));
     }
 }
