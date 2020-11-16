@@ -44,16 +44,17 @@
     </router-link>
 
     <div>
-      <button class="btn btn-secondary" v-if="isLogin.nama">
+      <button class="btn btn-secondary dropdown-toggle" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="isLogin.nama">
         halo,{{ isLogin.nama }}
       </button>
-    </div>
-    <div class="dropdown-menu" aria-labelledby="dropdown03">
+      <div class="dropdown-menu" aria-labelledby="dropdown03">
       <router-link to="/profilUser" class="dropdown-item"
         >Your Profile</router-link
       >
       <router-link to="" class="dropdown-item">Log Out</router-link>
     </div>
+    </div>
+
   </nav>
 </template>
 
