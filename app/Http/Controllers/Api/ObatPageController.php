@@ -28,14 +28,7 @@ class ObatPageController extends Controller
         $obat = Obat::find($request->id);
         $isLogin = json_decode($request->cookie('isLogin'));
 
-        $cart = [
-            'id' => $obat->id,
-            'nama' => $obat->nama,
-            'kemasan' => $obat->kemasan,
-            'jumlah' => 1,
-            'harga' => $obat->harga,
-        ];
-
+        $obat['jumlah'] = '1';
         if (session()->has('cartUser' . $isLogin->id)) {
             $found = false;
             $cartUser = session()->get('cartUser' . $isLogin->id);
@@ -52,7 +45,7 @@ class ObatPageController extends Controller
             }
         }
 
-        session()->push('cartUser' . $isLogin->id, $cart);
+        session()->push('cartUser' . $isLogin->id, $obat);
         return response()->json(session()->get('cartUser' . $isLogin->id));
     }
 }

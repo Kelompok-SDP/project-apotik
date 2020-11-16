@@ -10,7 +10,11 @@
             <span class="text-secondary col-3">Jumlah</span>
             <span class="text-secondary col-3">Harga</span>
           </div>
-          <CartItem />
+          <CartItem
+            v-for="cartItem in listCart"
+            :key="cartItem.id"
+            :dataCart="cartItem"
+          />
         </div>
         <CartNota />
       </div>
@@ -43,7 +47,6 @@ export default {
         .post("/lihatCart", {})
         .then((result) => {
           this.listCart = result.data;
-          console.table(this.listCart);
         })
         .catch((err) => {});
     },

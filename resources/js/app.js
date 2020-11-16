@@ -77,6 +77,11 @@ const routes = [
         component: Profil
     },
     {
+        name: 'Login',
+        path: '/logout',
+        component: Login
+    },
+    {
         name: 'PageNotFound',
         path: '*',
         component: PageNotFound

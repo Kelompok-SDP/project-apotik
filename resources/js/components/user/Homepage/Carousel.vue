@@ -9,14 +9,14 @@
         <div class="carousel-item active">
           <img
             class="d-block w-100"
-            src="https://cdn.hipwallpaper.com/i/92/9/WbdMfs.png"
+            src="https://i.pinimg.com/originals/1f/cb/62/1fcb62bbb729a4a2290193c6d3f685d9.jpg"
             alt="First slide"
           />
         </div>
         <div class="carousel-item">
           <img
             class="d-block w-100"
-            src="https://preview.redd.it/ducrbab9jq911.jpg?auto=webp&s=a001c69cb42c6419406e16f692773fdf4a0a3110"
+            src="https://wallpaperaccess.com/full/1810115.jpg"
             alt="Second slide"
           />
         </div>

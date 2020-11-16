@@ -15,17 +15,20 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "../Homepage/Navbar";
 import KategoriCard from "./KategoriCard";
+import Footer from "../Homepage/Footer";
 export default {
   name: "ObatPage",
   components: {
     Navbar: Navbar,
     KategoriCard: KategoriCard,
+    Footer: Footer,
   },
   data() {
     return {
