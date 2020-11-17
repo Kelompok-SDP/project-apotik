@@ -11,7 +11,12 @@ class Th_Jual extends Model
     protected $table        = "th_juals";
     protected $primaryKey   = "id";
     public $incrementing    = false;
-    public $timestamps      = false;
+    public $timestamps      = true;
 
     // use SoftDeletes;
+
+    public function td_jual()
+    {
+        return $this->hasMany(Td_Jual::class, 'id_th_jual', 'id');
+    }
 }

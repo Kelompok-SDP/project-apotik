@@ -12,11 +12,9 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
 
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');
+    Route::post('/makeTransaction', 'Api\CartPageController@makeTransaction');
     Route::get('/lihatCart', 'Api\CartPageController@show');
     Route::get('/logout', 'Api\UserController@logout');
-    Route::get('/profile', function () {
-        return view('main');
-    });
 });
 
 Route::get('/kategori', 'Api\ObatPageController@showAll');

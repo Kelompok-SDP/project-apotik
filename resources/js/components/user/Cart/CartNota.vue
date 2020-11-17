@@ -21,7 +21,7 @@
         class="btn btn-success"
         data-toggle="modal"
         data-target="#exampleModalCenter"
-        @click="btnBayar"
+        @click="bayar"
       >
         Bayar
       </button>
@@ -63,7 +63,16 @@ export default {
     formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
-    btnBayar() {},
+    bayar() {
+      axios
+        .post("/makeTransaction", {
+          grandTotal: this.grandTotal,
+        })
+        .then((result) => {
+          // alert
+        })
+        .catch((err) => {});
+    },
   },
 };
 </script>

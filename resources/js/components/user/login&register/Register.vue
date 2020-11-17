@@ -31,3 +31,7 @@ export default {
 };
 </script>
 
+<style scoped>
+@import "/css/login&register/css/main.css";
+@import "/css/login&register/css/util.css";
+</style>
