@@ -103,6 +103,7 @@ class CartPageController extends Controller
             ];
 
             $header->td_jual()->create($detail);
+            session()->forget('cartUser' . $isLogin->id);
         }
     }
 }

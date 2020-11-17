@@ -69,7 +69,7 @@ export default {
           grandTotal: this.grandTotal,
         })
         .then((result) => {
-          // alert
+          this.loadData();
         })
         .catch((err) => {});
     },

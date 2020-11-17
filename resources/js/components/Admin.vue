@@ -19,6 +19,7 @@ import ObatRacikan from "./admin/ObatRacikan.vue";
 import Artikel from "./admin/Artikel.vue";
 import Tag from "./admin/Tag.vue";
 import Alat_Kesehatan from "./admin/Alat_Kesehatan.vue";
+import Info from "./admin/Info.vue";
 
 export default {
   components: {
@@ -31,6 +32,7 @@ export default {
     Artikel: Artikel,
     Tag: Tag,
     Alat_Kesehatan: Alat_Kesehatan,
+    Info: Info,
   },
   data() {
     return {

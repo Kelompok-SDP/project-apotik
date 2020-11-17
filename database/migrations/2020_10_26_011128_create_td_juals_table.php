@@ -21,7 +21,8 @@ class CreateTdJualsTable extends Migration
             $table->string('tipe_produk', 15);
             $table->integer('harga')->length(10)->unsigned();
             $table->string('jumlah', 5);
-            $table->integer('subtotal')->length(10)->aunsigned();
+            $table->integer('subtotal')->length(10)->unsigned();
+            $table->softDeletes();
         });
     }
 

@@ -100,3 +100,9 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
     Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
 });
+
+Route::group(['prefix' => 'admin/info'], function () {
+    Route::get('/', 'Api\InfoController@show');
+    Route::post('/addInfo', 'Api\InfoController@create');
+    Route::post('/updateInfo', 'Api\InfoController@updateInfo');
+});
