@@ -77,11 +77,6 @@ const routes = [
         component: Profil
     },
     {
-        name: 'Login',
-        path: '/logout',
-        component: Login
-    },
-    {
         name: 'PageNotFound',
         path: '*',
         component: PageNotFound
@@ -91,3 +86,11 @@ const routes = [
 const router = new VueRouter({ mode: 'history', routes: routes });
 new Vue(Vue.util.extend({ router }, App)).$mount("#app");
 
+// let btn = document.querySelector(".btn-toggle");
+//   console.log(btn);
+//   // Listen for a click on the button
+//   btn.addEventListener("click", function () {
+//     // Then toggle (add/remove) the .dark-theme class to the body
+//     document.body.classList.toggle("dark-theme");
+//     console.log("test");
+//   });

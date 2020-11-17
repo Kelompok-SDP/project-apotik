@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/produk', 'Api\ObatController@show');
+
 
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
@@ -61,8 +61,6 @@ Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/generateID', 'Api\ObatController@generateID');
     Route::get('/kategori', 'Api\ObatController@showAllkategori');
     Route::get('/getKategori/{id}', 'Api\ObatController@getKategori');
-
-
 });
 
 Route::group(['prefix' => 'admin/tag'], function () {

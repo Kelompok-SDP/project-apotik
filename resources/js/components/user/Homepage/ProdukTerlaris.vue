@@ -8,7 +8,6 @@
           v-for="(product, index) in products"
           v-bind:key="index"
         ></Produk>
-
       </div>
     </div>
   </div>
@@ -31,7 +30,7 @@ export default {
   methods: {
     loadProduk() {
       axios
-        .get("/api/produk")
+        .get("/produk")
         .then((result) => {
           this.products = result.data.data;
         })

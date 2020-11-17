@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::group(['middleware' => ['ValidAdmin']], function () {
     Route::get('/{param1}/{param2?}', function () {
         return view('main');
@@ -10,7 +12,8 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
 
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');
-    Route::post('/lihatCart', 'Api\CartPageController@show');
+    Route::get('/lihatCart', 'Api\CartPageController@show');
+    Route::get('/logout', 'Api\UserController@logout');
     Route::get('/profile', function () {
         return view('main');
     });
@@ -22,8 +25,12 @@ Route::get('/kategori/{slug}', 'Api\ObatPageController@showDetail');
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
+Route::get('/produk', 'Api\ObatController@show');
 Route::get('/profilUser', 'Api\ProfilController@profil');
 Route::post('/profilUser/update', 'Api\ProfilController@profilUpdate');
+Route::post('/addJumlahCart', 'Api\CartPageController@addJumlah');
+Route::post('/minJumlahCart', 'Api\CartPageController@minJumlah');
+Route::post('/deleteCart', 'Api\CartPageController@deleteCart');
 
 
 

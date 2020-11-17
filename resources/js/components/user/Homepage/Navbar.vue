@@ -26,12 +26,9 @@
           >Obat & Vitamin</router-link
         >
       </div>
-      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.kontak }">
-        <router-link to="/kontak" class="navbar-text"
-          >Kontak Apotik</router-link
-        >
-      </div>
     </div>
+
+    <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
 
     <button class="btn btn-secondary" v-if="!isLogin.nama">
       <router-link to="/login" class="text-light">Login</router-link>
@@ -58,9 +55,9 @@
         <router-link to="/profilUser">
           <span class="dropdown-item">Your Profile</span>
         </router-link>
-        <router-link to="/logout">
-          <span class="dropdown-item">Log Out</span>
-        </router-link>
+        <span class="dropdown-item" style="cursor: pointer" @click="logout"
+          >Log Out</span
+        >
       </div>
     </div>
   </nav>
@@ -109,7 +106,14 @@ export default {
         .get("/home")
         .then((result) => {
           this.isLogin = result.data;
-          console.log(result.data);
+        })
+        .catch((err) => {});
+    },
+    logout() {
+      axios
+        .get("/logout")
+        .then((result) => {
+          this.$router.push("/login");
         })
         .catch((err) => {});
     },

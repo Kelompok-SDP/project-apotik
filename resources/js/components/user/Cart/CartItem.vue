@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex justify-content-between mt-3">
-    <div class="col-6">
+    <div class="col-3">
       <div class="row">
-        <div class="col-2">
+        <div class="col-3">
           <img
             v-bind:src="dataCart.gambar"
             alt=""
@@ -11,7 +11,7 @@
             height="46px;"
           />
         </div>
-        <div class="col-10">
+        <div class="col-9">
           <div class="row ml-2">
             <strong>{{ dataCart.nama }} </strong>
           </div>
@@ -36,7 +36,12 @@
         +
       </button>
     </div>
-    <div class="col-3">Rp {{ dataCart.harga }}</div>
+    <div class="col-2">Rp {{ formatNumber(dataCart.harga) }}</div>
+    <div class="col-2">
+      <button class="btn btn-sm btn-outline-danger" @click="deleteCart">
+        Delete
+      </button>
+    </div>
   </div>
 </template>
 
@@ -51,13 +56,40 @@ export default {
       let jumlah = parseInt(this.dataCart.jumlah);
       jumlah++;
       this.dataCart.jumlah = jumlah.toString();
+      axios
+        .post("/addJumlahCart", {
+          id: this.dataCart.id,
+        })
+        .then((result) => {
+          this.$emit("load-data");
+        })
+        .catch((err) => {});
     },
     minJumlah() {
-      if (this.dataCart.jumlah - 1 > 0) {
-        let jumlah = parseInt(this.dataCart.jumlah);
-        jumlah--;
-        this.dataCart.jumlah = jumlah.toString();
-      }
+      let jumlah = parseInt(this.dataCart.jumlah);
+      jumlah--;
+      this.dataCart.jumlah = jumlah.toString();
+      axios
+        .post("/minJumlahCart", {
+          id: this.dataCart.id,
+        })
+        .then((result) => {
+          this.$emit("load-data");
+        })
+        .catch((err) => {});
+    },
+    deleteCart() {
+      axios
+        .post("/deleteCart", {
+          id: this.dataCart.id,
+        })
+        .then((result) => {
+          this.$emit("load-data");
+        })
+        .catch((err) => {});
+    },
+    formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
   },
 };
