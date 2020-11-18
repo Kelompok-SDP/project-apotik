@@ -13,16 +13,13 @@
         />
         <span class="h4">{{ kategori.nama }}</span>
       </div>
-      <div class="mt-5">
-        <div class="card-deck">
-          <div class="row">
-            <Produk
-              :dataProduk="obat"
-              v-for="(obat, index) in listObat"
-              v-bind:key="index"
-            ></Produk>
-          </div>
-        </div>
+      <div class="row">
+        <Produk
+          class="col-lg-3"
+          :dataProduk="obat"
+          v-for="(obat, index) in listObat"
+          v-bind:key="index"
+        ></Produk>
       </div>
     </div>
   </div>

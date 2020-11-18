@@ -19,6 +19,7 @@ Route::group(['middleware' => ['validLogin']], function () {
 
 Route::get('/kategori', 'Api\ObatPageController@showAll');
 Route::get('/kategori/{slug}', 'Api\ObatPageController@showDetail');
+Route::get('/artikel/getTag/{id}', 'Api\ArtikelController@tagArtikel');
 
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');

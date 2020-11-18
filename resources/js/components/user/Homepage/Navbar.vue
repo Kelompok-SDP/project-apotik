@@ -55,6 +55,9 @@
         <router-link to="/profilUser">
           <span class="dropdown-item">Your Profile</span>
         </router-link>
+        <router-link to="/admin" v-if="isLogin.role == 1">
+          <span class="dropdown-item">Admin Dashboard</span>
+        </router-link>
         <span class="dropdown-item" style="cursor: pointer" @click="logout"
           >Log Out</span
         >
@@ -113,7 +116,7 @@ export default {
       axios
         .get("/logout")
         .then((result) => {
-          this.$router.push("/login");
+          window.location.replace("/login");
         })
         .catch((err) => {});
     },

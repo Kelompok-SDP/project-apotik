@@ -28,6 +28,7 @@ import ObatPage from './components/user/Obat/ObatPage';
 import KategoriPage from './components/user/Obat/KategoriPage';
 import Profil from './components/user/Homepage/Profil.vue';
 import CartPage from './components/user/Cart/CartPage.vue'
+import DetailObat from './components/user/Obat/DetailObat.vue'
 
 // membuat router
 const routes = [
@@ -50,6 +51,11 @@ const routes = [
         name: 'KategoriPage',
         path: '/produk/:slug',
         component: KategoriPage
+    },
+    {
+        name: 'DetailObat',
+        path: '/obat/:id',
+        component: DetailObat
     },
     {
         name: 'CartPage',
@@ -83,6 +89,7 @@ const routes = [
     },
 
 ]
+
 const router = new VueRouter({ mode: 'history', routes: routes });
 new Vue(Vue.util.extend({ router }, App)).$mount("#app");
 
