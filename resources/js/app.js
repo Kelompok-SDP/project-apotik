@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import VueAxios from 'vue-axios';
 import Axios from 'axios';
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 Vue.use(VueRouter,VueAxios,Axios);
 
 import App from './components/App.vue';
