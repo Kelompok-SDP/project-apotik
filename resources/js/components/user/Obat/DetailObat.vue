@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar :lokasi="'obat'" />
     <div class="containerNew">
       <div>
         <span class="h4 text-uppercase">{{ obat.nama }} </span> <br />
@@ -80,7 +80,13 @@
           <p class="font-weight-light">ini ini Kategori</p>
         </div>
         <div class="col-lg-3">
-          <ProdukRelated :id_kategori="id_kategori"></ProdukRelated>
+          <p class="h4">PRODUK SEJENIS</p>
+          <div class="row" v-for="dataObat in listObat" :key="dataObat.id">
+            <ProdukRelated
+              :data="dataObat"
+              v-on:load-data="loadData"
+            ></ProdukRelated>
+          </div>
         </div>
       </div>
     </div>
@@ -107,7 +113,7 @@ export default {
     return {
       obat: {},
       listKategori: [],
-      id_kategori: "",
+      listObat: [],
       isLogin: {},
     };
   },
@@ -121,7 +127,7 @@ export default {
         .then((result) => {
           this.obat = result.data.obat;
           this.listKategori = result.data.listKategori;
-          this.id_kategori = this.listKategori[0].id;
+          this.loadObatRelated();
         })
         .catch((err) => {});
 
@@ -133,6 +139,8 @@ export default {
         .catch((err) => {
           console.log("error", this.isLogin.nama);
         });
+
+      console.log("test");
     },
     addToCart() {
       axios
@@ -140,6 +148,15 @@ export default {
           id: this.obat.id,
         })
         .then((result) => {})
+        .catch((err) => {});
+    },
+    loadObatRelated() {
+      axios
+        .get("/obat/getRelated/" + this.listKategori[0].id)
+        .then((result) => {
+          this.listObat = result.data;
+          console.log(this.listObat);
+        })
         .catch((err) => {});
     },
   },
