@@ -7018,6 +7018,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Profil",
@@ -7027,6 +7118,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isLogin: {},
+      htrans: [],
+      detailHtrans: {},
+      dtrans: [],
+      link: "/obat/getDetail/",
       nama: "",
       email: "",
       role: 0,
@@ -7046,12 +7141,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get("/profilUser").then(function (result) {
-        _this.isLogin = result.data;
-        console.log("yo ini isLogin: " + _this.isLogin);
+        _this.isLogin = result.data.userLogin;
+        _this.htrans = result.data.dataHtrans;
         _this.nama = _this.isLogin.nama;
         _this.email = _this.isLogin.email;
         _this.notlp = _this.isLogin.noHp;
         _this.iduser = _this.isLogin.id;
+        console.log(_this.nama);
       })["catch"](function (err) {});
       document.getElementById("lanjutan").style.display = "none";
       document.getElementById("btnEdit").style.display = "inline";
@@ -7062,6 +7158,16 @@ __webpack_require__.r(__webpack_exports__);
       this.cpaswbaru = "";
       this.paswbaru = "";
     },
+    getDetail: function getDetail(htrans) {
+      var _this2 = this;
+
+      //clone kategori supaya tidak merubah isi dari tabel asli
+      this.detailHtrans = htrans;
+      axios.get("/getDtrans/" + htrans.id).then(function (result) {
+        _this2.dtrans = result.data;
+      });
+      $("#modal-edit").modal("show");
+    },
     editData: function editData() {
       document.getElementById("lanjutan").style.display = "inline";
       document.getElementById("btnEdit").style.display = "none";
@@ -7070,7 +7176,7 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById("tlp").disabled = false;
     },
     addData: function addData() {
-      var _this2 = this;
+      var _this3 = this;
 
       var formData = new FormData();
       formData.append("id", this.iduser);
@@ -7085,10 +7191,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/profilUser/update", formData).then(function (result) {
         alert('data Berhasil di ubah');
 
-        _this2.loadData();
+        _this3.loadData();
       })["catch"](function (_ref) {
         var response = _ref.response;
-        _this2.errors = response.data.errors; //alert(this.errors[0])
+        _this3.errors = response.data.errors; //alert(this.errors[0])
       });
     }
   }
@@ -12269,7 +12375,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-f13a59f4] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-f13a59f4] {\n  margin-left: 3rem;\n}\n", ""]);
 
 // exports
 
@@ -12516,7 +12622,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\r\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\r\n  font-weight: bold;\r\n  color: red;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\r\n", ""]);
+exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\n  font-weight: bold;\n  color: red;\n}\n.active[data-v-82ff4d50] {\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\n  background-color: #29374681;\n  color: white;\n  padding: 12px;\n  font-size: 14px;\n  border: none;\n  cursor: pointer;\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\n  display: none;\n  position: absolute;\n  background-color: #f9f9f9;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {background-color: #f1f1f1}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\n  background-color: #3D5C7F;\n}\n\n", ""]);
 
 // exports
 
@@ -51772,12 +51878,12 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", [
+      _c("div", { staticClass: "dropdown" }, [
         _vm.isLogin.nama
           ? _c(
               "button",
               {
-                staticClass: "btn btn-secondary dropdown-toggle",
+                staticClass: "btn btn-secondary dropbtn dropdown-toggle",
                 attrs: {
                   id: "dropdown03",
                   "data-toggle": "dropdown",
@@ -51792,7 +51898,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "dropdown-menu",
+            staticClass: "dropdown-menu ",
             attrs: { "aria-labelledby": "dropdown03" }
           },
           [
@@ -52339,10 +52445,144 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "col-4" }, [
+              _c("h5", [_vm._v("History Pembelian")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("table", { staticClass: "table table-bordered" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.htrans, function(history, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(index + 1))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(history.nama_dokter))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(history.tanggal))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: {
+                              "data-toggle": "modal",
+                              "data-target": "#myModal"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.getDetail(history)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                          Detail\n                          "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ])
+            ])
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade show",
+          staticStyle: { display: "hidden", "padding-right": "16px" },
+          attrs: { id: "modal-edit", "aria-modal": "true" }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog modal-lg" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _vm._v(
+                    "\n                  Kode Struk : " +
+                      _vm._s(_vm.detailHtrans.id) +
+                      " "
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                  Nama Dokter : " +
+                      _vm._s(_vm.detailHtrans.nama_dokter) +
+                      " "
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                  Total Harga : " +
+                      _vm._s(_vm.detailHtrans.total) +
+                      " "
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                  Tanggal : " +
+                      _vm._s(_vm.detailHtrans.tanggal) +
+                      " "
+                  ),
+                  _c("br"),
+                  _vm._v(" "),
+                  _vm.errors.hasOwnProperty("nama")
+                    ? _c("span", { staticClass: "invalid-feedback d-block" }, [
+                        _vm._v(
+                          "\n                      Keterangan : " +
+                            _vm._s(_vm.detailHtrans.keterangan) +
+                            " "
+                        ),
+                        _c("br")
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("table", { staticClass: "table table-bordered" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.dtrans, function(obats, index) {
+                        return _c("tr", { key: index }, [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("img", {
+                              staticClass: "card-img-top",
+                              staticStyle: { width: "50%" },
+                              attrs: {
+                                src: obats.gambar,
+                                alt: "Card image cap"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(obats.nama))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(obats.jumlah))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(obats.harga))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(obats.subtotal))])
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]
+      )
     ],
     1
   )
@@ -52352,10 +52592,57 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("h5", [_vm._v("History Pembelian")]),
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticStyle: { width: "10px" } }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama Dokter")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tanggal")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Edit Kategori")]),
       _vm._v(" "),
-      _c("hr")
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { staticStyle: { width: "10px" } }, [_vm._v("No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Gambar")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Nama Obat")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Jumlah")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Subtotal")])
+      ])
     ])
   }
 ]
@@ -71850,8 +72137,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

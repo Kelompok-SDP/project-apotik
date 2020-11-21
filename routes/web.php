@@ -30,6 +30,7 @@ Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
 Route::get('/produk', 'Api\ObatController@show');
 Route::get('/profilUser', 'Api\ProfilController@profil');
+Route::get('/getDtrans/{id}', 'Api\ProfilController@getDtrans');
 Route::post('/profilUser/update', 'Api\ProfilController@profilUpdate');
 Route::post('/addJumlahCart', 'Api\CartPageController@addJumlah');
 Route::post('/minJumlahCart', 'Api\CartPageController@minJumlah');

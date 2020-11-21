@@ -14,5 +14,8 @@ class Td_Jual extends Model
     public $timestamps      = false;
 
     protected $guarded = [];
-    // use SoftDeletes;
+    public function obat()
+    {
+        return $this->hasOne(Obat::class, 'id', 'id_product');
+    }
 }

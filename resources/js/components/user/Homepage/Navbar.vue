@@ -40,9 +40,9 @@
       </button>
     </router-link>
 
-    <div>
+    <div class="dropdown">
       <button
-        class="btn btn-secondary dropdown-toggle"
+        class="btn btn-secondary dropbtn dropdown-toggle"
         id="dropdown03"
         data-toggle="dropdown"
         aria-haspopup="true"
@@ -51,7 +51,7 @@
       >
         halo,{{ isLogin.nama }}
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdown03">
+      <div class="dropdown-menu " aria-labelledby="dropdown03">
         <router-link to="/profilUser">
           <span class="dropdown-item">Your Profile</span>
         </router-link>
@@ -134,4 +134,41 @@ router-link {
 .active {
   border-bottom: 2px solid red;
 }
+
+
+.dropbtn {
+  background-color: #29374681;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #3D5C7F;
+}
+
 </style>
