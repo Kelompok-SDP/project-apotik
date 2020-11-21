@@ -78,8 +78,11 @@
 
     <div class="container-login100-form-btn">
       <div class="wrap-login100-form-btn">
-        <div class="login100-form-bgbtn"></div>
-        <button class="login100-form-btn">Register</button>
+        <VueLoadingButton
+          :loading="isLoading"
+          :styled="true"
+          @click.native="register"
+        />
       </div>
 
       <router-link to="/login">Ke Halaman Login</router-link>
@@ -88,8 +91,12 @@
 </template>
 
 <script>
+import VueLoadingButton from "vue-loading-button";
 export default {
   name: "FormRegister",
+  components: {
+    VueLoadingButton: VueLoadingButton,
+  },
   data() {
     return {
       form: {
@@ -99,12 +106,14 @@ export default {
         password: "",
         password_confirmation: "",
       },
+      isLoading: false,
       errors: {},
     };
   },
   methods: {
     register() {
       this.errors = {};
+      this.isLoading = true;
       let formData = new FormData();
       formData.append("email", this.form.email);
       formData.append("nama", this.form.nama);
@@ -114,10 +123,14 @@ export default {
       axios
         .post("/register", formData)
         .then((result) => {
+          this.isLoading = false;
           alert("berhasil register");
         })
         .catch(({ response }) => {
-          this.errors = response.data.errors;
+          setTimeout(() => {
+            this.errors = response.data.errors;
+            this.isLoading = false;
+          }, 1000);
         });
     },
   },

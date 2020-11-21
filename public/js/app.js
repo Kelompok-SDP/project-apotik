@@ -7587,6 +7587,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
 //
 //
 //
@@ -7676,8 +7677,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FormRegister",
+  components: {
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       form: {
@@ -7687,6 +7695,7 @@ __webpack_require__.r(__webpack_exports__);
         password: "",
         password_confirmation: ""
       },
+      isLoading: false,
       errors: {}
     };
   },
@@ -7695,6 +7704,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = {};
+      this.isLoading = true;
       var formData = new FormData();
       formData.append("email", this.form.email);
       formData.append("nama", this.form.nama);
@@ -7702,10 +7712,14 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("password", this.form.password);
       formData.append("password_confirmation", this.form.password_confirmation);
       axios.post("/register", formData).then(function (result) {
+        _this.isLoading = false;
         alert("berhasil register");
       })["catch"](function (_ref) {
         var response = _ref.response;
-        _this.errors = response.data.errors;
+        setTimeout(function () {
+          _this.errors = response.data.errors;
+          _this.isLoading = false;
+        }, 1000);
       });
     }
   }
@@ -53212,7 +53226,21 @@ var render = function() {
         "div",
         { staticClass: "container-login100-form-btn" },
         [
-          _vm._m(0),
+          _c(
+            "div",
+            { staticClass: "wrap-login100-form-btn" },
+            [
+              _c("VueLoadingButton", {
+                attrs: { loading: _vm.isLoading, styled: true },
+                nativeOn: {
+                  click: function($event) {
+                    return _vm.register($event)
+                  }
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("router-link", { attrs: { to: "/login" } }, [
             _vm._v("Ke Halaman Login")
@@ -53223,18 +53251,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "wrap-login100-form-btn" }, [
-      _c("div", { staticClass: "login100-form-bgbtn" }),
-      _vm._v(" "),
-      _c("button", { staticClass: "login100-form-btn" }, [_vm._v("Register")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

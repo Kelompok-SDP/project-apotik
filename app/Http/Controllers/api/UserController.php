@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SuccessRegistrasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use function GuzzleHttp\json_decode;
 
@@ -73,6 +75,8 @@ class UserController extends Controller
         $data['id'] = $id;
         $data['password'] = Hash::make($request->password);
         User::create($data);
+        var_dump($request->email);
+        Mail::to($request->email)->send(new SuccessRegistrasi($id));
     }
 
     public function login(Request $request)
