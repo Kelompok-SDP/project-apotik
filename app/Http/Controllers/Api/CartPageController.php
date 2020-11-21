@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Td_Jual;
 use App\Models\Th_Jual;
+use App\Models\User;
+use App\Notifications\InvoicePaid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -103,7 +105,10 @@ class CartPageController extends Controller
             ];
 
             $header->td_jual()->create($detail);
-            session()->forget('cartUser' . $isLogin->id);
         }
+
+        $user = User::find($isLogin->id);
+        $user->notify(new InvoicePaid($cartUser, $request->grandTotal));
+        // session()->forget('cartUser' . $isLogin->id);
     }
 }

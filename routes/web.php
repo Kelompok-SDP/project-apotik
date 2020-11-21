@@ -10,6 +10,7 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
     })->where(['param1' => 'admin', 'param2' => '.*']);
 });
 
+
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');
     Route::post('/makeTransaction', 'Api\CartPageController@makeTransaction');
@@ -24,7 +25,6 @@ Route::get('/obat/getDetail/{id}', 'Api\ObatController@getDetail');
 Route::get('/obat/getRelated/{id}', 'Api\ObatController@getRelated');
 
 
-
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
@@ -35,7 +35,7 @@ Route::post('/addJumlahCart', 'Api\CartPageController@addJumlah');
 Route::post('/minJumlahCart', 'Api\CartPageController@minJumlah');
 Route::post('/deleteCart', 'Api\CartPageController@deleteCart');
 
-
+Route::get('/notifUser', 'NotifPageController@showAll');
 
 Route::get('/{any}', function () {
     return view('main');
