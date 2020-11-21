@@ -275,7 +275,7 @@ class ObatController extends Controller
 
     public function getRelated($id)
     {
-        DD($id);
+
         $kategori = Kategori::find($id);
         return $kategori->obats()->get();
     }
