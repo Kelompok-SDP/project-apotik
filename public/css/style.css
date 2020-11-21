@@ -1,0 +1,34 @@
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+    background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #6649b8;
+}
+
+body {
+    color: #222;
+    background: #fff;
+}
+
+a {
+    color: #0033cc;
+}
+
+body.dark-theme .card {
+    color: #eee;
+    background: #2F3B50;
+}
+
+body.dark-theme {
+    color: #eee;
+    background: #121212;
+}
+
+body.dark-theme a {
+    color: #809fff;
+}

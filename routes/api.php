@@ -22,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/produk', 'Api\ObatController@show');
+
 
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
@@ -54,9 +54,13 @@ Route::post('/admin/kategori/delete', 'Api\KategoriController@delete');
 Route::group(['prefix' => 'admin/obat'], function () {
     Route::post('/', 'Api\ObatController@create');
     Route::get('/', 'Api\ObatController@showAll');
+    Route::get('/changePaginate/{jumlah}', 'Api\ObatController@changePaginate');
+    Route::get('/search/{keywords}/{jumlah}', 'Api\ObatController@search');
     Route::post('/delete', 'Api\ObatController@delete');
     Route::post('/update', 'Api\ObatController@update');
     Route::post('/generateID', 'Api\ObatController@generateID');
+    Route::get('/kategori', 'Api\ObatController@showAllkategori');
+    Route::get('/getKategori/{id}', 'Api\ObatController@getKategori');
 });
 
 Route::group(['prefix' => 'admin/tag'], function () {
@@ -95,4 +99,10 @@ Route::group(['prefix' => 'admin/artikel'], function () {
     Route::post('/delete', 'Api\ArtikelController@delete');
     Route::get('/tag', 'Api\ArtikelController@showAlltag');
     Route::get('/getTag/{id}', 'Api\ArtikelController@getTag');
+});
+
+Route::group(['prefix' => 'admin/info'], function () {
+    Route::get('/', 'Api\InfoController@show');
+    Route::post('/addInfo', 'Api\InfoController@create');
+    Route::post('/updateInfo', 'Api\InfoController@updateInfo');
 });

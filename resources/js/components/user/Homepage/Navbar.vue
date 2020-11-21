@@ -26,22 +26,42 @@
           >Obat & Vitamin</router-link
         >
       </div>
-      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.kontak }">
-        <router-link to="/kontak" class="navbar-text"
-          >Kontak Apotik</router-link
-        >
-      </div>
     </div>
+
+    <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
 
     <button class="btn btn-secondary" v-if="!isLogin.nama">
       <router-link to="/login" class="text-light">Login</router-link>
     </button>
-    <div class="btn btn-secondary nav-link dropdown-toggle" v-if="isLogin.nama" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      halo,{{ isLogin.nama }}
-    </div>
-    <div class="dropdown-menu" aria-labelledby="dropdown03" >
-       <router-link to="/profilUser" class='dropdown-item'>Your Profile</router-link>
-       <router-link to="" class='dropdown-item'>Log Out</router-link>
+
+    <router-link to="/lihatCart" class="text-light">
+      <button class="btn btn-primary" v-if="isLogin.nama">
+        Keranjang Belanja
+      </button>
+    </router-link>
+
+    <div>
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        id="dropdown03"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        v-if="isLogin.nama"
+      >
+        halo,{{ isLogin.nama }}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdown03">
+        <router-link to="/profilUser">
+          <span class="dropdown-item">Your Profile</span>
+        </router-link>
+        <router-link to="/admin" v-if="isLogin.role == 1">
+          <span class="dropdown-item">Admin Dashboard</span>
+        </router-link>
+        <span class="dropdown-item" style="cursor: pointer" @click="logout"
+          >Log Out</span
+        >
+      </div>
     </div>
   </nav>
 </template>
@@ -89,7 +109,14 @@ export default {
         .get("/home")
         .then((result) => {
           this.isLogin = result.data;
-          console.log(result.data);
+        })
+        .catch((err) => {});
+    },
+    logout() {
+      axios
+        .get("/logout")
+        .then((result) => {
+          window.location.replace("/login");
         })
         .catch((err) => {});
     },

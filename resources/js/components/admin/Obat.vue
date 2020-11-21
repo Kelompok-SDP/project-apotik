@@ -8,6 +8,32 @@
         <h3 class="card-title">List Semua Obat</h3>
       </div>
       <div class="card-body">
+          <div class="row">
+          <div class="form-group col-sm">
+            <label for="">Banyak Data pada Tabel</label>
+            <input
+              type="number"
+              class="form-control"
+              id=""
+              placeholder="Co: 2"
+              v-model="perPage"
+              @change="changePage"
+            />
+          </div>
+          <div class="form-group col-sm">
+            <label for="">Search Obat</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="Co:  Puyer"
+                v-model="keywords"
+              />
+              <button class="btn btn-primary" @click="search">Cari</button>
+            </div>
+          </div>
+        </div>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -61,6 +87,43 @@
           </tbody>
         </table>
 
+        <div class="card-footer clearfix">
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item">
+              <button
+                class="page-link"
+                :disabled="!pagination.prev_page_url"
+                @click="fetchPaginate(pagination.prev_page_url)"
+              >
+                Previous
+              </button>
+            </li>
+
+            <!-- <li
+            class="page-item"
+            v-for="(page, index) in parseInt(pagination.to)"
+            :key="index"
+          >
+            <button class="page-link" @click="fetchPaginate(index + 1)">
+              {{ index + 1 }}
+            </button>
+          </li> -->
+
+            <li class="page-item">
+              <button
+                class="page-link"
+                href="#"
+                :disabled="!pagination.next_page_url"
+                @click="fetchPaginate(pagination.next_page_url)"
+              >
+                Next
+              </button>
+            </li>
+          </ul>
+          <span
+            >Page {{ pagination.current_page }} of {{ pagination.last_page }}
+          </span>
+        </div>
         <h2 v-if="Obats.length == 0" class="text-center mt-2">
           Belum ada data Obat
         </h2>
@@ -344,16 +407,61 @@
                     {{ errors.keterangan[0] }}
                 </span>
               </div>
-            </div>
-            <div class="card-footer">
+
+
+
+
+
+
+        <div class="form-group">
+                  <label for="">Banyaknya Kategori</label> <br />
+                  <div v-if="form.tp ==2">
+                        <label for="" >Kategori sebelumnya :</label>
+                        <span
+                            class="btn btn-sm btn-danger mr-2"
+
+                            v-for="kategories in Kategoris"
+                            :key="kategories"
+                        >
+                            {{ kategories }}
+                        </span>
+                  </div>
+                  <br />
+                  <input
+                    type="number"
+                    class="form-control"
+                    id=""
+                    placeholder="Co: 2"
+                    v-model="manykategori"
+                    @change="makeCombobox"
+                  />
+                  <span
+                    class="invalid-feedback d-block"
+                    v-if="errors.hasOwnProperty('kategories')"
+                  >
+                    {{ errors.kategories[0] }}
+                  </span>
+                </div>
+                <div
+                  class="form-group"
+                  v-for="i in parseInt(manykategori)"
+                  :key="i"
+                >
+                  <select class="form-control tag-pilihan-insert" id="">
+                    <option v-for="kategori in kategories" :key="kategori.id" :value="kategori.id">
+                      {{ kategori.nama }}
+                    </option>
+                  </select>
+                </div>
+                </div>
+                <div class="card-footer">
               <button type="submit" class="btn btn-primary">
                   <span v-if="form.tp ==1">Tambahkan</span>
                   <span v-if="form.tp ==2">Simpan Perubahan</span>
              </button>
             </div>
         </div>
-      </div>
-
+        </div>
     </div>
        </form>
 
@@ -372,6 +480,8 @@ export default {
   data() {
     return {
       Obats: [],
+      Kategoris : [],
+      kategories : [],
       form: {
         kode: "",
         nama: "",
@@ -392,15 +502,23 @@ export default {
       errors: {},
       isLoading: false,
       isSuccess: false,
+      manykategori :1,
+      perPage: 5,
+      keywords :"",
+     pagination: [],
+      url: "/api/admin/obat",
+      dump : ""
     };
   },
   mounted() {
     this.loadData();
+    this.getKategoris();
   },
   methods: {
     loadData() {
-      axios.get("/api/admin/obat").then((response) => {
-        this.Obats = response.data;
+      axios.get(this.url).then((response) => {
+        this.Obats = response.data.data;
+        this.pagination = response.data;
         this.form.kode = "";
         this.form.nama = "";
         this.form.gambar = "";
@@ -416,6 +534,7 @@ export default {
         this.form.manufaktur = "";
         this.form.keterangan = "";
         this.form.tp = 1;
+        this.manykategori =1;
       });
     },
     addData() {
@@ -440,6 +559,13 @@ export default {
                     formData.append("manufaktur", this.form.manufaktur);
                     formData.append("keterangan", this.form.keterangan);
 
+
+                     //bikin array selectedTags isi nya id semua tag yang dipilih
+                    var selectedTags = $(".tag-pilihan-insert")
+                        .map((_, el) => el.value)
+                        .get();
+
+                    formData.append("kategoris", selectedTags);
                     axios
                         .post("/api/admin/obat", formData)
                         .then((response) => {
@@ -468,6 +594,13 @@ export default {
                     formData.append("manufaktur", this.form.manufaktur);
                     formData.append("keterangan", this.form.keterangan);
 
+                       //bikin array selectedTags isi nya id semua tag yang dipilih
+                    var selectedTags = $(".tag-pilihan-insert")
+                        .map((_, el) => el.value)
+                        .get();
+
+                    formData.append("kategoris", selectedTags);
+
                     axios
                         .post("/api/admin/obat/update", formData)
                         .then((response) => {
@@ -476,18 +609,45 @@ export default {
                         })
                         .catch(({ response }) => {
                         this.errors = response.data.errors;
-                        alert(this.errors)
+
                         })
                         .finally(() => (this.isLoading = false));
+
+
         }
     },
 
      processFile(event, mode) {
-      if (mode == "add") {
+
         this.form.gambar = event.target.files[0];
+    },
+    fetchPaginate(url) {
+      this.url = url;
+      this.loadData();
+    },
+    makePagination(data) {
+      let pagination = {
+        current_page: data.current_page,
+        last_page: data.last_page,
+        next_page_url: data.next_page_url,
+        prev_page_url: data.prev_page_url,
+      };
+      this.pagination = pagination;
+    },
+    changePage() {
+      this.url = "/api/admin/obat/changePaginate/" + this.perPage;
+      this.loadData();
+    },
+    search() {
+      if (this.keywords.length > 0) {
+        this.url =
+          "/api/admin/obat/search/" + this.keywords + "/" + this.perPage;
+        console.log(this.url);
       } else {
-        this.editForm.gambar = event.target.files[0];
+        this.url = "/api/admin/obat";
       }
+
+      this.loadData();
     },
      autogenKode() {
       if (this.form.nama.length > 1) {
@@ -526,6 +686,31 @@ export default {
         this.form.manufaktur = kategoriClone.manufaktur;
         this.form.keterangan = kategoriClone.keterangan;
         this.form.tp = 2;
+
+        if(this.form.gambar == null) this.form.gambar ="";
+         axios
+
+        .get("/api/admin/obat/getKategori/" + this.form.kode)
+        .then((result) => {
+          this.Kategoris = result.data;
+        })
+         .catch(({ response }) => {
+                        this.errors = response.data.errors;
+                        alert(this.errors[0])
+         })
+
+        //this.manykategori = this.Kategoris.length;
+    },
+    getKategoris() {
+      axios
+        .get("/api/admin/obat/kategori")
+        .then((result) => {
+          this.kategories = result.data;
+        })
+        .catch((err) => {});
+    },
+    makeCombobox() {
+      this.getKategoris();
     },
      deleteData(artikel) {
       axios

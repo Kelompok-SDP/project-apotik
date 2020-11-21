@@ -13,5 +13,6 @@ class Td_Jual extends Model
     public $incrementing    = false;
     public $timestamps      = false;
 
+    protected $guarded = [];
     // use SoftDeletes;
 }

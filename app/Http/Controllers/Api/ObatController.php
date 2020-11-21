@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
 use App\Models\Obat;
 use App\Models\Td_Jual;
 use App\Rules\isTipeObat;
@@ -16,8 +17,7 @@ class ObatController extends Controller
 {
     public function showAll()
     {
-        $dataObat = Obat::all();
-        $arrData = compact('dataObat');
+        $dataObat = Obat::orderBy('harga', 'DESC')->paginate(5);
         return $dataObat;
     }
 
@@ -26,10 +26,9 @@ class ObatController extends Controller
         $nama = $request->nama;
         $inisial = strtoupper(substr($nama, 0, 2));
 
-        $kode = Obat::select(DB::raw('LPAD(IFNULL(MAX(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newKode'))
+        $kode = Obat::select(DB::raw('LPAD(IFNULL(max(SUBSTRING(`id`,-3,3)),0)+1,3,0) as newKode'))
             ->where('id', 'LIKE', "$inisial%")->get();
-
-        $newKode = "OB" . strtoupper($inisial) . $kode->first()->newKode;
+        $newKode = strtoupper($inisial) . $kode->first()->newKode;
         return $newKode;
     }
 
@@ -64,7 +63,9 @@ class ObatController extends Controller
             $file->move($tujuan, $nama_file);
             $pathDbGambar = '/img_database/obat/' . $nama_file;
 
-            return Obat::create([
+            $arrkategori = explode(",", $request->kategoris);
+
+            Obat::create([
                 'id' => $request->id,
                 'nama' => $request->nama,
                 'gambar' => $pathDbGambar,
@@ -80,6 +81,11 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            $newKategori = Obat::find($request->id);
+            foreach ($arrkategori as $tag) {
+                $newKategori->kategoris()->attach($tag);
+            }
         } else {
             $request->validate([
                 'nama' => ['required', 'max:50'],
@@ -95,7 +101,9 @@ class ObatController extends Controller
             ]);
 
 
-            return Obat::create([
+            $arrkategori = explode(",", $request->kategoris);
+
+            Obat::create([
                 'id' => $request->id,
                 'nama' => $request->nama,
                 'gambar' => "",
@@ -111,6 +119,11 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            $newKategori = Obat::find($request->id);
+            foreach ($arrkategori as $tag) {
+                $newKategori->kategoris()->attach($tag);
+            }
         }
     }
 
@@ -118,7 +131,7 @@ class ObatController extends Controller
     {
 
         $obat = Obat::find($request->id);
-        if (is_string($request->gambar)) {
+        if (is_string($request->gambar) || $request->gambar == null) {
             $request->validate([
                 'nama' => ['required', 'max:50'],
                 'harga' => ['required', 'numeric'],
@@ -131,6 +144,8 @@ class ObatController extends Controller
                 'segmentasi' => ['required'],
                 'manufaktur' => ['required'],
             ]);
+
+
 
             $obat->update([
                 'id' => $request->id,
@@ -148,6 +163,15 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            DB::table('obats_kategoris')
+                ->where('id_obats', $request->id)
+                ->delete();
+
+            $arrKategori = explode(",", $request->kategoris);
+            foreach ($arrKategori as $value) {
+                $obat->kategoris()->attach($value);
+            }
         } else {
 
 
@@ -188,16 +212,71 @@ class ObatController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            DB::table('obats_kategoris')
+                ->where('id_obats', $request->id)
+                ->delete();
+
+            $arrKategori = explode(",", $request->kategoris);
+            foreach ($arrKategori as $value) {
+                $obat->kategoris()->attach($value);
+            }
         }
     }
 
     //ini cuman coba buat home
     public function show()
     {
-        $barangTerlaris=DB::table("td_juals")
-        ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product,obats.nama,obats.gambar,obats.harga"))
-        ->join("obats","td_juals.id_product","obats.id")
-        ->groupBy("td_juals.id_product","obats.nama","obats.gambar","obats.harga")->paginate(8);
+        $barangTerlaris = DB::table("td_juals")
+            ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama,obats.gambar,obats.harga"))
+            ->join("obats", "td_juals.id_product", "obats.id")
+            ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga")
+            ->orderBy('jum', 'desc')
+            ->paginate(8);
         return $barangTerlaris;
+    }
+
+    public function showAllkategori()
+    {
+        $kategori = Kategori::all();
+        return $kategori;
+    }
+
+    public function changePaginate($jumlah)
+    {
+        return Obat::paginate($jumlah);
+    }
+
+    public function search($keywords, $jumlah)
+    {
+        return Obat::where('nama', 'LIKE', "$keywords%")->paginate($jumlah);
+    }
+
+    public function getKategori($id)
+    {
+        $obat = Obat::find($id);
+
+        $arrKategori = [];
+        foreach ($obat->kategoris as $key => $value) {
+            $arrKategori[] = $value->nama;
+        }
+
+        //asal for dari sini
+        // DD($artikel->tags[0]->nama, $artikel->tags[1]->nama);
+        return $arrKategori;
+    }
+
+    public function getDetail($id)
+    {
+        $obat = Obat::find($id);
+        $listKategori = $obat->kategoris()->get();
+        return compact(['obat', 'listKategori']);
+    }
+
+    public function getRelated($id)
+    {
+        DD($id);
+        $kategori = Kategori::find($id);
+        return $kategori->obats()->get();
     }
 }

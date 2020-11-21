@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
-    <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
-
-    <script src="{{ mix('js/app.js') }}" type="text/javascript" defer></script>
+  <link href="{{ mix('css/app.css') }}" type="text/css" rel="stylesheet" />
+  <link href="{{ url('css/style.css') }}" type="text/css" rel="stylesheet" />
+  <script src="{{ mix('js/app.js') }}" type="text/javascript" defer></script>
     <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <!-- Ionicons -->
@@ -16,7 +15,7 @@
     <title>Project FAI</title>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app" class="dark-theme || light-theme"></div>
 </body>
 <script src="{{ url('/template/admin/js/jquery.min.js') }}"></script>
 <script src="{{ url('/template/admin/js/adminlte.js') }}"></script>

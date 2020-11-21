@@ -4,6 +4,7 @@
     <Carousel />
     <ProdukTerlaris />
     <ArtikelTerbaru />
+    <Footer />
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import Navbar from "./Navbar";
 import Carousel from "./Carousel";
 import ProdukTerlaris from "./ProdukTerlaris";
 import ArtikelTerbaru from "./ArtikelTerbaru";
+import Footer from "./Footer";
 export default {
   name: "Home",
   components: {
@@ -19,6 +21,7 @@ export default {
     Carousel: Carousel,
     ProdukTerlaris: ProdukTerlaris,
     ArtikelTerbaru: ArtikelTerbaru,
+    Footer: Footer,
   },
   data() {
     return {
@@ -34,7 +37,6 @@ export default {
         .get("/home")
         .then((result) => {
           this.isLogin = result.data;
-          console.log(result.data);
         })
         .catch((err) => {});
     },

@@ -15,10 +15,11 @@ class CreateInfosTable extends Migration
     {
         Schema::connection('mysql')->create('infos', function (Blueprint $table) {
             $table->id();
-            $table->string('nama',50);
-            $table->string('nomor1',15);
-            $table->string('nomor2',15);
+            $table->string('nama', 50);
+            $table->string('nomor1', 15);
+            $table->string('nomor2', 15)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,4 +20,9 @@ class Obat extends Model
         return $this->belongsToMany(Th_Jual::class,"td_jual","id_product","id_th_jual")
                     ->withPivot("tipe_produk","harga","jumlah","subtotal");
     }
+
+    public function kategoris()
+    {
+        return $this->belongsToMany(Kategori::class, 'obats_kategoris', 'id_obats', 'id_kategoris');
+    }
 }

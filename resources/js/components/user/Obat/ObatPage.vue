@@ -5,7 +5,7 @@
       <h4>Obat & Alat Kesehatan Berdasarkan Kategori</h4>
       <div class="row mt-4">
         <div
-          class="col-lg-4"
+          class="col-lg-3"
           v-for="(kategori, index) in listKategori"
           :key="kategori.id"
         >
@@ -15,17 +15,20 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "../Homepage/Navbar";
 import KategoriCard from "./KategoriCard";
+import Footer from "../Homepage/Footer";
 export default {
   name: "ObatPage",
   components: {
     Navbar: Navbar,
     KategoriCard: KategoriCard,
+    Footer: Footer,
   },
   data() {
     return {
@@ -43,7 +46,6 @@ export default {
         .then((result) => {
           this.listKategori = result.data;
           this.listUrl = this.listKategori.map((k) => "/produk/" + k.slug);
-          // console.table(this.listUrl);
         })
         .catch((err) => {});
     },

@@ -95,8 +95,11 @@ class UserController extends Controller
                 Auth::guard('web')->logout();
                 return 'user sudah terbanned';
             }
+
             $pesan = 'user terdaftar';
             $isLogin = Auth::user();
+            Auth::login(Auth::user());
+
             Cookie::queue('isLogin', json_encode($isLogin), 60);
         } else {
             $pesan = 'user tidak ada';
@@ -104,10 +107,11 @@ class UserController extends Controller
         }
     }
 
-    public function profil(Request $request){
-        $userLogin = null;
-        if(Cookie::has('isLogin')){
-            $userLogin = json_decode($request->cookie('isLogin'));
+    public function logout()
+    {
+        if (Cookie::has('isLogin')) {
+            Cookie::queue(Cookie::forget('isLogin'));
+            Auth::guard('web')->logout();
         }
     }
 
@@ -115,8 +119,9 @@ class UserController extends Controller
     {
         $isLogin = [];
         if (Cookie::has('isLogin')) {
-            $isLogin = json_decode($request->cookie('isLogin'));
+            $isLogin = json_decode($request->cookie('isLogin'), true);
         }
-        return response()->json($isLogin);
+        // DD($isLogin);
+        return $isLogin;
     }
 }
