@@ -46,7 +46,7 @@ export default {
   methods: {
     loadKategori() {
       axios
-        .get("/kategori/" + this.$route.params.slug)
+        .get("/api/kategori/" + this.$route.params.slug)
         .then((result) => {
           this.kategori = result.data.kategori;
           this.listObat = result.data.obats;

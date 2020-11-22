@@ -126,7 +126,6 @@ export default {
         home: false,
         artikel: false,
         obat: false,
-        kontak: false,
         alat: false,
       },
       listNotif: [],
@@ -146,9 +145,7 @@ export default {
         this.cssLokasi.artikel = true;
       } else if (this.lokasi == "obat") {
         this.cssLokasi.obat = true;
-      } else if (this.lokasi == "kontak") {
-        this.cssLokasi.kontak = true;
-      }else if (this.lokasi == "alat") {
+      } else if (this.lokasi == "alat") {
         this.cssLokasi.alat = true;
       }
     },
@@ -156,32 +153,32 @@ export default {
       this.cssLokasi.home = false;
       this.cssLokasi.artikel = false;
       this.cssLokasi.lokasi = false;
-      this.cssLokasi.kontak = false;
-      this.cssLokasi.alat = false;
     },
     loadData() {
       axios
-        .get("/home")
+        .get("/api/home")
         .then((result) => {
           this.isLogin = result.data;
         })
         .catch((err) => {});
     },
     loadNotif() {
-      axios
-        .get("/notifUser")
-        .then((result) => {
-          this.listNotif = result.data;
-          this.listNotif = this.listNotif.notifs;
-        })
-        .catch((err) => {});
+      setInterval(() => {
+        axios
+          .get("/api/notifUser")
+          .then((result) => {
+            this.listNotif = result.data;
+            this.listNotif = this.listNotif.notifs;
+          })
+          .catch((err) => {});
+      }, 2000);
     },
     formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
     logout() {
       axios
-        .get("/logout")
+        .get("/api/logout")
         .then((result) => {
           window.location.replace("/login");
         })

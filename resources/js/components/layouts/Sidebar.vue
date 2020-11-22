@@ -215,6 +215,15 @@
               </p>
             </span>
           </li>
+          <li class="nav-item has-treeview" @click="setCurrent('Laporan')">
+            <span class="nav-link" style="color: white">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Master Laporan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </span>
+          </li>
           <li class="nav-item has-treeview">
             <router-link class="nav-link" style="color: white" to="/">
               <i class="nav-icon fas fa-copy"></i>

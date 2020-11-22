@@ -11,6 +11,7 @@ use App\Rules\CheckNoHpUpdate;
 use App\Rules\CheckPassUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class ProfilController extends Controller
@@ -61,7 +62,7 @@ class ProfilController extends Controller
                 "nama" =>$request->nama,
                 "noHp" => $request->noHp,
                 "email"=> $request->email,
-                "password" =>$request->passbaru
+                "password" =>Hash::make($request->passbaru)
             ]);
         }else{
             $user->update([

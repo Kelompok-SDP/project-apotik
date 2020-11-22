@@ -34,7 +34,7 @@ export default {
     return {
       tag: {},
       listartikel: {},
-      listUrl: []
+      listUrl: [],
     };
   },
   mounted() {
@@ -43,7 +43,7 @@ export default {
   methods: {
     loadTag() {
       axios
-        .get("/tag/" + this.$route.params.id)
+        .get("/api/tag/" + this.$route.params.id)
         .then((result) => {
           this.tag = result.data.tag;
           this.listartikel = result.data.artikel;

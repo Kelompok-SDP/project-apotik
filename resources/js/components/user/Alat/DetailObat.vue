@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :lokasi="'obat'" />
+    <Navbar :lokasi="'alat'" />
     <div class="containerNew">
       <div>
         <span class="h4 text-uppercase">{{ obat.nama }} </span> <br />

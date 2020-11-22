@@ -57,7 +57,7 @@ export default {
       jumlah++;
       this.dataCart.jumlah = jumlah.toString();
       axios
-        .post("/addJumlahCart", {
+        .post("/api/addJumlahCart", {
           id: this.dataCart.id,
         })
         .then((result) => {
@@ -80,7 +80,7 @@ export default {
     },
     deleteCart() {
       axios
-        .post("/deleteCart", {
+        .post("/api/deleteCart", {
           id: this.dataCart.id,
         })
         .then((result) => {

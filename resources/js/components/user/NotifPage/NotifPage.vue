@@ -14,31 +14,29 @@
           />
         </div>
         <div class="col-lg mt-2 d-flex justify-content-center">
-          <div class="col-12" v-if="notifDetail.data">
+          <div v-if="notifDetail.data">
             <div
-              class="row"
-              v-for="detail in notifDetail.data"
+              class="card"
+              v-for="(detail, index) in notifDetail.data"
               :key="detail.id"
+              style="width: 25rem"
             >
-              <div class="row">
-                <img :src="detail.gambar" :alt="detail.nama" width="100rem;" />
+              <img
+                :src="detail.gambar"
+                :alt="detail.nama"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ detail.nama }}</h5>
               </div>
-              <div class="row">
-                <div class="col-3">
-                  {{ detail.nama }}
-                </div>
-                <div class="col-3">{{ detail.jumlah }}x</div>
-                <div class="col-3">Rp. {{ formatNumber(detail.subtotal) }}</div>
-              </div>
-            </div>
-
-            <div class="col-9">
-              <strong>Ringkasan Pembayaran</strong>
-
-              <div class="row">
-                <div class="col-6">GrandTotal</div>
-                <div class="col-3 text-right">Rp {{ formatNumber(total) }}</div>
-              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Jumlah: {{ detail.jumlah }}</li>
+                <li class="list-group-item">Harga: {{ detail.harga }}</li>
+                <li class="list-group-item">
+                  Subtotal: Rp. {{ formatNumber(detail.subtotal) }}
+                </li>
+              </ul>
+              <div class="card-footer">Item ke {{ index + 1 }}</div>
             </div>
           </div>
         </div>
@@ -70,7 +68,7 @@ export default {
   methods: {
     loadNotif() {
       axios
-        .get("/notifHeader")
+        .get("/api/notifHeader")
         .then((result) => {
           this.listNotif = result.data;
           this.listNotif = this.listNotif.notifs;
@@ -82,7 +80,7 @@ export default {
     },
     loadDetail(id, index) {
       axios
-        .get("/notifDetail/" + id)
+        .get("/api/notifDetail/" + id)
         .then((result) => {
           this.notifDetail = result.data;
           this.total = this.listNotif[index].data.total.toString();
@@ -92,7 +90,7 @@ export default {
     },
     readDetail(id) {
       axios
-        .get("/readDetail/" + id)
+        .get("/api/readDetail/" + id)
         .then((result) => {
           this.loadNotif();
         })
