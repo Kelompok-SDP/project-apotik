@@ -7705,7 +7705,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53692,7 +53691,7 @@ var render = function() {
               _vm.notifDetail.data
                 ? _c(
                     "div",
-                    _vm._l(_vm.notifDetail.data, function(detail) {
+                    _vm._l(_vm.notifDetail.data, function(detail, index) {
                       return _c(
                         "div",
                         {
@@ -53721,6 +53720,10 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("li", { staticClass: "list-group-item" }, [
+                                _vm._v("Harga: " + _vm._s(detail.harga))
+                              ]),
+                              _vm._v(" "),
+                              _c("li", { staticClass: "list-group-item" }, [
                                 _vm._v(
                                   "\n                Subtotal: Rp. " +
                                     _vm._s(_vm.formatNumber(detail.subtotal)) +
@@ -53731,11 +53734,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "card-footer" }, [
-                            _vm._v(
-                              "\n              GrandTotal Rp " +
-                                _vm._s(_vm.formatNumber(_vm.total)) +
-                                "\n            "
-                            )
+                            _vm._v("Item ke " + _vm._s(index + 1))
                           ])
                         ]
                       )

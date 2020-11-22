@@ -17,7 +17,7 @@
           <div v-if="notifDetail.data">
             <div
               class="card"
-              v-for="detail in notifDetail.data"
+              v-for="(detail, index) in notifDetail.data"
               :key="detail.id"
               style="width: 25rem"
             >
@@ -31,13 +31,12 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">Jumlah: {{ detail.jumlah }}</li>
+                <li class="list-group-item">Harga: {{ detail.harga }}</li>
                 <li class="list-group-item">
                   Subtotal: Rp. {{ formatNumber(detail.subtotal) }}
                 </li>
               </ul>
-              <div class="card-footer">
-                GrandTotal Rp {{ formatNumber(total) }}
-              </div>
+              <div class="card-footer">Item ke {{ index + 1 }}</div>
             </div>
           </div>
         </div>
