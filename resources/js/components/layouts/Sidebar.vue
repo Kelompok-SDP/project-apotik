@@ -179,7 +179,10 @@
           role="menu"
           data-accordion="false"
         >
-          <li class="nav-item has-treeview" @click="setCurrent('Alat_Kesehatan')">
+          <li
+            class="nav-item has-treeview"
+            @click="setCurrent('Alat_Kesehatan')"
+          >
             <span class="nav-link" style="color: white">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -203,11 +206,20 @@
           role="menu"
           data-accordion="false"
         >
+          <li class="nav-item has-treeview" @click="setCurrent('Info')">
+            <span class="nav-link" style="color: white">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Master Info
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </span>
+          </li>
           <li class="nav-item has-treeview">
             <router-link class="nav-link" style="color: white" to="/">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Logout
+                Ke Halaman Home
                 <i class="fas fa-angle-left right"></i>
               </p>
             </router-link>
@@ -241,7 +253,6 @@ export default {
     setCurrent(value) {
       this.currentState = value;
       this.$emit("click", this.currentState);
-        console.log(this.currentState);
     },
   },
 };

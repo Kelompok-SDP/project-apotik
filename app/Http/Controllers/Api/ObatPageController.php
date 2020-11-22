@@ -29,12 +29,14 @@ class ObatPageController extends Controller
         $isLogin = json_decode($request->cookie('isLogin'));
 
         $obat['jumlah'] = '1';
+        $obat['subtotal'] = $obat['jumlah'] * $obat['harga'];
         if (session()->has('cartUser' . $isLogin->id)) {
             $found = false;
             $cartUser = session()->get('cartUser' . $isLogin->id);
             for ($i = 0; $i < count($cartUser); $i++) {
                 if ($obat->id == $cartUser[$i]['id']) {
                     $cartUser[$i]['jumlah'] = $cartUser[$i]['jumlah'] + 1;
+                    $cartUser[$i]['subtotal'] = $cartUser[$i]['jumlah'] * $cartUser[$i]['harga'];
                     $found = true;
                 }
             }
@@ -42,10 +44,13 @@ class ObatPageController extends Controller
             if ($found) {
                 session()->put('cartUser' . $isLogin->id, $cartUser);
                 return response()->json(session()->get('cartUser' . $isLogin->id));
+            } else {
+                session()->push('cartUser' . $isLogin->id, $obat);
+                return response()->json(session()->get('cartUser' . $isLogin->id));
             }
+        } else {
+            session()->push('cartUser' . $isLogin->id, $obat);
+            return response()->json(session()->get('cartUser' . $isLogin->id));
         }
-
-        session()->push('cartUser' . $isLogin->id, $obat);
-        return response()->json(session()->get('cartUser' . $isLogin->id));
     }
 }

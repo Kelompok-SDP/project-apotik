@@ -3,20 +3,34 @@
     <Navbar lokasi="home" />
     <div class="containerNew">
       <div class="row no-gutters">
-        <div class="col-12 col-md-6 mt-5">
-          <h6 class="text-secondary">Daftar Pesanan</h6>
-          <div class="d-flex justify-content-between mt-3">
-            <span class="text-secondary col-6">Nama</span>
+        <div class="col-12 col-md-6 mt-5 card p-3">
+          <div class="card-header">
+            <h6 class="text-secondary card-title">Daftar Pesanan</h6>
+          </div>
+          <div class="d-flex justify-content-between mt-3 card-body">
+            <span class="text-secondary col-3">Nama</span>
             <span class="text-secondary col-3">Jumlah</span>
-            <span class="text-secondary col-3">Harga</span>
+            <span class="text-secondary col-2">Harga</span>
+            <span class="text-secondary col-2">Delete</span>
           </div>
           <CartItem
             v-for="cartItem in listCart"
             :key="cartItem.id"
             :dataCart="cartItem"
+            v-on:load-data="loadDataBaru"
           />
         </div>
-        <CartNota />
+        <div class="col-12 col-md-6 mt-5 card p-3">
+          <div class="card-header">
+            <span class="card-title">Nota Pembayaran</span>
+          </div>
+          <div class="d-flex mt-3">
+            <span class="text-secondary col-3">Nama</span>
+            <span class="text-secondary col-3">Jumlah</span>
+            <span class="text-secondary col-3">Subtotal</span>
+          </div>
+          <CartNota ref="CartNota" />
+        </div>
       </div>
     </div>
   </div>
@@ -44,11 +58,16 @@ export default {
   methods: {
     loadCart() {
       axios
-        .post("/lihatCart", {})
+        .get("/lihatCart")
         .then((result) => {
           this.listCart = result.data;
+          // this.loadCart();
         })
         .catch((err) => {});
+    },
+    loadDataBaru() {
+      this.$refs.CartNota.loadData();
+      this.loadCart();
     },
   },
 };

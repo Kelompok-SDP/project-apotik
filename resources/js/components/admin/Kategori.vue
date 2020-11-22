@@ -99,16 +99,6 @@
             </button>
           </li>
 
-          <!-- <li
-            class="page-item"
-            v-for="(page, index) in parseInt(pagination.to)"
-            :key="index"
-          >
-            <button class="page-link" @click="fetchPaginate(index + 1)">
-              {{ index + 1 }}
-            </button>
-          </li> -->
-
           <li class="page-item">
             <button
               class="page-link"
@@ -134,17 +124,6 @@
       <!-- form start -->
       <form enctype="multipart/form-data" @submit.prevent="addData()">
         <div class="card-body">
-          <div class="form-group">
-            <label for="">Kode</label>
-            <input
-              type="text"
-              class="form-control"
-              id=""
-              placeholder="Kode"
-              v-model="form.kode"
-              disabled
-            />
-          </div>
           <div class="form-group">
             <label for="">Nama Kategori</label>
             <input
@@ -204,7 +183,12 @@
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Tambahkan</button>
+          <VueLoadingButton
+            class="btn btn-primary"
+            :styled="true"
+            :loading="isLoading"
+            @click.native="addData"
+          />
         </div>
       </form>
     </div>
@@ -315,9 +299,12 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
-                  Update Data
-                </button>
+                <VueLoadingButton
+                  class="btn btn-primary"
+                  :styled="true"
+                  :loading="isLoading"
+                  @click.native="updateData"
+                />
               </div>
             </form>
           </div>
@@ -336,8 +323,12 @@
 
 <script src="./jquery.min.js" ></script>
 <script>
+import VueLoadingButton from "vue-loading-button";
 export default {
   name: "Kategori",
+  components: {
+    VueLoadingButton: VueLoadingButton,
+  },
   data() {
     return {
       kategories: [],
@@ -440,7 +431,11 @@ export default {
           this.errors = response.data.errors;
           console.log("error");
         })
-        .finally(() => (this.isLoading = false));
+        .finally(() =>
+          setInterval(() => {
+            this.isLoading = false;
+          }, 1000)
+        );
     },
     autogenKode() {
       if (this.form.nama.length > 1) {

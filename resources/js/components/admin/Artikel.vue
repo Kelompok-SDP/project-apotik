@@ -91,16 +91,6 @@
               </button>
             </li>
 
-            <!-- <li
-            class="page-item"
-            v-for="(page, index) in parseInt(pagination.to)"
-            :key="index"
-          >
-            <button class="page-link" @click="fetchPaginate(index + 1)">
-              {{ index + 1 }}
-            </button>
-          </li> -->
-
             <li class="page-item">
               <button
                 class="page-link"
@@ -225,10 +215,14 @@
           </span>
           <br />
         </div>
-
         <!-- /.card-body -->
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Tambahkan</button>
+          <VueLoadingButton
+            class="btn btn-primary"
+            :styled="true"
+            :loading="isLoading"
+            @click.native="addData"
+          />
         </div>
       </form>
     </div>
@@ -387,9 +381,12 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary">
-                  Update Data
-                </button>
+                <VueLoadingButton
+                  class="btn btn-primary"
+                  :styled="true"
+                  :loading="isLoading"
+                  @click.native="updateData"
+                />
               </div>
             </form>
           </div>
@@ -407,8 +404,12 @@
 </template>
 
 <script>
+import VueLoadingButton from "vue-loading-button";
 export default {
   name: "Artikel",
+  components: {
+    VueLoadingButton: VueLoadingButton,
+  },
   data() {
     return {
       artikels: [],
@@ -532,7 +533,11 @@ export default {
         .catch(({ response }) => {
           this.errors = response.data.errors;
         })
-        .finally(() => (this.isLoading = false));
+        .finally(() =>
+          setInterval(() => {
+            this.isLoading = false;
+          }, 1000)
+        );
     },
     getTags() {
       axios
@@ -594,9 +599,11 @@ export default {
         .catch(({ response }) => {
           this.errors = response.data.errors;
         })
-        .finally(() => {
-          this.isLoading = false;
-        });
+        .finally(() =>
+          setInterval(() => {
+            this.isLoading = false;
+          }, 1000)
+        );
     },
     deleteData(artikel) {
       axios

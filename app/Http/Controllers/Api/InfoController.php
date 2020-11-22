@@ -13,14 +13,33 @@ class InfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function show()
+    {
+        return Info::all();
+    }
+
     public function create(Request $request)
     {
         $request->validate([
-            'nama' => ['required', 'max:50', 'alpha'],
+            'nama' => ['required', 'max:50'],
             'nomor1' => ['required', 'max:15'],
-            'nomor2' => ['required', 'max:15'],
+            'nomor2' => ['max:15'],
         ]);
 
         return Info::create($request->all());
+    }
+
+    public function updateInfo(Request $request)
+    {
+        $request->validate([
+            'nama' => ['required', 'max:50'],
+            'nomor1' => ['required', 'max:15'],
+            'nomor2' => ['max:15'],
+        ]);
+
+        $info = Info::first();
+
+        return $info->update($request->all());
     }
 }

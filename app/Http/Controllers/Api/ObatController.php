@@ -65,7 +65,7 @@ class ObatController extends Controller
 
             $arrkategori = explode(",", $request->kategoris);
 
-             Obat::create([
+            Obat::create([
                 'id' => $request->id,
                 'nama' => $request->nama,
                 'gambar' => $pathDbGambar,
@@ -165,14 +165,13 @@ class ObatController extends Controller
             ]);
 
             DB::table('obats_kategoris')
-            ->where('id_obats', $request->id)
-            ->delete();
+                ->where('id_obats', $request->id)
+                ->delete();
 
             $arrKategori = explode(",", $request->kategoris);
             foreach ($arrKategori as $value) {
                 $obat->kategoris()->attach($value);
             }
-
         } else {
 
 
@@ -215,8 +214,8 @@ class ObatController extends Controller
             ]);
 
             DB::table('obats_kategoris')
-            ->where('id_obats', $request->id)
-            ->delete();
+                ->where('id_obats', $request->id)
+                ->delete();
 
             $arrKategori = explode(",", $request->kategoris);
             foreach ($arrKategori as $value) {
@@ -237,8 +236,9 @@ class ObatController extends Controller
         return $barangTerlaris;
     }
 
-    public function showAllkategori(){
-       $kategori = Kategori::all();
+    public function showAllkategori()
+    {
+        $kategori = Kategori::all();
         return $kategori;
     }
 
@@ -252,7 +252,8 @@ class ObatController extends Controller
         return Obat::where('nama', 'LIKE', "$keywords%")->paginate($jumlah);
     }
 
-    public function getKategori($id){
+    public function getKategori($id)
+    {
         $obat = Obat::find($id);
 
         $arrKategori = [];
@@ -263,5 +264,19 @@ class ObatController extends Controller
         //asal for dari sini
         // DD($artikel->tags[0]->nama, $artikel->tags[1]->nama);
         return $arrKategori;
+    }
+
+    public function getDetail($id)
+    {
+        $obat = Obat::find($id);
+        $listKategori = $obat->kategoris()->get();
+        return compact(['obat', 'listKategori']);
+    }
+
+    public function getRelated($id)
+    {
+
+        $kategori = Kategori::find($id);
+        return $kategori->obats()->get();
     }
 }

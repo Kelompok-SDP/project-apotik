@@ -120,8 +120,99 @@
             <div class="col-4">
                 <h5>History Pembelian</h5>
                 <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th style="width: 10px">No</th>
+                        <th>Nama Dokter</th>
+                        <th>Tanggal</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(history, index) in htrans" :key="index">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ history.nama_dokter }}</td>
+                        <td>{{ history.tanggal }}</td>
+                        <td>
+                            <div
+                            class="btn btn-sm btn-primary"
+                            @click="getDetail(history)"
+                            data-toggle="modal"
+                            data-target="#myModal"
+                            >
+                            Detail
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+    <div
+      class="modal fade show"
+      id="modal-edit"
+      style="display: hidden; padding-right: 16px"
+      aria-modal="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Kategori</h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"></span>
+            </button>
+          </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    Kode Struk : {{ detailHtrans.id }} <br>
+                    Nama Dokter : {{ detailHtrans.nama_dokter }} <br>
+                    Total Harga : {{ detailHtrans.total }} <br>
+                    Tanggal : {{detailHtrans.tanggal}} <br>
+
+                    <span
+                        class="invalid-feedback d-block"
+                        v-if="errors.hasOwnProperty('nama')"
+                        >
+                        Keterangan : {{ detailHtrans.keterangan }} <br>
+                    </span>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th style="width: 10px">No</th>
+                            <th>Gambar</th>
+                            <th>Nama Obat</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(obats, index) in dtrans" :key="index">
+                            <td>{{ index + 1 }}</td>
+                            <td><img class="card-img-top" style="width:50%" :src="obats.gambar" alt="Card image cap" />
+      </td>
+                            <td>{{ obats.nama }}</td>
+                            <td>{{ obats.jumlah }}</td>
+                            <td>{{ obats.harga }}</td>
+                            <td>{{ obats.subtotal }}</td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <!-- /.modal-content -->
+        </div>
+        </div>
+      <!-- /.modal-dialog -->
     </div>
   </div>
 </template>
@@ -135,6 +226,10 @@ export default {
   data() {
     return {
       isLogin: {},
+      htrans: [],
+      detailHtrans:{},
+      dtrans: [],
+      link:"/obat/getDetail/",
       nama:"",
       email:"",
       role:0,
@@ -154,12 +249,13 @@ export default {
       axios
         .get("/profilUser")
         .then((result) => {
-          this.isLogin = result.data;
-          console.log("yo ini isLogin: "+this.isLogin);
+          this.isLogin = result.data.userLogin;
+          this.htrans = result.data.dataHtrans;
           this.nama = this.isLogin.nama;
           this.email  = this.isLogin.email;
           this.notlp = this.isLogin.noHp;
           this.iduser = this.isLogin.id;
+          console.log(this.nama);
       })
         .catch((err) => {});
         document.getElementById("lanjutan").style.display = "none";
@@ -171,6 +267,18 @@ export default {
         this.pass = "";
         this.cpaswbaru = "";
         this.paswbaru = "";
+    },
+    getDetail(htrans) {
+      //clone kategori supaya tidak merubah isi dari tabel asli
+      this.detailHtrans=htrans;
+      axios
+        .get("/getDtrans/"+htrans.id)
+        .then((result) => {
+          this.dtrans = result.data;
+      });
+      $("#modal-edit").modal("show");
+
+
     },
     editData(){
         document.getElementById("lanjutan").style.display = "inline";

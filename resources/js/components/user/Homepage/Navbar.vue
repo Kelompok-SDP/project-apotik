@@ -26,12 +26,9 @@
           >Obat & Vitamin</router-link
         >
       </div>
-      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.kontak }">
-        <router-link to="/kontak" class="navbar-text"
-          >Kontak Apotik</router-link
-        >
-      </div>
     </div>
+
+    <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
 
     <button class="btn btn-secondary" v-if="!isLogin.nama">
       <router-link to="/login" class="text-light">Login</router-link>
@@ -43,9 +40,9 @@
       </button>
     </router-link>
 
-    <div>
+    <div class="dropdown">
       <button
-        class="btn btn-secondary dropdown-toggle"
+        class="btn btn-secondary dropbtn dropdown-toggle"
         id="dropdown03"
         data-toggle="dropdown"
         aria-haspopup="true"
@@ -54,13 +51,16 @@
       >
         halo,{{ isLogin.nama }}
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdown03">
+      <div class="dropdown-menu " aria-labelledby="dropdown03">
         <router-link to="/profilUser">
           <span class="dropdown-item">Your Profile</span>
         </router-link>
-        <router-link to="/logout">
-          <span class="dropdown-item">Log Out</span>
+        <router-link to="/admin" v-if="isLogin.role == 1">
+          <span class="dropdown-item">Admin Dashboard</span>
         </router-link>
+        <span class="dropdown-item" style="cursor: pointer" @click="logout"
+          >Log Out</span
+        >
       </div>
     </div>
   </nav>
@@ -109,7 +109,14 @@ export default {
         .get("/home")
         .then((result) => {
           this.isLogin = result.data;
-          console.log(result.data);
+        })
+        .catch((err) => {});
+    },
+    logout() {
+      axios
+        .get("/logout")
+        .then((result) => {
+          window.location.replace("/login");
         })
         .catch((err) => {});
     },
@@ -127,4 +134,41 @@ router-link {
 .active {
   border-bottom: 2px solid red;
 }
+
+
+.dropbtn {
+  background-color: #29374681;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #3D5C7F;
+}
+
 </style>

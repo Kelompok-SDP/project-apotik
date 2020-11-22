@@ -1,44 +1,76 @@
 <template>
-  <div class="col-lg-3">
-    <div class="card">
+  <div class="card">
+    <router-link v-bind:to="'/obat/' + dataProduk.id">
       <img class="card-img-top" :src="dataProduk.gambar" alt="Card image cap" />
       <div class="card-body">
         <h5 class="card-title">{{ dataProduk.nama }}</h5>
-        <p class="card-text">
-          {{ dataProduk.harga }}
-        </p>
+        <p class="card-text">Harga: {{ dataProduk.harga }}</p>
       </div>
-      <div class="card-footer text-center">
-        <div class="btn btn-outline-danger rounded" @click="addToCart">
-          Tambah
-        </div>
+    </router-link>
+    <div class="card-footer text-center">
+      <button
+        class="btn btn-outline-danger rounded btnAdd"
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+        @click="addToCart"
+        disabled
+        v-if="!isLogin.nama"
+      >
+        Tambah
+      </button>
+      <button
+        class="btn btn-outline-danger rounded btnAdd"
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+        @click="addToCart"
+        v-if="isLogin.nama"
+      >
+        Tambah
+      </button>
+      <div class="text-danger font-weight-light" v-if="!isLogin.nama">
+        Login terlebih dahulu
       </div>
     </div>
+    <ModalSuccess :msg="'Berhasil Tambah Item ke Keranjang Belanja'" />
   </div>
 </template>
 
 <script>
+import ModalSuccess from "./ModalSuccess";
 export default {
   name: "Produk",
   props: {
     dataProduk: Object,
   },
+  components: {
+    ModalSuccess: ModalSuccess,
+  },
   data() {
     return {
-      urlProduk: "",
+      isLogin: {},
     };
   },
   mounted() {
-    this.loadUrl();
+    this.loadData();
   },
   methods: {
-    loadUrl() {
-      this.urlProduk = "/addCart/" + this.dataProduk.id;
+    loadData() {
+      axios
+        .get("/home")
+        .then((result) => {
+          this.isLogin = result.data;
+        })
+        .catch((err) => {
+          console.log("error", this.isLogin.nama);
+        });
     },
     addToCart() {
-      axios.post("/addCart", {
-        id: this.dataProduk.id,
-      });
+      axios
+        .post("/addCart", {
+          id: this.dataProduk.id,
+        })
+        .then((result) => {})
+        .catch((err) => {});
     },
   },
 };

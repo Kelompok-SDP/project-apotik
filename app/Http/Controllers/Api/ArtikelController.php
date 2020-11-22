@@ -187,4 +187,11 @@ class ArtikelController extends Controller
         // DD($artikel->tags[0]->nama, $artikel->tags[1]->nama);
         return $arrTag;
     }
+
+    public function tagArtikel($id)
+    {
+        $artikel = Artikel::find($id);
+
+        return $artikel->tags()->get();
+    }
 }

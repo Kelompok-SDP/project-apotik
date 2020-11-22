@@ -13,6 +13,15 @@
             See more details >>
         </router-link>
         </span>
+      <div class="row">
+        <button
+          class="btn btn-sm btn-danger col-4 p-0 m-2"
+          v-for="(tag, index) in listTag"
+          :key="tag.id"
+        >
+          <router-link v-bind:to="listUrl[index]">{{ tag.nama }} </router-link>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -23,13 +32,16 @@ export default {
   props: {
     dataProduk: Object,
   },
-    data() {
+  data() {
     return {
       Url: {}
+      listTag: [],
+      listUrl: [],
     };
   },
   mounted() {
     this.cutString();
+    this.getTags();
   },
   methods: {
     cutString() {
@@ -39,9 +51,22 @@ export default {
       }
       this.Url = "artikel/" + this.dataProduk.slug;
     },
+    getTags() {
+      axios
+        .get(`/artikel/getTag/${this.dataProduk.id}`)
+        .then((result) => {
+          this.listTag = result.data;
+          this.listUrl = this.listTag.map((t) => `/artikel/tag/${t.id}`);
+        })
+        .catch((err) => {});
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
+a {
+  color: white;
+  text-decoration: none;
+}
 </style>

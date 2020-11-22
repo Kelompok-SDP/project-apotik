@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SuccessRegistrasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 use function GuzzleHttp\json_decode;
 
@@ -73,6 +75,8 @@ class UserController extends Controller
         $data['id'] = $id;
         $data['password'] = Hash::make($request->password);
         User::create($data);
+        var_dump($request->email);
+        Mail::to($request->email)->send(new SuccessRegistrasi($id));
     }
 
     public function login(Request $request)
@@ -95,8 +99,11 @@ class UserController extends Controller
                 Auth::guard('web')->logout();
                 return 'user sudah terbanned';
             }
+
             $pesan = 'user terdaftar';
             $isLogin = Auth::user();
+            Auth::login(Auth::user());
+
             Cookie::queue('isLogin', json_encode($isLogin), 60);
         } else {
             $pesan = 'user tidak ada';
@@ -104,14 +111,21 @@ class UserController extends Controller
         }
     }
 
-
+    public function logout()
+    {
+        if (Cookie::has('isLogin')) {
+            Cookie::queue(Cookie::forget('isLogin'));
+            Auth::guard('web')->logout();
+        }
+    }
 
     public function home(Request $request)
     {
         $isLogin = [];
         if (Cookie::has('isLogin')) {
-            $isLogin = json_decode($request->cookie('isLogin'));
+            $isLogin = json_decode($request->cookie('isLogin'), true);
         }
-        return response()->json($isLogin);
+        // DD($isLogin);
+        return $isLogin;
     }
 }
