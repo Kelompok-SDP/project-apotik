@@ -19,6 +19,7 @@ import ObatRacikan from "./admin/ObatRacikan.vue";
 import Artikel from "./admin/Artikel.vue";
 import Tag from "./admin/Tag.vue";
 import Alat_Kesehatan from "./admin/Alat_Kesehatan.vue";
+import Laporan from "./admin/Laporan.vue";
 import Info from "./admin/Info.vue";
 
 export default {
@@ -33,6 +34,7 @@ export default {
     Tag: Tag,
     Alat_Kesehatan: Alat_Kesehatan,
     Info: Info,
+    Laporan: Laporan,
   },
   data() {
     return {

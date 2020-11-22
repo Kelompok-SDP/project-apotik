@@ -99,15 +99,6 @@
               </button>
             </li>
 
-            <!-- <li
-            class="page-item"
-            v-for="(page, index) in parseInt(pagination.to)"
-            :key="index"
-          >
-            <button class="page-link" @click="fetchPaginate(index + 1)">
-              {{ index + 1 }}
-            </button>
-          </li> -->
 
             <li class="page-item">
               <button

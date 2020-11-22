@@ -106,3 +106,9 @@ Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/addInfo', 'Api\InfoController@create');
     Route::post('/updateInfo', 'Api\InfoController@updateInfo');
 });
+
+Route::group(['prefix'=> 'admin/laporan'], function(){
+    Route::get('/', 'Api\LaporanController@showFirst');
+    Route::get('/changePaginate/{jumlah}/{tipe}/{secara}/{orderby}/{tanggalhari}/{tipedata}', 'Api\LaporanController@changePaginate');
+    Route::get('/search/{jumlah}/{tipe}/{secara}/{orderby}/{tanggalhari}/{tipedata}/{search}/{keyword}', 'Api\LaporanController@search');
+});
