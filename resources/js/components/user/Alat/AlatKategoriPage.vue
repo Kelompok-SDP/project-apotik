@@ -1,16 +1,16 @@
 <template>
   <div>
-    <Navbar lokasi="alat" />
+    <Navbar lokasi="obat" />
     <div class="container">
       <div class="mt-5">
-        <!-- <img
+        <img
           v-bind:src="kategori.gambar"
           alt=""
           srcset=""
           width="32px"
           height="32px"
           class="rounded-circle"
-        /> -->
+        />
         <span class="h4">{{ kategori.nama }}</span>
       </div>
       <div class="row">
@@ -46,9 +46,9 @@ export default {
   methods: {
     loadKategori() {
       axios
-        .get("/alat/kategori/" + this.$route.params.slug)
+        .get("/api/alat/kategori/" + this.$route.params.slug)
         .then((result) => {
-            console.log($result);
+            // console.log($result);
           this.kategori = result.data.kategori;
           this.listObat = result.data.obats;
         })

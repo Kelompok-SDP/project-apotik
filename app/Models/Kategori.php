@@ -23,6 +23,7 @@ class Kategori extends Model
 
     public function alats()
     {
-        return $this->belongsToMany(Alat_Kesehatan::class, 'kategories_alat', 'id_kategoris', 'id_alat');
+        return $this->belongsToMany(Alat_Kesehatan::class, 'kategoris_alat', 'id_kategori', 'id_alat');
     }
+
 }

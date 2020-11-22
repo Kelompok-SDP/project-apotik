@@ -6364,8 +6364,8 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/alat/kategori/" + this.$route.params.slug).then(function (result) {
-        console.log($result);
+      axios.get("/api/alat/kategori/" + this.$route.params.slug).then(function (result) {
+        // console.log($result);
         _this.kategori = result.data.kategori;
         _this.listObat = result.data.obats;
       })["catch"](function (err) {});
@@ -6431,7 +6431,7 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/kategori").then(function (result) {
+      axios.get("/api/kategori").then(function (result) {
         _this.listKategori = result.data;
         _this.listUrl = _this.listKategori.map(function (k) {
           return "/alat/produk/" + k.slug;
@@ -7613,8 +7613,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getLokasi();
-    this.loadData();
-    this.loadNotif();
+    this.loadData(); // this.loadNotif();
   },
   methods: {
     getLokasi: function getLokasi() {
@@ -7642,16 +7641,17 @@ __webpack_require__.r(__webpack_exports__);
         _this.isLogin = result.data;
       })["catch"](function (err) {});
     },
-    loadNotif: function loadNotif() {
-      var _this2 = this;
-
-      setInterval(function () {
-        axios.get("/api/notifUser").then(function (result) {
-          _this2.listNotif = result.data;
-          _this2.listNotif = _this2.listNotif.notifs;
-        })["catch"](function (err) {});
-      }, 2000);
-    },
+    // loadNotif() {
+    //   setInterval(() => {
+    //     axios
+    //       .get("/api/notifUser")
+    //       .then((result) => {
+    //         this.listNotif = result.data;
+    //         this.listNotif = this.listNotif.notifs;
+    //       })
+    //       .catch((err) => {});
+    //   }, 2000);
+    // },
     formatNumber: function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
@@ -7814,37 +7814,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navbar */ "./resources/js/components/user/Homepage/Navbar.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8411,6 +8380,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8428,6 +8405,7 @@ __webpack_require__.r(__webpack_exports__);
       obat: {},
       listKategori: [],
       listObat: [],
+      listAlat: [],
       isLogin: {}
     };
   },
@@ -8459,7 +8437,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get("/api/obat/getRelated/" + this.listKategori[0].id).then(function (result) {
-        _this2.listObat = result.data;
+        _this2.listObat = result.data.obat;
+        _this2.listAlat = result.data.alat;
       })["catch"](function (err) {});
     }
   }
@@ -8612,7 +8591,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ObatPage",
+  name: "AlatPage",
   components: {
     Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"],
     KategoriCard: _KategoriCard__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -13739,7 +13718,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\r\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\r\n  font-weight: bold;\r\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
+exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\n  font-weight: bold;\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\n  background-color: #29374681;\n  color: white;\n  padding: 12px;\n  font-size: 14px;\n  border: none;\n  cursor: pointer;\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\n  display: none;\n  position: absolute;\n  background-color: #f9f9f9;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\n  background-color: #3d5c7f;\n}\n", ""]);
 
 // exports
 
@@ -13777,7 +13756,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.containerNew[data-v-660bea27] {\r\n  width: 90%;\r\n  margin: auto;\n}\r\n", ""]);
+exports.push([module.i, "\n.containerNew[data-v-660bea27] {\n  width: 90%;\n  margin: auto;\n}\n", ""]);
 
 // exports
 
@@ -52891,10 +52870,21 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Navbar", { attrs: { lokasi: "alat" } }),
+      _c("Navbar", { attrs: { lokasi: "obat" } }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "mt-5" }, [
+          _c("img", {
+            staticClass: "rounded-circle",
+            attrs: {
+              src: _vm.kategori.gambar,
+              alt: "",
+              srcset: "",
+              width: "32px",
+              height: "32px"
+            }
+          }),
+          _vm._v(" "),
           _c("span", { staticClass: "h4" }, [_vm._v(_vm._s(_vm.kategori.nama))])
         ]),
         _vm._v(" "),
@@ -54512,53 +54502,6 @@ var render = function() {
                       : _vm._e()
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-4" }, [
-                    _c("h5", [_vm._v("History Pembelian")]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("table", { staticClass: "table table-bordered" }, [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.htrans, function(history, index) {
-                          return _c("tr", { key: index }, [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(history.nama_dokter))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(history.tanggal))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "btn btn-sm btn-primary",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#myModal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.getDetail(history)
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                          Detail\n                          "
-                                  )
-                                ]
-                              )
-                            ])
-                          ])
-                        }),
-                        0
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
@@ -54765,7 +54708,7 @@ var render = function() {
               _c("hr"),
               _vm._v(" "),
               _c("table", { staticClass: "table table-bordered" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -54819,7 +54762,7 @@ var render = function() {
         [
           _c("div", { staticClass: "modal-dialog modal-lg" }, [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "card-body" }, [
@@ -54860,7 +54803,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _c("table", { staticClass: "table table-bordered" }, [
-                    _vm._m(3),
+                    _vm._m(2),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -54902,22 +54845,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticStyle: { width: "10px" } }, [_vm._v("No")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Nama Dokter")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Tanggal")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Action")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -55164,7 +55091,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Navbar", { attrs: { lokasi: "obat" } }),
+      _c("Navbar", { attrs: { lokasi: "alat" } }),
       _vm._v(" "),
       _c("div", { staticClass: "containerNew" }, [
         _c("div", [
@@ -55290,68 +55217,62 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
+            _c("span", { staticClass: "font-weight-bold" }, [_vm._v("Satuan")]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.satuan))
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
+              _vm._v("Kemasan")
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.kemasan))
             ]),
+            _vm._v(" "),
+            _vm.obat.komposisi != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Komposisi")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.komposisi))
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.obat.dosis != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Dosis")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.dosis))
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.obat.segmentasi != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Segmentasi")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.segmentasi))
+                  ])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
+              _vm._v("Manufaktur")
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Deskripsi")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini desc")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.manufaktur))
             ])
           ]),
           _vm._v(" "),
@@ -55368,6 +55289,20 @@ var render = function() {
                   [
                     _c("ProdukRelated", {
                       attrs: { data: dataObat },
+                      on: { "load-data": _vm.loadData }
+                    })
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.listAlat, function(dataAlat) {
+                return _c(
+                  "div",
+                  { key: dataAlat.id, staticClass: "row" },
+                  [
+                    _c("ProdukRelated", {
+                      attrs: { data: dataAlat },
                       on: { "load-data": _vm.loadData }
                     })
                   ],

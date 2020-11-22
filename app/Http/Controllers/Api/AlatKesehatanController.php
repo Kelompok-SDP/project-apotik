@@ -25,7 +25,7 @@ class AlatKesehatanController extends Controller
     {
         $kategori = Kategori::where('slug', $slug)->first();
         $obats = $kategori->alats()->get();
-
+        // dd($obats);
         return compact(['kategori', 'obats']);
     }
 

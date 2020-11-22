@@ -42,37 +42,6 @@
                 {{ errors.noHp[0] }}
               </span>
             </div>
-            <div class="col-4">
-                <h5>History Pembelian</h5>
-                <hr>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th style="width: 10px">No</th>
-                        <th>Nama Dokter</th>
-                        <th>Tanggal</th>
-                        <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(history, index) in htrans" :key="index">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ history.nama_dokter }}</td>
-                        <td>{{  history.tanggal }}</td>
-                        <td>
-                            <div
-                            class="btn btn-sm btn-primary"
-                            @click="getDetail(history)"
-                            data-toggle="modal"
-                            data-target="#myModal"
-                            >
-                            Detail
-                            </div>
-                        </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
             <input type="hidden" name="" v-model="iduser" />
             <div class="form-group">
               <label for="">Role</label>

@@ -134,7 +134,7 @@ export default {
   mounted() {
     this.getLokasi();
     this.loadData();
-    this.loadNotif();
+    // this.loadNotif();
   },
   methods: {
     getLokasi() {
@@ -162,17 +162,17 @@ export default {
         })
         .catch((err) => {});
     },
-    loadNotif() {
-      setInterval(() => {
-        axios
-          .get("/api/notifUser")
-          .then((result) => {
-            this.listNotif = result.data;
-            this.listNotif = this.listNotif.notifs;
-          })
-          .catch((err) => {});
-      }, 2000);
-    },
+    // loadNotif() {
+    //   setInterval(() => {
+    //     axios
+    //       .get("/api/notifUser")
+    //       .then((result) => {
+    //         this.listNotif = result.data;
+    //         this.listNotif = this.listNotif.notifs;
+    //       })
+    //       .catch((err) => {});
+    //   }, 2000);
+    // },
     formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
