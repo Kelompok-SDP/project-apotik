@@ -148,7 +148,7 @@ export default {
     },
     loadData() {
       axios
-        .get("/home")
+        .get("/api/home")
         .then((result) => {
           this.isLogin = result.data;
         })
@@ -156,7 +156,7 @@ export default {
     },
     loadNotif() {
       axios
-        .get("/notifUser")
+        .get("/api/notifUser")
         .then((result) => {
           this.listNotif = result.data;
           this.listNotif = this.listNotif.notifs;
@@ -168,7 +168,7 @@ export default {
     },
     logout() {
       axios
-        .get("/logout")
+        .get("/api/logout")
         .then((result) => {
           window.location.replace("/login");
         })

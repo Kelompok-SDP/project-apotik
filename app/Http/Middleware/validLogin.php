@@ -17,8 +17,10 @@ class validLogin
     public function handle($request, Closure $next)
     {
         if (!Cookie::has('isLogin')) {
+            // DD('test');
             return redirect('/login');
         }
+
 
         return $next($request);
     }

@@ -56,7 +56,7 @@ export default {
   methods: {
     loadData() {
       axios
-        .get("/home")
+        .get("/api/home")
         .then((result) => {
           this.isLogin = result.data;
         })
@@ -66,7 +66,7 @@ export default {
     },
     addToCart() {
       axios
-        .post("/addCart", {
+        .post("/api/addCart", {
           id: this.dataProduk.id,
         })
         .then((result) => {})

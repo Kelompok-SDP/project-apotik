@@ -70,7 +70,7 @@ export default {
   methods: {
     loadNotif() {
       axios
-        .get("/notifHeader")
+        .get("/api/notifHeader")
         .then((result) => {
           this.listNotif = result.data;
           this.listNotif = this.listNotif.notifs;
@@ -82,7 +82,7 @@ export default {
     },
     loadDetail(id, index) {
       axios
-        .get("/notifDetail/" + id)
+        .get("/api/notifDetail/" + id)
         .then((result) => {
           this.notifDetail = result.data;
           this.total = this.listNotif[index].data.total.toString();
@@ -92,7 +92,7 @@ export default {
     },
     readDetail(id) {
       axios
-        .get("/readDetail/" + id)
+        .get("/api/readDetail/" + id)
         .then((result) => {
           this.loadNotif();
         })

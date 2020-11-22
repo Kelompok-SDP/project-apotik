@@ -39,13 +39,13 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            //buat bisa pake cookie di api
+            // 'throttle:60,1',
+            \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            //buat bisa pake session di api
             \Illuminate\Session\Middleware\StartSession::class,
+            // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

@@ -123,7 +123,7 @@ export default {
   methods: {
     loadData() {
       axios
-        .get(`/obat/getDetail/${this.$route.params.id}`)
+        .get(`/api/obat/getDetail/${this.$route.params.id}`)
         .then((result) => {
           this.obat = result.data.obat;
           this.listKategori = result.data.listKategori;
@@ -132,19 +132,17 @@ export default {
         .catch((err) => {});
 
       axios
-        .get("/home")
+        .get("/api/home")
         .then((result) => {
           this.isLogin = result.data;
         })
         .catch((err) => {
           console.log("error", this.isLogin.nama);
         });
-
-      console.log("test");
     },
     addToCart() {
       axios
-        .post("/addCart", {
+        .post("/api/addCart", {
           id: this.obat.id,
         })
         .then((result) => {})
@@ -152,10 +150,9 @@ export default {
     },
     loadObatRelated() {
       axios
-        .get("/obat/getRelated/" + this.listKategori[0].id)
+        .get("/api/obat/getRelated/" + this.listKategori[0].id)
         .then((result) => {
           this.listObat = result.data;
-          console.log(this.listObat);
         })
         .catch((err) => {});
     },

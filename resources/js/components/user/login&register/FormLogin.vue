@@ -61,7 +61,7 @@ export default {
       formData.append("email", this.form.email);
       formData.append("password", this.form.password);
       axios
-        .post("/login", formData)
+        .post("/api/login", formData)
         .then((result) => {
           if (
             result.data == "user tidak ada" ||

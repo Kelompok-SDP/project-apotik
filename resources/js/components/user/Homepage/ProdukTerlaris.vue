@@ -31,10 +31,10 @@ export default {
   methods: {
     loadProduk() {
       axios
-        .get("/produk")
+        .get("/api/produk")
         .then((result) => {
           this.products = result.data.data;
-          this.listUrl = this.products.map((k) => "/obat/" + k.id);
+          this.listUrl = this.products.map((k) => "/api/obat/" + k.id);
         })
         .catch((err) => {});
     },

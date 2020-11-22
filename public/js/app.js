@@ -6055,6 +6055,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6076,7 +6083,7 @@ __webpack_require__.r(__webpack_exports__);
     loadContent: function loadContent() {
       var _this = this;
 
-      axios.get("/artikel/" + this.$route.params.slug).then(function (result) {
+      axios.get("/api/artikel/" + this.$route.params.slug).then(function (result) {
         _this.contentArtikel = result.data;
         _this.tanggal = result.data;
 
@@ -6270,7 +6277,7 @@ __webpack_require__.r(__webpack_exports__);
     loadTag: function loadTag() {
       var _this = this;
 
-      axios.get("/tag/" + this.$route.params.id).then(function (result) {
+      axios.get("/api/tag/" + this.$route.params.id).then(function (result) {
         _this.tag = result.data.tag;
         _this.listartikel = result.data.artikel;
         _this.listUrl = _this.listartikel.map(function (k) {
@@ -6352,7 +6359,7 @@ __webpack_require__.r(__webpack_exports__);
       var jumlah = parseInt(this.dataCart.jumlah);
       jumlah++;
       this.dataCart.jumlah = jumlah.toString();
-      axios.post("/addJumlahCart", {
+      axios.post("/api/addJumlahCart", {
         id: this.dataCart.id
       }).then(function (result) {
         _this.$emit("load-data");
@@ -6373,7 +6380,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteCart: function deleteCart() {
       var _this3 = this;
 
-      axios.post("/deleteCart", {
+      axios.post("/api/deleteCart", {
         id: this.dataCart.id
       }).then(function (result) {
         _this3.$emit("load-data");
@@ -6447,7 +6454,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/lihatCart").then(function (result) {
+      axios.get("/api/lihatCart").then(function (result) {
         _this.listCart = result.data;
         _this.grandTotal = 0;
 
@@ -6467,7 +6474,7 @@ __webpack_require__.r(__webpack_exports__);
     bayar: function bayar() {
       var _this2 = this;
 
-      axios.post("/makeTransaction", {
+      axios.post("/api/makeTransaction", {
         grandTotal: this.grandTotal
       }).then(function (result) {
         _this2.loadData();
@@ -6553,7 +6560,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       // this.listCart = [];
-      axios.get("/lihatCart").then(function (result) {
+      axios.get("/api/lihatCart").then(function (result) {
         _this.listCart = result.data;
       })["catch"](function (err) {});
     },
@@ -6631,7 +6638,7 @@ __webpack_require__.r(__webpack_exports__);
     getTags: function getTags() {
       var _this = this;
 
-      axios.get("/artikel/getTag/".concat(this.dataProduk.id)).then(function (result) {
+      axios.get("/api/artikel/getTag/".concat(this.dataProduk.id)).then(function (result) {
         _this.listTag = result.data;
         _this.listUrl = _this.listTag.map(function (t) {
           return "/artikel/tag/".concat(t.id);
@@ -6686,7 +6693,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/admin/artikel").then(function (result) {
         _this.products = result.data.data;
-        console.log(_this.products);
       })["catch"](function (err) {});
     }
   }
@@ -6857,7 +6863,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/home").then(function (result) {
+      axios.get("/api/home").then(function (result) {
         _this.isLogin = result.data;
       })["catch"](function (err) {});
     }
@@ -7095,14 +7101,14 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/home").then(function (result) {
+      axios.get("/api/home").then(function (result) {
         _this.isLogin = result.data;
       })["catch"](function (err) {});
     },
     loadNotif: function loadNotif() {
       var _this2 = this;
 
-      axios.get("/notifUser").then(function (result) {
+      axios.get("/api/notifUser").then(function (result) {
         _this2.listNotif = result.data;
         _this2.listNotif = _this2.listNotif.notifs;
       })["catch"](function (err) {});
@@ -7111,7 +7117,7 @@ __webpack_require__.r(__webpack_exports__);
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
     logout: function logout() {
-      axios.get("/logout").then(function (result) {
+      axios.get("/api/logout").then(function (result) {
         window.location.replace("/login");
       })["catch"](function (err) {});
     }
@@ -7188,14 +7194,14 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/home").then(function (result) {
+      axios.get("/api/home").then(function (result) {
         _this.isLogin = result.data;
       })["catch"](function (err) {
         console.log("error", _this.isLogin.nama);
       });
     },
     addToCart: function addToCart() {
-      axios.post("/addCart", {
+      axios.post("/api/addCart", {
         id: this.dataProduk.id
       }).then(function (result) {})["catch"](function (err) {});
     }
@@ -7247,10 +7253,10 @@ __webpack_require__.r(__webpack_exports__);
     loadProduk: function loadProduk() {
       var _this = this;
 
-      axios.get("/produk").then(function (result) {
+      axios.get("/api/produk").then(function (result) {
         _this.products = result.data.data;
         _this.listUrl = _this.products.map(function (k) {
-          return "/obat/" + k.id;
+          return "/api/obat/" + k.id;
         });
       })["catch"](function (err) {});
     }
@@ -7487,6 +7493,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Profil",
@@ -7499,7 +7519,7 @@ __webpack_require__.r(__webpack_exports__);
       htrans: [],
       detailHtrans: {},
       dtrans: [],
-      link: "/obat/getDetail/",
+      link: "/api/obat/getDetail/",
       nama: "",
       email: "",
       role: 0,
@@ -7518,7 +7538,7 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/profilUser").then(function (result) {
+      axios.get("/api/profilUser").then(function (result) {
         _this.isLogin = result.data.userLogin;
         _this.htrans = result.data.dataHtrans;
         _this.nama = _this.isLogin.nama;
@@ -7541,7 +7561,7 @@ __webpack_require__.r(__webpack_exports__);
 
       //clone kategori supaya tidak merubah isi dari tabel asli
       this.detailHtrans = htrans;
-      axios.get("/getDtrans/" + htrans.id).then(function (result) {
+      axios.get("/api/getDtrans/" + htrans.id).then(function (result) {
         _this2.dtrans = result.data;
       });
       $("#modal-edit").modal("show");
@@ -7566,8 +7586,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("passbaru_confirmation", this.cpaswbaru); // alert(this.nama);
       // alert(this.notlp);
 
-      axios.post("/profilUser/update", formData).then(function (result) {
-        alert('data Berhasil di ubah');
+      axios.post("/api/profilUser/update", formData).then(function (result) {
+        alert("data Berhasil di ubah");
 
         _this3.loadData();
       })["catch"](function (_ref) {
@@ -7589,6 +7609,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -7700,7 +7723,7 @@ __webpack_require__.r(__webpack_exports__);
     loadNotif: function loadNotif() {
       var _this = this;
 
-      axios.get("/notifHeader").then(function (result) {
+      axios.get("/api/notifHeader").then(function (result) {
         _this.listNotif = result.data;
         _this.listNotif = _this.listNotif.notifs;
       })["catch"](function (err) {});
@@ -7711,7 +7734,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDetail: function loadDetail(id, index) {
       var _this2 = this;
 
-      axios.get("/notifDetail/" + id).then(function (result) {
+      axios.get("/api/notifDetail/" + id).then(function (result) {
         _this2.notifDetail = result.data;
         _this2.total = _this2.listNotif[index].data.total.toString();
 
@@ -7721,7 +7744,7 @@ __webpack_require__.r(__webpack_exports__);
     readDetail: function readDetail(id) {
       var _this3 = this;
 
-      axios.get("/readDetail/" + id).then(function (result) {
+      axios.get("/api/readDetail/" + id).then(function (result) {
         _this3.loadNotif();
       })["catch"](function (err) {});
     }
@@ -7867,30 +7890,28 @@ __webpack_require__.r(__webpack_exports__);
     loadData: function loadData() {
       var _this = this;
 
-      axios.get("/obat/getDetail/".concat(this.$route.params.id)).then(function (result) {
+      axios.get("/api/obat/getDetail/".concat(this.$route.params.id)).then(function (result) {
         _this.obat = result.data.obat;
         _this.listKategori = result.data.listKategori;
 
         _this.loadObatRelated();
       })["catch"](function (err) {});
-      axios.get("/home").then(function (result) {
+      axios.get("/api/home").then(function (result) {
         _this.isLogin = result.data;
       })["catch"](function (err) {
         console.log("error", _this.isLogin.nama);
       });
-      console.log("test");
     },
     addToCart: function addToCart() {
-      axios.post("/addCart", {
+      axios.post("/api/addCart", {
         id: this.obat.id
       }).then(function (result) {})["catch"](function (err) {});
     },
     loadObatRelated: function loadObatRelated() {
       var _this2 = this;
 
-      axios.get("/obat/getRelated/" + this.listKategori[0].id).then(function (result) {
+      axios.get("/api/obat/getRelated/" + this.listKategori[0].id).then(function (result) {
         _this2.listObat = result.data;
-        console.log(_this2.listObat);
       })["catch"](function (err) {});
     }
   }
@@ -7995,7 +8016,7 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/kategori/" + this.$route.params.slug).then(function (result) {
+      axios.get("/api/kategori/" + this.$route.params.slug).then(function (result) {
         _this.kategori = result.data.kategori;
         _this.listObat = result.data.obats;
         console.log(_this.listObat);
@@ -8062,7 +8083,7 @@ __webpack_require__.r(__webpack_exports__);
     loadKategori: function loadKategori() {
       var _this = this;
 
-      axios.get("/kategori").then(function (result) {
+      axios.get("/api/kategori").then(function (result) {
         _this.listKategori = result.data;
         _this.listUrl = _this.listKategori.map(function (k) {
           return "/produk/" + k.slug;
@@ -8194,7 +8215,7 @@ __webpack_require__.r(__webpack_exports__);
       var formData = new FormData();
       formData.append("email", this.form.email);
       formData.append("password", this.form.password);
-      axios.post("/login", formData).then(function (result) {
+      axios.post("/api/login", formData).then(function (result) {
         if (result.data == "user tidak ada" || result.data == "user sudah terbanned") {
           alert(result.data);
         } else {
@@ -8345,7 +8366,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append("noHp", this.form.noHp);
       formData.append("password", this.form.password);
       formData.append("password_confirmation", this.form.password_confirmation);
-      axios.post("/register", formData).then(function (result) {
+      axios.post("/api/register", formData).then(function (result) {
         _this.isLoading = false;
         alert("berhasil register");
       })["catch"](function (_ref) {
@@ -51722,7 +51743,13 @@ var render = function() {
                     "font-size": "15px"
                   }
                 },
-                [_vm._v("Dibuat pada: " + _vm._s(_vm.tanggal))]
+                [
+                  _vm._v(
+                    "\n          Dibuat pada: " +
+                      _vm._s(_vm.tanggal) +
+                      "\n        "
+                  )
+                ]
               ),
               _vm._v(" "),
               _c("img", {
@@ -51740,7 +51767,11 @@ var render = function() {
                   _c("span", { staticStyle: { color: "red" } }, [
                     _vm._v("UChicago Medicine")
                   ]),
-                  _vm._v("  - " + _vm._s(artikel.content))
+                  _vm._v(
+                    " -\n            " +
+                      _vm._s(artikel.content) +
+                      "\n          "
+                  )
                 ])
               ])
             ])
@@ -52392,7 +52423,7 @@ var render = function() {
         _c("br"),
         _vm._v(" "),
         _vm.kontak.nomo2 != ""
-          ? _c("span", [_vm._v("Nomor HP Kedua: " + _vm._s(_vm.kontak.nomor1))])
+          ? _c("span", [_vm._v("Nomor HP Kedua: " + _vm._s(_vm.kontak.nomor2))])
           : _vm._e()
       ]),
       _vm._v(" "),
@@ -53038,9 +53069,9 @@ var render = function() {
                           { staticClass: "invalid-feedback d-block" },
                           [
                             _vm._v(
-                              "\n                              " +
+                              "\n              " +
                                 _vm._s(_vm.errors.nama[0]) +
-                                "\n                          "
+                                "\n            "
                             )
                           ]
                         )
@@ -53083,9 +53114,9 @@ var render = function() {
                           { staticClass: "invalid-feedback d-block" },
                           [
                             _vm._v(
-                              "\n                              " +
+                              "\n              " +
                                 _vm._s(_vm.errors.noHp[0]) +
-                                "\n                          "
+                                "\n            "
                             )
                           ]
                         )
@@ -53128,9 +53159,9 @@ var render = function() {
                           { staticClass: "invalid-feedback d-block" },
                           [
                             _vm._v(
-                              "\n                              " +
+                              "\n              " +
                                 _vm._s(_vm.errors.email[0]) +
-                                "\n                          "
+                                "\n            "
                             )
                           ]
                         )
@@ -53162,11 +53193,11 @@ var render = function() {
                     _c("label", { attrs: { for: "" } }, [_vm._v("Role")]),
                     _vm._v(" "),
                     _vm.isLogin.role == 0
-                      ? _c("p", [_vm._v(" User")])
+                      ? _c("p", [_vm._v("User")])
                       : _vm._e(),
                     _vm._v(" "),
                     _vm.isLogin.role == 1
-                      ? _c("p", [_vm._v(" Admin")])
+                      ? _c("p", [_vm._v("Admin")])
                       : _vm._e()
                   ]),
                   _vm._v(" "),
@@ -53214,9 +53245,9 @@ var render = function() {
                               { staticClass: "invalid-feedback d-block" },
                               [
                                 _vm._v(
-                                  "\n                              " +
+                                  "\n                " +
                                     _vm._s(_vm.errors.password[0]) +
-                                    "\n                          "
+                                    "\n              "
                                 )
                               ]
                             )
@@ -53226,7 +53257,7 @@ var render = function() {
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "" } }, [
                           _vm._v(
-                            "Masukkan Password baru (jika tidak ingin mengganti dikosongi saja)"
+                            "Masukkan Password baru (jika tidak ingin mengganti dikosongi\n                saja)"
                           )
                         ]),
                         _vm._v(" "),
@@ -53262,9 +53293,9 @@ var render = function() {
                               { staticClass: "invalid-feedback d-block" },
                               [
                                 _vm._v(
-                                  "\n                              " +
+                                  "\n                " +
                                     _vm._s(_vm.errors.passbaru[0]) +
-                                    "\n                          "
+                                    "\n              "
                                 )
                               ]
                             )
@@ -53274,7 +53305,7 @@ var render = function() {
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "" } }, [
                           _vm._v(
-                            "Masukkan Confirm Password baru (jika tidak ingin mengganti dikosongi saja)"
+                            "Masukkan Confirm Password baru (jika tidak ingin mengganti\n                dikosongi saja)"
                           )
                         ]),
                         _vm._v(" "),
@@ -53311,7 +53342,11 @@ var render = function() {
                           staticClass: "btn btn-md btn-primary",
                           attrs: { type: "submit" }
                         },
-                        [_vm._v("Simpan Perubahan")]
+                        [
+                          _vm._v(
+                            "\n              Simpan Perubahan\n            "
+                          )
+                        ]
                       )
                     ]
                   )
@@ -53329,7 +53364,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("Edit Your Profile")]
+                [_vm._v("\n          Edit Your Profile\n        ")]
               )
             ]),
             _vm._v(" "),
@@ -53368,7 +53403,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                          Detail\n                          "
+                              "\n                  Detail\n                "
                             )
                           ]
                         )
@@ -53398,25 +53433,25 @@ var render = function() {
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "card-body" }, [
                   _vm._v(
-                    "\n                  Kode Struk : " +
+                    "\n            Kode Struk : " +
                       _vm._s(_vm.detailHtrans.id) +
                       " "
                   ),
                   _c("br"),
                   _vm._v(
-                    "\n                  Nama Dokter : " +
+                    "\n            Nama Dokter : " +
                       _vm._s(_vm.detailHtrans.nama_dokter) +
                       " "
                   ),
                   _c("br"),
                   _vm._v(
-                    "\n                  Total Harga : " +
+                    "\n            Total Harga : " +
                       _vm._s(_vm.detailHtrans.total) +
                       " "
                   ),
                   _c("br"),
                   _vm._v(
-                    "\n                  Tanggal : " +
+                    "\n            Tanggal : " +
                       _vm._s(_vm.detailHtrans.tanggal) +
                       " "
                   ),
@@ -53425,7 +53460,7 @@ var render = function() {
                   _vm.errors.hasOwnProperty("nama")
                     ? _c("span", { staticClass: "invalid-feedback d-block" }, [
                         _vm._v(
-                          "\n                      Keterangan : " +
+                          "\n              Keterangan : " +
                             _vm._s(_vm.detailHtrans.keterangan) +
                             " "
                         ),
@@ -53558,7 +53593,10 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", { staticClass: "dropdown-divider" }),
+      _c("div", {
+        staticClass: "dropdown-divider",
+        staticStyle: { "overflow-y": "auto", "max-height": "300px" }
+      }),
       _vm._v(" "),
       _c(
         "router-link",

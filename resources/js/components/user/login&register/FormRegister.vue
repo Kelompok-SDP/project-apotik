@@ -121,7 +121,7 @@ export default {
       formData.append("password", this.form.password);
       formData.append("password_confirmation", this.form.password_confirmation);
       axios
-        .post("/register", formData)
+        .post("/api/register", formData)
         .then((result) => {
           this.isLoading = false;
           alert("berhasil register");

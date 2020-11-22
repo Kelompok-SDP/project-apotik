@@ -7,12 +7,12 @@
     </div>
     <div class="card-footer">
       <small class="text-muted">Last updated 3 mins ago</small>
-      <br>
+      <br />
       <span>
         <router-link v-bind:to="Url">
-            <p style="color: blue;">See more details >></p>
+          <p style="color: blue">See more details >></p>
         </router-link>
-        </span>
+      </span>
       <div class="row">
         <button
           class="btn btn-sm btn-danger col-4 p-0 m-2"
@@ -53,7 +53,7 @@ export default {
     },
     getTags() {
       axios
-        .get(`/artikel/getTag/${this.dataProduk.id}`)
+        .get(`/api/artikel/getTag/${this.dataProduk.id}`)
         .then((result) => {
           this.listTag = result.data;
           this.listUrl = this.listTag.map((t) => `/artikel/tag/${t.id}`);

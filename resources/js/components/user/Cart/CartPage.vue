@@ -59,7 +59,7 @@ export default {
     loadCart() {
       // this.listCart = [];
       axios
-        .get("/lihatCart")
+        .get("/api/lihatCart")
         .then((result) => {
           this.listCart = result.data;
         })

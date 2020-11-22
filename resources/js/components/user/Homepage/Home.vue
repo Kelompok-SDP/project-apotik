@@ -34,7 +34,7 @@ export default {
   methods: {
     loadData() {
       axios
-        .get("/home")
+        .get("/api/home")
         .then((result) => {
           this.isLogin = result.data;
         })
