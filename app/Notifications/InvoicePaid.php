@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use App\Mail\SuccessRegistrasi;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -53,8 +54,10 @@ class InvoicePaid extends Notification
 
     public function toDatabase()
     {
+        $current = Carbon::now();
+        $dt = Carbon::parse($current)->format("d F Y");
         return [
-            'tanggal' => date('dmy'),
+            'tanggal' => $dt,
             'total' => $this->total,
             'cart' => $this->cart
         ];

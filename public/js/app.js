@@ -7077,7 +7077,6 @@ __webpack_require__.r(__webpack_exports__);
         home: false,
         artikel: false,
         obat: false,
-        kontak: false,
         alat: false
       },
       listNotif: []
@@ -7098,8 +7097,6 @@ __webpack_require__.r(__webpack_exports__);
         this.cssLokasi.artikel = true;
       } else if (this.lokasi == "obat") {
         this.cssLokasi.obat = true;
-      } else if (this.lokasi == "kontak") {
-        this.cssLokasi.kontak = true;
       } else if (this.lokasi == "alat") {
         this.cssLokasi.alat = true;
       }
@@ -7108,8 +7105,6 @@ __webpack_require__.r(__webpack_exports__);
       this.cssLokasi.home = false;
       this.cssLokasi.artikel = false;
       this.cssLokasi.lokasi = false;
-      this.cssLokasi.kontak = false;
-      this.cssLokasi.alat = false;
     },
     loadData: function loadData() {
       var _this = this;
@@ -7121,10 +7116,12 @@ __webpack_require__.r(__webpack_exports__);
     loadNotif: function loadNotif() {
       var _this2 = this;
 
-      axios.get("/api/notifUser").then(function (result) {
-        _this2.listNotif = result.data;
-        _this2.listNotif = _this2.listNotif.notifs;
-      })["catch"](function (err) {});
+      setInterval(function () {
+        axios.get("/api/notifUser").then(function (result) {
+          _this2.listNotif = result.data;
+          _this2.listNotif = _this2.listNotif.notifs;
+        })["catch"](function (err) {});
+      }, 2000);
     },
     formatNumber: function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -7632,9 +7629,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NotifList",
   props: {
@@ -7664,7 +7658,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Homepage/Navbar */ "./resources/js/components/user/Homepage/Navbar.vue");
 /* harmony import */ var _NotifList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotifList */ "./resources/js/components/user/NotifPage/NotifList.vue");
-//
 //
 //
 //
@@ -12938,7 +12931,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-f13a59f4] {\n  margin-left: 3rem;\n}\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-f13a59f4] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
 
 // exports
 
@@ -13185,7 +13178,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\n  font-weight: bold;\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\n  background-color: #29374681;\n  color: white;\n  padding: 12px;\n  font-size: 14px;\n  border: none;\n  cursor: pointer;\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\n  position: relative;\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\n  display: none;\n  position: absolute;\n  background-color: #f9f9f9;\n  min-width: 160px;\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\n  color: black;\n  padding: 12px 16px;\n  text-decoration: none;\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\n  background-color: #3d5c7f;\n}\n", ""]);
+exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\r\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\r\n  font-weight: bold;\r\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
 
 // exports
 
@@ -53619,10 +53612,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("div", {
-        staticClass: "dropdown-divider",
-        staticStyle: { "overflow-y": "auto", "max-height": "300px" }
-      }),
+      _c("div", { staticClass: "dropdown-divider" }),
       _vm._v(" "),
       _c(
         "router-link",
@@ -53632,9 +53622,7 @@ var render = function() {
           attrs: { to: "/notifpage" }
         },
         [
-          _c("strong", [
-            _vm._v("Transaksi Tanggal " + _vm._s(_vm.tanggal) + " ")
-          ]),
+          _c("strong", [_vm._v("Transaksi " + _vm._s(_vm.tanggal) + " ")]),
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
@@ -53704,62 +53692,55 @@ var render = function() {
               _vm.notifDetail.data
                 ? _c(
                     "div",
-                    { staticClass: "col-12" },
-                    [
-                      _vm._l(_vm.notifDetail.data, function(detail) {
-                        return _c(
-                          "div",
-                          { key: detail.id, staticClass: "row" },
-                          [
-                            _c("div", { staticClass: "row" }, [
-                              _c("img", {
-                                attrs: {
-                                  src: detail.gambar,
-                                  alt: detail.nama,
-                                  width: "100rem;"
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col-3" }, [
-                                _vm._v(
-                                  "\n                " +
-                                    _vm._s(detail.nama) +
-                                    "\n              "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-3" }, [
-                                _vm._v(_vm._s(detail.jumlah) + "x")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col-3" }, [
-                                _vm._v(
-                                  "Rp. " +
-                                    _vm._s(_vm.formatNumber(detail.subtotal))
-                                )
-                              ])
+                    _vm._l(_vm.notifDetail.data, function(detail) {
+                      return _c(
+                        "div",
+                        {
+                          key: detail.id,
+                          staticClass: "card",
+                          staticStyle: { width: "25rem" }
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "card-img-top",
+                            attrs: { src: detail.gambar, alt: detail.nama }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("h5", { staticClass: "card-title" }, [
+                              _vm._v(_vm._s(detail.nama))
                             ])
-                          ]
-                        )
-                      }),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-9" }, [
-                        _c("strong", [_vm._v("Ringkasan Pembayaran")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-6" }, [
-                            _vm._v("GrandTotal")
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-3 text-right" }, [
-                            _vm._v("Rp " + _vm._s(_vm.formatNumber(_vm.total)))
+                          _c(
+                            "ul",
+                            { staticClass: "list-group list-group-flush" },
+                            [
+                              _c("li", { staticClass: "list-group-item" }, [
+                                _vm._v("Jumlah: " + _vm._s(detail.jumlah))
+                              ]),
+                              _vm._v(" "),
+                              _c("li", { staticClass: "list-group-item" }, [
+                                _vm._v(
+                                  "\n                Subtotal: Rp. " +
+                                    _vm._s(_vm.formatNumber(detail.subtotal)) +
+                                    "\n              "
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-footer" }, [
+                            _vm._v(
+                              "\n              GrandTotal Rp " +
+                                _vm._s(_vm.formatNumber(_vm.total)) +
+                                "\n            "
+                            )
                           ])
-                        ])
-                      ])
-                    ],
-                    2
+                        ]
+                      )
+                    }),
+                    0
                   )
                 : _vm._e()
             ]
@@ -73642,8 +73623,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

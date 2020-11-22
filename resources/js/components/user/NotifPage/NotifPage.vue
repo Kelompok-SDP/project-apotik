@@ -14,30 +14,29 @@
           />
         </div>
         <div class="col-lg mt-2 d-flex justify-content-center">
-          <div class="col-12" v-if="notifDetail.data">
+          <div v-if="notifDetail.data">
             <div
-              class="row"
+              class="card"
               v-for="detail in notifDetail.data"
               :key="detail.id"
+              style="width: 25rem"
             >
-              <div class="row">
-                <img :src="detail.gambar" :alt="detail.nama" width="100rem;" />
+              <img
+                :src="detail.gambar"
+                :alt="detail.nama"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ detail.nama }}</h5>
               </div>
-              <div class="row">
-                <div class="col-3">
-                  {{ detail.nama }}
-                </div>
-                <div class="col-3">{{ detail.jumlah }}x</div>
-                <div class="col-3">Rp. {{ formatNumber(detail.subtotal) }}</div>
-              </div>
-            </div>
-
-            <div class="col-9">
-              <strong>Ringkasan Pembayaran</strong>
-
-              <div class="row">
-                <div class="col-6">GrandTotal</div>
-                <div class="col-3 text-right">Rp {{ formatNumber(total) }}</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Jumlah: {{ detail.jumlah }}</li>
+                <li class="list-group-item">
+                  Subtotal: Rp. {{ formatNumber(detail.subtotal) }}
+                </li>
+              </ul>
+              <div class="card-footer">
+                GrandTotal Rp {{ formatNumber(total) }}
               </div>
             </div>
           </div>
