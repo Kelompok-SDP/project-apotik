@@ -21,7 +21,19 @@ class ProfilController extends Controller
         $dataDtrans=DB::table("td_juals as td")
         ->selectRaw("td.tipe_produk , td.harga , td.jumlah , td.subtotal , o.nama,o.gambar , o.id")
         ->join("obats as o","o.id","td.id_product")
-        ->where("td.id_th_jual",$id)->get();
+        ->where("td.id_th_jual",$id)
+        ->get();
+        // dd($dataDtrans);
+        if(sizeof($dataDtrans)==0){
+
+            $dataDtrans=DB::table("td_juals as td")
+            ->selectRaw("td.tipe_produk , td.harga , td.jumlah , td.subtotal , o.nama,o.gambar , o.id")
+            ->join("alat_kesehatans as o","o.id","td.id_product")
+            ->where("td.id_th_jual",$id)
+            ->get();
+            // dd($dataDtrans);
+        }
+
         return $dataDtrans;
     }
     public function profil(Request $request){

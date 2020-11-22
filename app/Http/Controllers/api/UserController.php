@@ -101,7 +101,7 @@ class UserController extends Controller
             $isLogin = Auth::user();
             Auth::login(Auth::user());
 
-            Cookie::queue('isLogin', json_encode($isLogin), 60);
+            Cookie::queue('isLogin', json_encode($isLogin), 3600);
         } else {
             $pesan = 'user tidak ada';
             return $pesan;
