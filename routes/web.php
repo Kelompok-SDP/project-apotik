@@ -24,8 +24,6 @@ Route::group(['middleware' => ['validLogin']], function () {
     Route::get('/logout', 'Api\UserController@logout');
 });
 
-
-
 Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');

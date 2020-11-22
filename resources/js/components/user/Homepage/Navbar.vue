@@ -26,6 +26,11 @@
           >Obat & Vitamin</router-link
         >
       </div>
+      <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.alat }">
+        <router-link to="/produk" class="navbar-text"
+          >Alat Kesehatan</router-link
+        >
+      </div>
     </div>
 
     <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
@@ -121,6 +126,8 @@ export default {
         home: false,
         artikel: false,
         obat: false,
+        kontak: false,
+        alat: false,
       },
       listNotif: [],
     };
@@ -139,12 +146,18 @@ export default {
         this.cssLokasi.artikel = true;
       } else if (this.lokasi == "obat") {
         this.cssLokasi.obat = true;
+      } else if (this.lokasi == "kontak") {
+        this.cssLokasi.kontak = true;
+      }else if (this.lokasi == "alat") {
+        this.cssLokasi.alat = true;
       }
     },
     resetLokasi() {
       this.cssLokasi.home = false;
       this.cssLokasi.artikel = false;
       this.cssLokasi.lokasi = false;
+      this.cssLokasi.kontak = false;
+      this.cssLokasi.alat = false;
     },
     loadData() {
       axios
