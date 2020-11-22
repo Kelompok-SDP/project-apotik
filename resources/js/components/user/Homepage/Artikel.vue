@@ -7,6 +7,12 @@
     </div>
     <div class="card-footer">
       <small class="text-muted">Last updated 3 mins ago</small>
+      <br>
+      <span>
+        <router-link v-bind:to="Url">
+            See more details >>
+        </router-link>
+        </span>
     </div>
   </div>
 </template>
@@ -17,6 +23,11 @@ export default {
   props: {
     dataProduk: Object,
   },
+    data() {
+    return {
+      Url: {}
+    };
+  },
   mounted() {
     this.cutString();
   },
@@ -26,6 +37,7 @@ export default {
         this.dataProduk.content =
           this.dataProduk.content.substring(0, 50) + "...";
       }
+      this.Url = "artikel/" + this.dataProduk.slug;
     },
   },
 };

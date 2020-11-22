@@ -23,9 +23,12 @@ import Login from './components/user/login&register/Login.vue';
 import Register from './components/user/login&register/Register.vue';
 
 import Home from './components/user/Homepage/Home.vue';
-import Artikel from './components/user/Artikel/ArtikelPage.vue';
+import Artikel from './components/user/Homepage/Artikel.vue';
+import ArtikelPage from './components/user/Artikel/ArtikelPage.vue';
+import DetailArPage from './components/user/Artikel/DetailArtikel.vue';
 import ObatPage from './components/user/Obat/ObatPage';
 import KategoriPage from './components/user/Obat/KategoriPage';
+import TagPage from './components/user/Artikel/TagPage';
 import Profil from './components/user/Homepage/Profil.vue';
 import CartPage from './components/user/Cart/CartPage.vue'
 
@@ -42,6 +45,16 @@ const routes = [
         component: Artikel
     },
     {
+        name: 'ArtikelPage',
+        path: '/artikelpage',
+        component: ArtikelPage
+    },
+    {
+        name: 'DetailArPage',
+        path: '/artikelpage/artikel/:slug',
+        component: DetailArPage
+    },
+    {
         name: 'ObatPage',
         path: '/produk',
         component: ObatPage
@@ -50,6 +63,11 @@ const routes = [
         name: 'KategoriPage',
         path: '/produk/:slug',
         component: KategoriPage
+    },
+    {
+        name: 'TagPage',
+        path: '/artikelpage/:id',
+        component: TagPage
     },
     {
         name: 'CartPage',

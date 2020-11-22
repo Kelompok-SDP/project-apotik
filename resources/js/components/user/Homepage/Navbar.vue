@@ -19,7 +19,7 @@
         <router-link to="/" class="navbar-text">Home</router-link>
       </div>
       <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.artikel }">
-        <router-link to="/artikel" class="navbar-text">Artikel</router-link>
+        <router-link to="/artikelpage" class="navbar-text">Artikel</router-link>
       </div>
       <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.obat }">
         <router-link to="/produk" class="navbar-text"

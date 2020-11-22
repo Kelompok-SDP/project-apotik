@@ -46,7 +46,7 @@ export default {
         .then((result) => {
           this.listKategori = result.data;
           this.listUrl = this.listKategori.map((k) => "/produk/" + k.slug);
-          // console.table(this.listUrl);
+          console.table(this.listUrl);
         })
         .catch((err) => {});
     },
