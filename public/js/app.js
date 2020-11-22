@@ -6689,6 +6689,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["lokasi"],
   data: function data() {
@@ -6698,7 +6703,8 @@ __webpack_require__.r(__webpack_exports__);
         home: false,
         artikel: false,
         obat: false,
-        kontak: false
+        kontak: false,
+        alat: false
       }
     };
   },
@@ -6718,6 +6724,8 @@ __webpack_require__.r(__webpack_exports__);
         this.cssLokasi.obat = true;
       } else if (this.lokasi == "kontak") {
         this.cssLokasi.kontak = true;
+      } else if (this.lokasi == "alat") {
+        this.cssLokasi.alat = true;
       }
     },
     resetLokasi: function resetLokasi() {
@@ -6725,6 +6733,7 @@ __webpack_require__.r(__webpack_exports__);
       this.cssLokasi.artikel = false;
       this.cssLokasi.lokasi = false;
       this.cssLokasi.kontak = false;
+      this.cssLokasi.alat = false;
     },
     loadData: function loadData() {
       var _this = this;
@@ -51846,6 +51855,19 @@ var render = function() {
               "router-link",
               { staticClass: "navbar-text", attrs: { to: "/produk" } },
               [_vm._v("Obat & Vitamin")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "p-2 mx-4", class: { active: _vm.cssLokasi.alat } },
+          [
+            _c(
+              "router-link",
+              { staticClass: "navbar-text", attrs: { to: "/produk" } },
+              [_vm._v("Alat Kesehatan")]
             )
           ],
           1
