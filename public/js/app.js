@@ -7613,7 +7613,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getLokasi();
-    this.loadData(); // this.loadNotif();
+    this.loadData();
+    this.loadNotif();
   },
   methods: {
     getLokasi: function getLokasi() {
@@ -7641,17 +7642,16 @@ __webpack_require__.r(__webpack_exports__);
         _this.isLogin = result.data;
       })["catch"](function (err) {});
     },
-    // loadNotif() {
-    //   setInterval(() => {
-    //     axios
-    //       .get("/api/notifUser")
-    //       .then((result) => {
-    //         this.listNotif = result.data;
-    //         this.listNotif = this.listNotif.notifs;
-    //       })
-    //       .catch((err) => {});
-    //   }, 2000);
-    // },
+    loadNotif: function loadNotif() {
+      var _this2 = this;
+
+      setInterval(function () {
+        axios.get("/api/notifUser").then(function (result) {
+          _this2.listNotif = result.data;
+          _this2.listNotif = _this2.listNotif.notifs;
+        })["catch"](function (err) {});
+      }, 2000);
+    },
     formatNumber: function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },

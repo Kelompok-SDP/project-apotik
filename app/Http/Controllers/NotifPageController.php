@@ -33,8 +33,8 @@ class NotifPageController extends Controller
         $notifs = $user->unreadNotifications()->orderBy('created_at', 'desc')->get();
 
         $notifs = json_decode($notifs);
-        $header = $notifs[0]->data;
-        // DD($header);
+        // DD($notifs);
+        // $header = $notifs[0]->data;
         //cara ambil data pada vue $header->tanggal
 
         return compact(['notifs']);
