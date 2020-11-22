@@ -2588,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
 //
 //
 //
@@ -2998,7 +2998,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Artikel",
   components: {
-    VueLoadingButton: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -3214,8 +3214,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-overlay'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -3290,8 +3291,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Info",
   components: {
-    VueLoadingButton: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-    Loading: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-overlay'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Loading: vue_loading_overlay__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   data: function data() {
     return {
@@ -3373,7 +3374,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
 //
 //
 //
@@ -3702,7 +3703,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Kategori",
   components: {
-    VueLoadingButton: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -5009,7 +5010,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
 //
 //
 //
@@ -5240,7 +5241,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Tag",
   components: {
-    VueLoadingButton: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -6567,9 +6568,74 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Homepage/Artikel.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\resources\\js\\components\\user\\Homepage\\Artikel.vue: Unexpected token, expected \",\" (38:6)\n\n\u001b[0m \u001b[90m 36 | \u001b[39m    \u001b[36mreturn\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 37 | \u001b[39m      \u001b[33mUrl\u001b[39m\u001b[33m:\u001b[39m {}\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 38 | \u001b[39m      listTag\u001b[33m:\u001b[39m []\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 39 | \u001b[39m      listUrl\u001b[33m:\u001b[39m []\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 40 | \u001b[39m    }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 41 | \u001b[39m  }\u001b[33m,\u001b[39m\u001b[0m\n    at Parser._raise (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:799:17)\n    at Parser.raiseWithData (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:792:17)\n    at Parser.raise (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:786:17)\n    at Parser.unexpected (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9089:16)\n    at Parser.expect (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9075:28)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10793:14)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10332:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9976:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9956:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9945:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9815:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9789:23)\n    at Parser.parseMaybeAssign (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9752:21)\n    at Parser.parseExpressionBase (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9696:23)\n    at C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9690:39\n    at Parser.allowInAnd (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11442:16)\n    at Parser.parseExpression (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9690:17)\n    at Parser.parseReturnStatement (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11946:28)\n    at Parser.parseStatementContent (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11625:21)\n    at Parser.parseStatement (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11577:17)\n    at Parser.parseBlockOrModuleBlockBody (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:12159:25)\n    at Parser.parseBlockBody (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:12145:10)\n    at Parser.parseBlock (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:12129:10)\n    at Parser.parseFunctionBody (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11108:24)\n    at Parser.parseFunctionBodyAndFinish (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11091:10)\n    at Parser.parseMethod (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:11028:10)\n    at Parser.parseObjectMethod (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10953:19)\n    at Parser.parseObjPropValue (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10986:23)\n    at Parser.parsePropertyDefinition (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10910:10)\n    at Parser.parseObjectLike (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10802:25)\n    at Parser.parseExprAtom (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:10332:23)\n    at Parser.parseExprSubscripts (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9976:23)\n    at Parser.parseUpdate (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9956:21)\n    at Parser.parseMaybeUnary (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9945:17)\n    at Parser.parseExprOps (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9815:23)\n    at Parser.parseMaybeConditional (C:\\xampp\\htdocs\\ProyekFAI\\project-apotik\\node_modules\\@babel\\parser\\lib\\index.js:9789:23)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Artikel",
+  props: {
+    dataProduk: Object
+  },
+  data: function data() {
+    return {
+      Url: {},
+      listTag: [],
+      listUrl: []
+    };
+  },
+  mounted: function mounted() {
+    this.cutString();
+    this.getTags();
+  },
+  methods: {
+    cutString: function cutString() {
+      if (this.dataProduk.content.length > 50) {
+        this.dataProduk.content = this.dataProduk.content.substring(0, 50) + "...";
+      }
+
+      this.Url = "/artikelpage/artikel/" + this.dataProduk.slug;
+    },
+    getTags: function getTags() {
+      var _this = this;
+
+      axios.get("/artikel/getTag/".concat(this.dataProduk.id)).then(function (result) {
+        _this.listTag = result.data;
+        _this.listUrl = _this.listTag.map(function (t) {
+          return "/artikel/tag/".concat(t.id);
+        });
+      })["catch"](function (err) {});
+    }
+  }
+});
 
 /***/ }),
 
@@ -7946,7 +8012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-!(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var vue_loading_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-button */ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js");
 //
 //
 //
@@ -8043,7 +8109,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FormRegister",
   components: {
-    VueLoadingButton: !(function webpackMissingModule() { var e = new Error("Cannot find module 'vue-loading-button'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+    VueLoadingButton: vue_loading_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
@@ -51863,7 +51929,9 @@ var render = function() {
         "span",
         [
           _c("router-link", { attrs: { to: _vm.Url } }, [
-            _vm._v("\n          See more details >>\n      ")
+            _c("p", { staticStyle: { color: "blue" } }, [
+              _vm._v("See more details >>")
+            ])
           ])
         ],
         1
@@ -54204,6 +54272,288 @@ function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/vue-loading-button/dist/vue-loading-button.esm.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/vue-loading-button/dist/vue-loading-button.esm.js ***!
+  \************************************************************************/
+/*! exports provided: default, install */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script = {
+  name: "VueLoadingButton",
+  props: {
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    styled: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  }
+};
+
+function normalizeComponent(compiledTemplate, injectStyle, defaultExport, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, isShadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof isShadowMode === 'function') {
+        createInjectorSSR = createInjector;
+        createInjector = isShadowMode;
+        isShadowMode = false;
+    }
+    // Vue.extend constructor export interop
+    var options = typeof defaultExport === 'function' ? defaultExport.options : defaultExport;
+    // render functions
+    if (compiledTemplate && compiledTemplate.render) {
+        options.render = compiledTemplate.render;
+        options.staticRenderFns = compiledTemplate.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
+        }
+    }
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    var hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (injectStyle) {
+                injectStyle.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (injectStyle) {
+        hook = isShadowMode
+            ? function () {
+                injectStyle.call(this, createInjectorShadow(this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                injectStyle.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            var originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            var existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return defaultExport;
+}
+
+var isOldIE = typeof navigator !== 'undefined' &&
+    /msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());
+function createInjector(context) {
+    return function (id, style) { return addStyle(id, style); };
+}
+var HEAD = document.head || document.getElementsByTagName('head')[0];
+var styles = {};
+function addStyle(id, css) {
+    var group = isOldIE ? css.media || 'default' : id;
+    var style = styles[group] || (styles[group] = { ids: new Set(), styles: [] });
+    if (!style.ids.has(id)) {
+        style.ids.add(id);
+        var code = css.source;
+        if (css.map) {
+            // https://developer.chrome.com/devtools/docs/javascript-debugging
+            // this makes source maps inside style tags work properly in Chrome
+            code += '\n/*# sourceURL=' + css.map.sources[0] + ' */';
+            // http://stackoverflow.com/a/26603875
+            code +=
+                '\n/*# sourceMappingURL=data:application/json;base64,' +
+                    btoa(unescape(encodeURIComponent(JSON.stringify(css.map)))) +
+                    ' */';
+        }
+        if (!style.element) {
+            style.element = document.createElement('style');
+            style.element.type = 'text/css';
+            if (css.media)
+                { style.element.setAttribute('media', css.media); }
+            HEAD.appendChild(style.element);
+        }
+        if ('styleSheet' in style.element) {
+            style.styles.push(code);
+            style.element.styleSheet.cssText = style.styles
+                .filter(Boolean)
+                .join('\n');
+        }
+        else {
+            var index = style.ids.size - 1;
+            var textNode = document.createTextNode(code);
+            var nodes = style.element.childNodes;
+            if (nodes[index])
+                { style.element.removeChild(nodes[index]); }
+            if (nodes.length)
+                { style.element.insertBefore(textNode, nodes[index]); }
+            else
+                { style.element.appendChild(textNode); }
+        }
+    }
+}
+
+/* script */
+var __vue_script__ = script;
+// For security concerns, we use only base name in production mode. See https://github.com/vuejs/rollup-plugin-vue/issues/258
+script.__file = "/mnt/c/Users/william/temp/vue-loading-button/src/vue-loading-button.vue";
+
+/* template */
+var __vue_render__ = function() {
+  var _vm = this;
+  var _h = _vm.$createElement;
+  var _c = _vm._self._c || _h;
+  return _c(
+    "button",
+    {
+      class: {
+        "vue-loading-button": true,
+        "default-styles": _vm.styled,
+        loading: _vm.loading
+      },
+      attrs: { disabled: _vm.loading, type: "button" }
+    },
+    [_vm._t("default", [_vm._v("Submit")]), _vm._v(" "), _vm._m(0)],
+    2
+  )
+};
+var __vue_staticRenderFns__ = [
+  function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("span", { staticClass: "spinner" }, [
+      _c("span"),
+      _vm._v(" "),
+      _c("span"),
+      _vm._v(" "),
+      _c("span"),
+      _vm._v(" "),
+      _c("span")
+    ])
+  }
+];
+__vue_render__._withStripped = true;
+
+  /* style */
+  var __vue_inject_styles__ = function (inject) {
+    if (!inject) { return }
+    inject("data-v-3a698022_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* reset */\nbutton[data-v-3a698022] {\n  font-family: inherit;\n  font-size: 100%;\n  font-size: 1.4rem;\n  line-height: 1.15;\n  margin: 0;\n  overflow: visible;\n  text-transform: none;\n  -webkit-appearance: button;\n}\nbutton[data-v-3a698022]::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\nbutton[data-v-3a698022]:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/* loading styles */\nbutton[data-v-3a698022] {\n  position: relative;\n  -webkit-transition: all 0.2s;\n  transition: all 0.2s;\n  transition-timing-function: ease-in;\n}\n.spinner[data-v-3a698022] {\n  line-height: 1.15;\n  position: absolute;\n  top: 50%;\n  left: auto;\n  right: 1.7rem;\n  margin: -0.5em;\n  opacity: 0;\n  transition-property: padding, opacity;\n  transition-duration: 0.2s, 0.2s;\n  transition-timing-function: ease-in, ease;\n  transition-delay: 0s, 0.2s;\n}\n.spinner span[data-v-3a698022] {\n  box-sizing: border-box;\n  display: inline-block;\n  position: absolute;\n  right: 0;\n  top: 0.15rem;\n  width: 1rem;\n  height: 1rem;\n  opacity: 1;\n  border: 3.4px solid #888;\n  border-radius: 50%;\n  animation: spinner-data-v-3a698022 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: #888 transparent transparent transparent;\n}\n.spinner span[data-v-3a698022]:nth-child(1) {\n  animation-delay: 0.45s;\n}\n.spinner span[data-v-3a698022]:nth-child(2) {\n  animation-delay: 0.3s;\n}\n.spinner span[data-v-3a698022]:nth-child(3) {\n  animation-delay: 0.15s;\n}\n.loading[data-v-3a698022] {\n  padding-right: 3rem !important;\n}\n.loading .spinner[data-v-3a698022] {\n  opacity: 1;\n}\n.loading .spinner span[data-v-3a698022] {\n  opacity: 1;\n}\nbutton[data-v-3a698022]:not(:disabled) {\n  transition-delay: 0.2s;\n}\nbutton:not(:disabled) .spinner span[data-v-3a698022] {\n  box-shadow: 0 0 0 0.2rem #888 inset;\n  border: 7.4px solid transparent;\n  -webkit-transition: all 0.4s;\n  transition: all 0.4s;\n}\nbutton:not(:disabled) .spinner span[data-v-3a698022]:nth-child(1) {\n  transform: rotate(0deg) !important;\n}\nbutton:not(:disabled) .spinner span[data-v-3a698022]:nth-child(2) {\n  transform: rotate(90deg) !important;\n}\nbutton:not(:disabled) .spinner span[data-v-3a698022]:nth-child(3) {\n  transform: rotate(180deg) !important;\n}\nbutton:not(:disabled) .spinner span[data-v-3a698022]:nth-child(4) {\n  transform: rotate(270deg) !important;\n}\n@keyframes spinner-data-v-3a698022 {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\n\n/* optional styles */\n.default-styles[data-v-3a698022] {\n  color: white;\n  background-color: blue;\n  border: solid 1px transparent;\n  border-radius: 4px;\n  cursor: pointer;\n  padding: 8px 16.5px 8px 16px;\n  line-height: 1.9rem;\n}\n.default-styles[data-v-3a698022]:disabled {\n  pointer-events: stroke;\n  cursor: not-allowed;\n}\n.default-styles[data-v-3a698022]:focus {\n  outline: none;\n  box-shadow: 0 0 0 3px lightblue, 0 0 0 1.5px lightblue;\n}\n.default-styles .spinner span[data-v-3a698022] {\n  top: 0rem;\n  width: 1.2rem;\n  height: 1.2rem;\n  border: 3.4px solid #fff;\n  border-color: #fff transparent transparent transparent;\n}\n.default-styles:not(:disabled) .spinner span[data-v-3a698022] {\n  border: 8.4px solid transparent;\n  box-shadow: 0 0 0 0.1rem #fff inset;\n}\n", map: {"version":3,"sources":["/mnt/c/Users/william/temp/vue-loading-button/src/vue-loading-button.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAuCA,UAAA;AACA;EACA,oBAAA;EACA,eAAA;EACA,iBAAA;EACA,iBAAA;EACA,SAAA;EACA,iBAAA;EACA,oBAAA;EACA,0BAAA;AACA;AACA;EACA,kBAAA;EACA,UAAA;AACA;AACA;EACA,8BAAA;AACA;;AAEA,mBAAA;AACA;EACA,kBAAA;EACA,4BAAA;EACA,oBAAA;EACA,mCAAA;AACA;AACA;EACA,iBAAA;EACA,kBAAA;EACA,QAAA;EACA,UAAA;EACA,aAAA;EACA,cAAA;EACA,UAAA;EACA,qCAAA;EACA,+BAAA;EACA,yCAAA;EACA,0BAAA;AACA;AACA;EACA,sBAAA;EACA,qBAAA;EACA,kBAAA;EACA,QAAA;EACA,YAAA;EACA,WAAA;EACA,YAAA;EACA,UAAA;EACA,wBAAA;EACA,kBAAA;EACA,6EAAA;EACA,sDAAA;AACA;AACA;EACA,sBAAA;AACA;AACA;EACA,qBAAA;AACA;AACA;EACA,sBAAA;AACA;AACA;EACA,8BAAA;AACA;AACA;EACA,UAAA;AACA;AACA;EACA,UAAA;AACA;AACA;EACA,sBAAA;AACA;AACA;EACA,mCAAA;EACA,+BAAA;EACA,4BAAA;EACA,oBAAA;AACA;AACA;EACA,kCAAA;AACA;AACA;EACA,mCAAA;AACA;AACA;EACA,oCAAA;AACA;AACA;EACA,oCAAA;AACA;AACA;AACA;IACA,uBAAA;AACA;AACA;IACA,yBAAA;AACA;AACA;;AAEA,oBAAA;AACA;EACA,YAAA;EACA,sBAAA;EACA,6BAAA;EACA,kBAAA;EACA,eAAA;EACA,4BAAA;EACA,mBAAA;AACA;AACA;EACA,sBAAA;EACA,mBAAA;AACA;AACA;EACA,aAAA;EACA,sDAAA;AACA;AACA;EACA,SAAA;EACA,aAAA;EACA,cAAA;EACA,wBAAA;EACA,sDAAA;AACA;AACA;EACA,+BAAA;EACA,mCAAA;AACA","file":"vue-loading-button.vue","sourcesContent":["<template>\n  <button\n    :class=\"{\n      'vue-loading-button': true,\n      'default-styles': styled,\n      'loading': loading,\n    }\"\n    :disabled=\"loading\"\n    type=\"button\"\n  >\n    <slot>Submit</slot>\n    <span class=\"spinner\">\n      <span></span>\n      <span></span>\n      <span></span>\n      <span></span>\n    </span>\n  </button>\n</template>\n\n<script>\nexport default {\n  name: \"VueLoadingButton\",\n  props: {\n    loading: {\n      type: Boolean,\n      required: false,\n      default: false\n    },\n    styled: {\n      type: Boolean,\n      required: false,\n      default: false\n    }\n  }\n};\n</script>\n\n<style scoped>\n/* reset */\nbutton {\n  font-family: inherit;\n  font-size: 100%;\n  font-size: 1.4rem;\n  line-height: 1.15;\n  margin: 0;\n  overflow: visible;\n  text-transform: none;\n  -webkit-appearance: button;\n}\nbutton::-moz-focus-inner {\n  border-style: none;\n  padding: 0;\n}\nbutton:-moz-focusring {\n  outline: 1px dotted ButtonText;\n}\n\n/* loading styles */\nbutton {\n  position: relative;\n  -webkit-transition: all 0.2s;\n  transition: all 0.2s;\n  transition-timing-function: ease-in;\n}\n.spinner {\n  line-height: 1.15;\n  position: absolute;\n  top: 50%;\n  left: auto;\n  right: 1.7rem;\n  margin: -0.5em;\n  opacity: 0;\n  transition-property: padding, opacity;\n  transition-duration: 0.2s, 0.2s;\n  transition-timing-function: ease-in, ease;\n  transition-delay: 0s, 0.2s;\n}\n.spinner span {\n  box-sizing: border-box;\n  display: inline-block;\n  position: absolute;\n  right: 0;\n  top: 0.15rem;\n  width: 1rem;\n  height: 1rem;\n  opacity: 1;\n  border: 3.4px solid #888;\n  border-radius: 50%;\n  animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;\n  border-color: #888 transparent transparent transparent;\n}\n.spinner span:nth-child(1) {\n  animation-delay: 0.45s;\n}\n.spinner span:nth-child(2) {\n  animation-delay: 0.3s;\n}\n.spinner span:nth-child(3) {\n  animation-delay: 0.15s;\n}\n.loading {\n  padding-right: 3rem !important;\n}\n.loading .spinner {\n  opacity: 1;\n}\n.loading .spinner span {\n  opacity: 1;\n}\nbutton:not(:disabled) {\n  transition-delay: 0.2s;\n}\nbutton:not(:disabled) .spinner span {\n  box-shadow: 0 0 0 0.2rem #888 inset;\n  border: 7.4px solid transparent;\n  -webkit-transition: all 0.4s;\n  transition: all 0.4s;\n}\nbutton:not(:disabled) .spinner span:nth-child(1) {\n  transform: rotate(0deg) !important;\n}\nbutton:not(:disabled) .spinner span:nth-child(2) {\n  transform: rotate(90deg) !important;\n}\nbutton:not(:disabled) .spinner span:nth-child(3) {\n  transform: rotate(180deg) !important;\n}\nbutton:not(:disabled) .spinner span:nth-child(4) {\n  transform: rotate(270deg) !important;\n}\n@keyframes spinner {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n\n/* optional styles */\n.default-styles {\n  color: white;\n  background-color: blue;\n  border: solid 1px transparent;\n  border-radius: 4px;\n  cursor: pointer;\n  padding: 8px 16.5px 8px 16px;\n  line-height: 1.9rem;\n}\n.default-styles:disabled {\n  pointer-events: stroke;\n  cursor: not-allowed;\n}\n.default-styles:focus {\n  outline: none;\n  box-shadow: 0 0 0 3px lightblue, 0 0 0 1.5px lightblue;\n}\n.default-styles .spinner span {\n  top: 0rem;\n  width: 1.2rem;\n  height: 1.2rem;\n  border: 3.4px solid #fff;\n  border-color: #fff transparent transparent transparent;\n}\n.default-styles:not(:disabled) .spinner span {\n  border: 8.4px solid transparent;\n  box-shadow: 0 0 0 0.1rem #fff inset;\n}\n</style>\n"]}, media: undefined });
+
+  };
+  /* scoped */
+  var __vue_scope_id__ = "data-v-3a698022";
+  /* module identifier */
+  var __vue_module_identifier__ = undefined;
+  /* functional template */
+  var __vue_is_functional_template__ = false;
+  /* style inject SSR */
+  
+
+  
+  var component = normalizeComponent(
+    { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
+    __vue_inject_styles__,
+    __vue_script__,
+    __vue_scope_id__,
+    __vue_is_functional_template__,
+    __vue_module_identifier__,
+    createInjector,
+    undefined
+  )
+
+// install function executed by Vue.use()
+function install(Vue) {
+  if (install.installed) { return; }
+  install.installed = true;
+  Vue.component("VueLoadingButton", component);
+}
+
+// create module definition for Vue.use()
+var plugin = {
+  install: install
+};
+
+// auto-install when vue is found
+var GlobalVue = null;
+if (typeof window !== "undefined") {
+  GlobalVue = window.Vue;
+} else if (typeof global !== "undefined") {
+  GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+  GlobalVue.use(plugin);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (component);
+
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/vue-loading-overlay/dist/vue-loading.min.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(t,e){ true?module.exports=e():undefined}("undefined"!=typeof self?self:this,(function(){return function(t){var e={};function i(n){if(e[n])return e[n].exports;var r=e[n]={i:n,l:!1,exports:{}};return t[n].call(r.exports,r,r.exports,i),r.l=!0,r.exports}return i.m=t,i.c=e,i.d=function(t,e,n){i.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:n})},i.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},i.t=function(t,e){if(1&e&&(t=i(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var n=Object.create(null);if(i.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)i.d(n,r,function(e){return t[e]}.bind(null,r));return n},i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,"a",e),e},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},i.p="",i(i.s=1)}([function(t,e,i){},function(t,e,i){"use strict";i.r(e);var n="undefined"!=typeof window?window.HTMLElement:Object,r={mounted:function(){this.enforceFocus&&document.addEventListener("focusin",this.focusIn)},methods:{focusIn:function(t){if(this.isActive&&t.target!==this.$el&&!this.$el.contains(t.target)){var e=this.container?this.container:this.isFullPage?null:this.$el.parentElement;(this.isFullPage||e&&e.contains(t.target))&&(t.preventDefault(),this.$el.focus())}}},beforeDestroy:function(){document.removeEventListener("focusin",this.focusIn)}};function a(t,e,i,n,r,a,o,s){var l,u="function"==typeof t?t.options:t;if(e&&(u.render=e,u.staticRenderFns=i,u._compiled=!0),n&&(u.functional=!0),a&&(u._scopeId="data-v-"+a),o?(l=function(t){(t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),r&&r.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(o)},u._ssrRegister=l):r&&(l=s?function(){r.call(this,(u.functional?this.parent:this).$root.$options.shadowRoot)}:r),l)if(u.functional){u._injectStyles=l;var c=u.render;u.render=function(t,e){return l.call(e),c(t,e)}}else{var d=u.beforeCreate;u.beforeCreate=d?[].concat(d,l):[l]}return{exports:t,options:u}}var o=a({name:"spinner",props:{color:{type:String,default:"#000"},height:{type:Number,default:64},width:{type:Number,default:64}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 38 38",xmlns:"http://www.w3.org/2000/svg",width:this.width,height:this.height,stroke:this.color}},[e("g",{attrs:{fill:"none","fill-rule":"evenodd"}},[e("g",{attrs:{transform:"translate(1 1)","stroke-width":"2"}},[e("circle",{attrs:{"stroke-opacity":".25",cx:"18",cy:"18",r:"18"}}),e("path",{attrs:{d:"M36 18c0-9.94-8.06-18-18-18"}},[e("animateTransform",{attrs:{attributeName:"transform",type:"rotate",from:"0 18 18",to:"360 18 18",dur:"0.8s",repeatCount:"indefinite"}})],1)])])])}),[],!1,null,null,null).exports,s=a({name:"dots",props:{color:{type:String,default:"#000"},height:{type:Number,default:240},width:{type:Number,default:60}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{viewBox:"0 0 120 30",xmlns:"http://www.w3.org/2000/svg",fill:this.color,width:this.width,height:this.height}},[e("circle",{attrs:{cx:"15",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"60",cy:"15",r:"9","fill-opacity":"0.3"}},[e("animate",{attrs:{attributeName:"r",from:"9",to:"9",begin:"0s",dur:"0.8s",values:"9;15;9",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"0.5",to:"0.5",begin:"0s",dur:"0.8s",values:".5;1;.5",calcMode:"linear",repeatCount:"indefinite"}})]),e("circle",{attrs:{cx:"105",cy:"15",r:"15"}},[e("animate",{attrs:{attributeName:"r",from:"15",to:"15",begin:"0s",dur:"0.8s",values:"15;9;15",calcMode:"linear",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"fill-opacity",from:"1",to:"1",begin:"0s",dur:"0.8s",values:"1;.5;1",calcMode:"linear",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,l=a({name:"bars",props:{color:{type:String,default:"#000"},height:{type:Number,default:40},width:{type:Number,default:40}}},(function(){var t=this.$createElement,e=this._self._c||t;return e("svg",{attrs:{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 30 30",height:this.height,width:this.width,fill:this.color}},[e("rect",{attrs:{x:"0",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"10",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.15s",dur:"0.6s",repeatCount:"indefinite"}})]),e("rect",{attrs:{x:"20",y:"13",width:"4",height:"5"}},[e("animate",{attrs:{attributeName:"height",attributeType:"XML",values:"5;21;5",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}}),e("animate",{attrs:{attributeName:"y",attributeType:"XML",values:"13; 5; 13",begin:"0.3s",dur:"0.6s",repeatCount:"indefinite"}})])])}),[],!1,null,null,null).exports,u=a({name:"vue-loading",mixins:[r],props:{active:Boolean,programmatic:Boolean,container:[Object,Function,n],isFullPage:{type:Boolean,default:!0},enforceFocus:{type:Boolean,default:!0},lockScroll:{type:Boolean,default:!1},transition:{type:String,default:"fade"},canCancel:Boolean,onCancel:{type:Function,default:function(){}},color:String,backgroundColor:String,blur:{type:String,default:"2px"},opacity:Number,width:Number,height:Number,zIndex:Number,loader:{type:String,default:"spinner"}},data:function(){return{isActive:this.active}},components:{Spinner:o,Dots:s,Bars:l},beforeMount:function(){this.programmatic&&(this.container?(this.isFullPage=!1,this.container.appendChild(this.$el)):document.body.appendChild(this.$el))},mounted:function(){this.programmatic&&(this.isActive=!0),document.addEventListener("keyup",this.keyPress)},methods:{cancel:function(){this.canCancel&&this.isActive&&(this.hide(),this.onCancel.apply(null,arguments))},hide:function(){var t=this;this.$emit("hide"),this.$emit("update:active",!1),this.programmatic&&(this.isActive=!1,setTimeout((function(){var e;t.$destroy(),void 0!==(e=t.$el).remove?e.remove():e.parentNode.removeChild(e)}),150))},disableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.add("vld-shown")},enableScroll:function(){this.isFullPage&&this.lockScroll&&document.body.classList.remove("vld-shown")},keyPress:function(t){27===t.keyCode&&this.cancel()}},watch:{active:function(t){this.isActive=t},isActive:function(t){t?this.disableScroll():this.enableScroll()}},computed:{bgStyle:function(){return{background:this.backgroundColor,opacity:this.opacity,backdropFilter:"blur(".concat(this.blur,")")}}},beforeDestroy:function(){document.removeEventListener("keyup",this.keyPress)}},(function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("transition",{attrs:{name:t.transition}},[i("div",{directives:[{name:"show",rawName:"v-show",value:t.isActive,expression:"isActive"}],staticClass:"vld-overlay is-active",class:{"is-full-page":t.isFullPage},style:{zIndex:t.zIndex},attrs:{tabindex:"0","aria-busy":t.isActive,"aria-label":"Loading"}},[i("div",{staticClass:"vld-background",style:t.bgStyle,on:{click:function(e){return e.preventDefault(),t.cancel(e)}}}),i("div",{staticClass:"vld-icon"},[t._t("before"),t._t("default",[i(t.loader,{tag:"component",attrs:{color:t.color,width:t.width,height:t.height}})]),t._t("after")],2)])])}),[],!1,null,null,null).exports,c=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{};return{show:function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:e,r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:i,a={programmatic:!0},o=Object.assign({},e,n,a),s=new(t.extend(u))({el:document.createElement("div"),propsData:o}),l=Object.assign({},i,r);return Object.keys(l).map((function(t){s.$slots[t]=l[t]})),s}}};i(0);u.install=function(t){var e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{},i=arguments.length>2&&void 0!==arguments[2]?arguments[2]:{},n=c(t,e,i);t.$loading=n,t.prototype.$loading=n};e.default=u}]).default}));
 
 /***/ }),
 

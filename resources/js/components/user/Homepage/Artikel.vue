@@ -10,7 +10,7 @@
       <br>
       <span>
         <router-link v-bind:to="Url">
-            See more details >>
+            <p style="color: blue;">See more details >></p>
         </router-link>
         </span>
       <div class="row">
@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-      Url: {}
+      Url: {},
       listTag: [],
       listUrl: [],
     };
@@ -49,7 +49,7 @@ export default {
         this.dataProduk.content =
           this.dataProduk.content.substring(0, 50) + "...";
       }
-      this.Url = "artikel/" + this.dataProduk.slug;
+      this.Url = "/artikelpage/artikel/" + this.dataProduk.slug;
     },
     getTags() {
       axios
