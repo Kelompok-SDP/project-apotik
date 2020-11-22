@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar lokasi="home" />
+    <Navbar lokasi="home" ref="navbar" />
     <div class="containerNew">
       <div class="row no-gutters">
         <div class="col-12 col-md-6 mt-5 card p-3">
@@ -29,7 +29,7 @@
             <span class="text-secondary col-3">Jumlah</span>
             <span class="text-secondary col-3">Subtotal</span>
           </div>
-          <CartNota ref="CartNota" />
+          <CartNota ref="CartNota" v-on:hapus-cart="loadCart" />
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      listCart: {},
+      listCart: [],
     };
   },
   mounted() {
@@ -57,16 +57,17 @@ export default {
   },
   methods: {
     loadCart() {
+      // this.listCart = [];
       axios
         .get("/lihatCart")
         .then((result) => {
           this.listCart = result.data;
-          // this.loadCart();
         })
         .catch((err) => {});
     },
     loadDataBaru() {
       this.$refs.CartNota.loadData();
+      this.$refs.navbar.loadNotif();
       this.loadCart();
     },
   },

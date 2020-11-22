@@ -86,9 +86,6 @@ class UserController extends Controller
             'password' => ['required']
         ]);
 
-        // $isLogin = User::where('email', $request->email)
-        //     ->where('password', $request->password)->first();
-
         $credential = [
             'email' => $request->email,
             'password' => $request->password,

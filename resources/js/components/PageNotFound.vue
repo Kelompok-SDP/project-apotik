@@ -5,10 +5,10 @@
             <!-- caveman left -->
             <div class="caveman">
                 <div class="leg">
-                <div class="foot"><div class="fingers"></div></div>      
+                <div class="foot"><div class="fingers"></div></div>
                 </div>
                 <div class="leg">
-                <div class="foot"><div class="fingers"></div></div>      
+                <div class="foot"><div class="fingers"></div></div>
                 </div>
                 <div class="shape">
                 <div class="circle"></div>
@@ -18,15 +18,15 @@
                 <div class="eye"><div class="nose"></div></div>
                 <div class="mouth"></div>
                 </div>
-                <div class="arm-right"><div class="club"></div></div>    
+                <div class="arm-right"><div class="club"></div></div>
             </div>
             <!-- caveman right -->
             <div class="caveman">
                 <div class="leg">
-                <div class="foot"><div class="fingers"></div></div>      
+                <div class="foot"><div class="fingers"></div></div>
                 </div>
                 <div class="leg">
-                <div class="foot"><div class="fingers"></div></div>      
+                <div class="foot"><div class="fingers"></div></div>
                 </div>
                 <div class="shape">
                 <div class="circle"></div>
@@ -36,7 +36,7 @@
                 <div class="eye"><div class="nose"></div></div>
                 <div class="mouth"></div>
                 </div>
-                <div class="arm-right"><div class="club"></div></div>    
+                <div class="arm-right"><div class="club"></div></div>
             </div>
             </div>
             <div id="link">
@@ -166,7 +166,7 @@ $color-wood-2:    #410A09;
   }
 }
 .shape {
-  @include left50; 
+  @include left50;
   border-radius: 50%;
   height: 140px;
   overflow: hidden;
@@ -179,9 +179,9 @@ $color-wood-2:    #410A09;
     width: 60px;
     &:after, &:before {
       content:"";
-      @include position;      
+      @include position;
       border-radius: 50%;
-      height: 20px;      
+      height: 20px;
       width: 20px;
     }
     &:after   { left: 50px; top: 10px; }
@@ -198,14 +198,14 @@ $color-wood-2:    #410A09;
 }
 .caveman:nth-child(1) .shape {
   background-color: $color-red-1;
-  .circle { 
-    background-color: $color-red-2; 
+  .circle {
+    background-color: $color-red-2;
     &:after, &:before { background-color: $color-red-2; }
   }
 }
 .caveman:nth-child(2) .shape {
   background-color: $color-red-2;
-  .circle { background-color: $color-red-1; 
+  .circle { background-color: $color-red-1;
   &:after, &:before { background-color: $color-red-1; }
   }
 }
@@ -216,7 +216,7 @@ $color-wood-2:    #410A09;
   border-radius: 50px;
   box-sizing: border-box;
   height: 180px;
-  left: 135px; 
+  left: 135px;
   top: 80px;
   transform-origin: 30px 30px;
   width: 60px;
@@ -245,7 +245,7 @@ $color-wood-2:    #410A09;
 .leg {
   @include position;
   border-radius: 10px;
-  height: 55px;  
+  height: 55px;
   top: 200px;
   width: 10px;
   &:after {
@@ -279,18 +279,18 @@ $color-wood-2:    #410A09;
     .fingers:after  { left: 11px; content: ""; }
   }
 }
-.leg:nth-child(1)   { 
+.leg:nth-child(1)   {
   background-color: $color-skin-3;
   left: 95px;
   &:after { background-color: $color-skin-3; }
-  .foot   { background-color: $color-skin-3; 
+  .foot   { background-color: $color-skin-3;
     &:after { background-color: $color-skin-3;}
     &:before {display: none;}
   }
 }
-.leg:nth-child(2)   { 
+.leg:nth-child(2)   {
   background-color: $color-skin-2;
-  left: 115px;   
+  left: 115px;
   &:after { background-color: $color-skin-2; }
   .foot   { background-color: $color-skin-2; }
 }
@@ -319,11 +319,11 @@ $color-wood-2:    #410A09;
   45%   { top: 50px; }
   100%  { top: 25px; }
 }
-.caveman:nth-child(2) .eye:after, 
+.caveman:nth-child(2) .eye:after,
 .caveman:nth-child(2) .eye:before {
   animation: eye-anima 1.2s infinite cubic-bezier(.55,.01,.16,1.34);
 }
-.caveman:nth-child(1) .eye:after, 
+.caveman:nth-child(1) .eye:after,
 .caveman:nth-child(1) .eye:before {
   animation: eye-anima 1.2s infinite cubic-bezier(.55,.01,.16,1.34);
   animation-delay: 0.6s;

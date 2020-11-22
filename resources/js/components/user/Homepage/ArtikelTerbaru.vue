@@ -6,7 +6,8 @@
         :dataProduk="product"
         v-for="(product, index) in products"
         v-bind:key="index"
-      ></Artikel>
+      >
+      </Artikel>
     </div>
   </div>
 </template>

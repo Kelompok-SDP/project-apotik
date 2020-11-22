@@ -50,6 +50,7 @@ export default {
         .then((result) => {
           this.kategori = result.data.kategori;
           this.listObat = result.data.obats;
+          console.log(this.listObat);
         })
         .catch((err) => {});
     },

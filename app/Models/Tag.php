@@ -13,4 +13,9 @@ class Tag extends Model
     public $timestamps      = false;
 
     protected $guarded = ['deleted_at'];
+
+    public function artikels()
+    {
+        return $this->belongsToMany(Artikel::class, 'tags_artikels', 'id_tag', 'id_artikel');
+    }
 }
