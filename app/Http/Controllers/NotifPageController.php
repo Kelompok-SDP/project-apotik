@@ -19,7 +19,7 @@ class NotifPageController extends Controller
         $notifs = $user->notifications()->orderBy('created_at', 'desc')->get();
 
         $notifs = json_decode($notifs);
-        $header = $notifs[0]->data;
+        // $header = $notifs[0]->data;
         // DD($header);
         //cara ambil data pada vue $header->tanggal
 
