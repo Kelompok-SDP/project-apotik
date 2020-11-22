@@ -30,45 +30,90 @@
 
     <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
 
-    <button class="btn btn-secondary" v-if="!isLogin.nama">
-      <router-link to="/login" class="text-light">Login</router-link>
-    </button>
-
-    <router-link to="/lihatCart" class="text-light">
-      <button class="btn btn-primary" v-if="isLogin.nama">
-        Keranjang Belanja
-      </button>
-    </router-link>
-
-    <div class="dropdown">
-      <button
-        class="btn btn-secondary dropbtn dropdown-toggle"
-        id="dropdown03"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-        v-if="isLogin.nama"
-      >
-        halo,{{ isLogin.nama }}
-      </button>
-      <div class="dropdown-menu " aria-labelledby="dropdown03">
-        <router-link to="/profilUser">
-          <span class="dropdown-item">Your Profile</span>
+    <div class="d-flex justify-content-between">
+      <div class="col">
+        <button class="btn btn-secondary" v-if="!isLogin.nama">
+          <router-link to="/login" class="text-light">Login</router-link>
+        </button>
+      </div>
+      <div class="col" v-if="isLogin.nama">
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell" style="font-size: 2rem"></i>
+            <span class="badge badge-warning navbar-badge"
+              >{{ listNotif.length }}
+            </span>
+          </a>
+          <div
+            class="dropdown-menu dropdown-menu-lg dropdown-menu-right notifs"
+            style="overflow-y: auto; max-height: 300px"
+          >
+            <span class="dropdown-item dropdown-header"
+              >{{ listNotif.length }} Notifications</span
+            >
+            <div class="dropdown-divider"></div>
+            <router-link
+              to="/notifpage"
+              class="dropdown-item dropdown-footer"
+              style="position: sticky"
+            >
+              See All Notifications
+            </router-link>
+            <NotifList
+              v-for="notif in listNotif"
+              :key="notif.id"
+              :tanggal="notif.data.tanggal"
+              :total="formatNumber(notif.data.total)"
+              :read_at="notif.read_at"
+            />
+          </div>
+        </li>
+      </div>
+      <div class="col">
+        <router-link to="/lihatCart" class="text-dark">
+          <span
+            class="fas fa-shopping-cart"
+            style="font-size: 2rem; padding-top: 6px"
+            v-if="isLogin.nama"
+          ></span>
         </router-link>
-        <router-link to="/admin" v-if="isLogin.role == 1">
-          <span class="dropdown-item">Admin Dashboard</span>
-        </router-link>
-        <span class="dropdown-item" style="cursor: pointer" @click="logout"
-          >Log Out</span
-        >
+      </div>
+      <div class="col">
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropbtn dropdown-toggle"
+            id="dropdown03"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            v-if="isLogin.nama"
+          >
+            halo,{{ isLogin.nama }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdown03">
+            <router-link to="/profilUser">
+              <span class="dropdown-item">Your Profile</span>
+            </router-link>
+            <router-link to="/admin" v-if="isLogin.role == 1">
+              <span class="dropdown-item">Admin Dashboard</span>
+            </router-link>
+            <span class="dropdown-item" style="cursor: pointer" @click="logout"
+              >Log Out</span
+            >
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 </template>
 
 <script>
+import NotifList from "../NotifPage/NotifList";
 export default {
   props: ["lokasi"],
+  components: {
+    NotifList: NotifList,
+  },
   data() {
     return {
       isLogin: {},
@@ -76,14 +121,14 @@ export default {
         home: false,
         artikel: false,
         obat: false,
-        kontak: false,
       },
+      listNotif: [],
     };
   },
-
   mounted() {
     this.getLokasi();
     this.loadData();
+    this.loadNotif();
   },
   methods: {
     getLokasi() {
@@ -94,15 +139,12 @@ export default {
         this.cssLokasi.artikel = true;
       } else if (this.lokasi == "obat") {
         this.cssLokasi.obat = true;
-      } else if (this.lokasi == "kontak") {
-        this.cssLokasi.kontak = true;
       }
     },
     resetLokasi() {
       this.cssLokasi.home = false;
       this.cssLokasi.artikel = false;
       this.cssLokasi.lokasi = false;
-      this.cssLokasi.kontak = false;
     },
     loadData() {
       axios
@@ -111,6 +153,18 @@ export default {
           this.isLogin = result.data;
         })
         .catch((err) => {});
+    },
+    loadNotif() {
+      axios
+        .get("/notifUser")
+        .then((result) => {
+          this.listNotif = result.data;
+          this.listNotif = this.listNotif.notifs;
+        })
+        .catch((err) => {});
+    },
+    formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
     logout() {
       axios
@@ -131,10 +185,20 @@ router-link {
   font-weight: bold;
   color: red;
 }
+.notifs::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.notifs::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+.notifs::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
 .active {
   border-bottom: 2px solid red;
 }
-
 
 .dropbtn {
   background-color: #29374681;
@@ -154,7 +218,7 @@ router-link {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 .dropdown-content a {
@@ -163,12 +227,13 @@ router-link {
   text-decoration: none;
   display: block;
 }
-.dropdown-content a:hover {background-color: #f1f1f1}
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
 .dropdown:hover .dropdown-content {
   display: block;
 }
 .dropdown:hover .dropbtn {
-  background-color: #3D5C7F;
+  background-color: #3d5c7f;
 }
-
 </style>

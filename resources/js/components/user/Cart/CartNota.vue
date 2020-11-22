@@ -70,6 +70,7 @@ export default {
         })
         .then((result) => {
           this.loadData();
+          this.$emit("hapus-cart");
         })
         .catch((err) => {});
     },

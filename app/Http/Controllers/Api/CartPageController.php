@@ -109,6 +109,6 @@ class CartPageController extends Controller
 
         $user = User::find($isLogin->id);
         $user->notify(new InvoicePaid($cartUser, $request->grandTotal));
-        // session()->forget('cartUser' . $isLogin->id);
+        session()->forget('cartUser' . $isLogin->id);
     }
 }

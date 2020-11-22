@@ -30,6 +30,7 @@ import KategoriPage from './components/user/Obat/KategoriPage';
 import Profil from './components/user/Homepage/Profil.vue';
 import CartPage from './components/user/Cart/CartPage.vue'
 import DetailObat from './components/user/Obat/DetailObat.vue'
+import NotifPage from './components/user/NotifPage/NotifPage.vue'
 
 // membuat router
 const routes = [
@@ -84,6 +85,11 @@ const routes = [
         component: Profil
     },
     {
+        name: 'NotifPage',
+        path: '/notifpage',
+        component: NotifPage
+    },
+    {
         name: 'PageNotFound',
         path: '*',
         component: PageNotFound
@@ -93,12 +99,3 @@ const routes = [
 
 const router = new VueRouter({ mode: 'history', routes: routes });
 new Vue(Vue.util.extend({ router }, App)).$mount("#app");
-
-// let btn = document.querySelector(".btn-toggle");
-//   console.log(btn);
-//   // Listen for a click on the button
-//   btn.addEventListener("click", function () {
-//     // Then toggle (add/remove) the .dark-theme class to the body
-//     document.body.classList.toggle("dark-theme");
-//     console.log("test");
-//   });
