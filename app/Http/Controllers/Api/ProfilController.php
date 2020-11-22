@@ -27,10 +27,11 @@ class ProfilController extends Controller
         $userLogin = null;
         if(Cookie::has('isLogin')){
             $userLogin = json_decode($request->cookie('isLogin'));
-
         }
-        $dataHtrans=Th_Jual::where("id_user",$userLogin->id)->get();
-
+        $dataHtrans=Th_Jual::where("id_user",$userLogin->id)->orderby("created_at","desc")->paginate(5);
+        foreach ($dataHtrans as $key => $value) {
+            $value->tanggal=substr(date('d-m-Y',strtotime($value->created_at)),0,10);
+        }
         return compact(["userLogin","dataHtrans"]);
 
     }

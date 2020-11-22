@@ -133,7 +133,7 @@
                         <tr v-for="(history, index) in htrans" :key="index">
                         <td>{{ index + 1 }}</td>
                         <td>{{ history.nama_dokter }}</td>
-                        <td>{{ history.tanggal }}</td>
+                        <td>{{  history.tanggal }}</td>
                         <td>
                             <div
                             class="btn btn-sm btn-primary"
@@ -196,8 +196,7 @@
                         <tbody>
                             <tr v-for="(obats, index) in dtrans" :key="index">
                             <td>{{ index + 1 }}</td>
-                            <td><img class="card-img-top" style="width:50%" :src="obats.gambar" alt="Card image cap" />
-      </td>
+                            <td><img class="card-img-top" style="width:50%" :src="obats.gambar" alt="Card image cap" /></td>
                             <td>{{ obats.nama }}</td>
                             <td>{{ obats.jumlah }}</td>
                             <td>{{ obats.harga }}</td>
@@ -250,7 +249,7 @@ export default {
         .get("/profilUser")
         .then((result) => {
           this.isLogin = result.data.userLogin;
-          this.htrans = result.data.dataHtrans;
+          this.htrans = result.data.dataHtrans.data;
           this.nama = this.isLogin.nama;
           this.email  = this.isLogin.email;
           this.notlp = this.isLogin.noHp;

@@ -28,7 +28,9 @@ import Artikel from './components/user/Homepage/Artikel.vue';
 import ArtikelPage from './components/user/Artikel/ArtikelPage.vue';
 import DetailArPage from './components/user/Artikel/DetailArtikel.vue';
 import ObatPage from './components/user/Obat/ObatPage';
+import AlatPage from './components/user/Alat/AlatPage';
 import KategoriPage from './components/user/Obat/KategoriPage';
+import AlatKategoriPage from './components/user/Alat/AlatKategoriPage';
 import TagPage from './components/user/Artikel/TagPage';
 import Profil from './components/user/Homepage/Profil.vue';
 import CartPage from './components/user/Cart/CartPage.vue'
@@ -63,9 +65,19 @@ const routes = [
         component: ObatPage
     },
     {
+        name: 'AlatPage',
+        path: '/alat/produk',
+        component: AlatPage
+    },
+    {
         name: 'KategoriPage',
         path: '/produk/:slug',
         component: KategoriPage
+    },
+    {
+        name: 'AlatKategoriPage',
+        path: '/alat/produk/:slug',
+        component: AlatKategoriPage
     },
     {
         name: 'TagPage',
@@ -96,6 +108,11 @@ const routes = [
         name: 'Admin',
         path: '/admin',
         component: Admin
+    },
+    {
+        name: 'Profil',
+        path: '/profilUser',
+        component: Profil
     },
     {
         name: 'Profil',

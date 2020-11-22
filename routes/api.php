@@ -106,3 +106,11 @@ Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/addInfo', 'Api\InfoController@create');
     Route::post('/updateInfo', 'Api\InfoController@updateInfo');
 });
+
+Route::group(['prefix' => 'alat'], function () {
+
+    Route::get('/produk', 'Api\AlatKesehatanController@show');
+    Route::get('/getDetail/{id}', 'Api\AlatKesehatanController@getDetail');
+    Route::get('/kategori', 'Api\AlatKesehatanController@showsAll');
+    Route::get('/kategori/{slug}', 'Api\AlatKesehatanController@showDetail');
+});

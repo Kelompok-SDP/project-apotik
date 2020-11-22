@@ -20,4 +20,9 @@ class Kategori extends Model
     {
         return $this->belongsToMany(Obat::class, 'obats_kategoris', 'id_kategoris', 'id_obats');
     }
+
+    public function alats()
+    {
+        return $this->belongsToMany(Alat_Kesehatan::class, 'kategories_alat', 'id_kategoris', 'id_alat');
+    }
 }

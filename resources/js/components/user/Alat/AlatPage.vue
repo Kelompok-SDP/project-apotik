@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Navbar lokasi="obat" />
+    <Navbar lokasi="alat" />
     <div class="container">
-      <h4>Obat & Alat Kesehatan Berdasarkan Kategori</h4>
+      <h4>Alat Kesehatan Berdasarkan Kategori</h4>
       <div class="row mt-4">
         <div
           class="col-lg-3"
@@ -45,7 +45,7 @@ export default {
         .get("/kategori")
         .then((result) => {
           this.listKategori = result.data;
-          this.listUrl = this.listKategori.map((k) => "/produk/" + k.slug);
+          this.listUrl = this.listKategori.map((k) => "/alat/produk/" + k.slug);
         })
         .catch((err) => {});
     },
