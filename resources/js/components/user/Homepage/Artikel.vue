@@ -6,6 +6,13 @@
       <p class="card-text">{{ dataProduk.content }}</p>
     </div>
     <div class="card-footer">
+      <small class="text-muted">Last updated 3 mins ago</small>
+      <br>
+      <span>
+        <router-link v-bind:to="Url">
+            <p style="color: blue;">See more details >></p>
+        </router-link>
+        </span>
       <div class="row">
         <button
           class="btn btn-sm btn-danger col-4 p-0 m-2"
@@ -27,6 +34,7 @@ export default {
   },
   data() {
     return {
+      Url: {},
       listTag: [],
       listUrl: [],
     };
@@ -41,6 +49,7 @@ export default {
         this.dataProduk.content =
           this.dataProduk.content.substring(0, 50) + "...";
       }
+      this.Url = "/artikelpage/artikel/" + this.dataProduk.slug;
     },
     getTags() {
       axios

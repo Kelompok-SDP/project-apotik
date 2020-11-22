@@ -30,6 +30,9 @@ Route::get('/obat/getDetail/{id}', 'Api\ObatController@getDetail');
 Route::get('/obat/getRelated/{id}', 'Api\ObatController@getRelated');
 
 
+Route::get('/tag/{id_tag}', 'Api\ArtikelPageController@showDetail');
+Route::get('/artikel/{slug}', 'Api\ArtikelPageController@showContent');
+
 Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
