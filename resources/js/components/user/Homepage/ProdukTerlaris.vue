@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <h3 class="pt-5">Produk terlaris</h3>
-    <div class="card-deck">
-      <div class="row">
-        <Produk
-          :dataProduk="product"
-          v-for="(product, index) in products"
-          v-bind:key="index"
-        ></Produk>
+    <div class="row mt-4">
+      <div
+        class="col-lg-3"
+        v-for="(product, index) in products"
+        v-bind:key="index"
+      >
+        <Produk :dataProduk="product"></Produk>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@ export default {
   },
   data() {
     return {
+      listUrl: [],
       products: {},
     };
   },
@@ -30,9 +31,10 @@ export default {
   methods: {
     loadProduk() {
       axios
-        .get("/produk")
+        .get("/api/produk")
         .then((result) => {
           this.products = result.data.data;
+          this.listUrl = this.products.map((k) => "/api/obat/" + k.id);
         })
         .catch((err) => {});
     },

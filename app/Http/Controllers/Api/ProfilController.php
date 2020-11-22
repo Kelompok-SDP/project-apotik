@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Td_Jual;
+use App\Models\Th_Jual;
 use App\Models\User;
 use App\Rules\CheckEmailUpdate;
 use App\Rules\CheckNoHpUpdate;
@@ -10,19 +12,27 @@ use App\Rules\CheckPassUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class ProfilController extends Controller
 {
-    //
+
+    public function getDtrans($id){
+        $dataDtrans=DB::table("td_juals as td")
+        ->selectRaw("td.tipe_produk , td.harga , td.jumlah , td.subtotal , o.nama,o.gambar , o.id")
+        ->join("obats as o","o.id","td.id_product")
+        ->where("td.id_th_jual",$id)->get();
+        return $dataDtrans;
+    }
     public function profil(Request $request){
         $userLogin = null;
         if(Cookie::has('isLogin')){
             $userLogin = json_decode($request->cookie('isLogin'));
 
         }
-        $jc = json_decode(Cookie::get('isLogin'));
-        //dd($jc->nama);
-        return response()->json($userLogin);
+        $dataHtrans=Th_Jual::where("id_user",$userLogin->id)->get();
+
+        return compact(["userLogin","dataHtrans"]);
 
     }
 

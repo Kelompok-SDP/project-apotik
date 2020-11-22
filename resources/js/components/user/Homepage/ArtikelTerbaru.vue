@@ -6,7 +6,8 @@
         :dataProduk="product"
         v-for="(product, index) in products"
         v-bind:key="index"
-      ></Artikel>
+      >
+      </Artikel>
     </div>
   </div>
 </template>
@@ -31,7 +32,6 @@ export default {
         .get("/api/admin/artikel")
         .then((result) => {
           this.products = result.data.data;
-          console.log(this.products);
         })
         .catch((err) => {});
     },

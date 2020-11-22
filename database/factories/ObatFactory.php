@@ -10,11 +10,18 @@ use Faker\Generator as Faker;
 $factory->define(Obat::class, function (Faker $faker) {
     // misal error
     // install : composer require mbezhanov/faker-provider-collection
-    $satuan =$faker->randomElement(['gr', 'ml']);
+    $satuan =$faker->randomElement([ 'ml','tablet']);
 
 
     $fakers = \Faker\Factory::create();
     \Bezhanov\Faker\ProviderCollectionHelper::addAllProvidersTo($fakers);
+
+    if($satuan=="ml"){
+        $satuan = "Botol ".$faker->numberBetween($min = 1, $max = 10) * 10 . " " . $satuan;
+    }
+    if($satuan=="tablet"){
+        $satuan = $faker->numberBetween($min = 1, $max = 2). " " . $satuan ." @ hari";
+    }
 
     return [
         'nama' => $fakers->medicine,
@@ -22,7 +29,7 @@ $factory->define(Obat::class, function (Faker $faker) {
         'indikasi' => $faker->asciify('******* ******** ******* ********* ****** *****'),
         'stok' => $faker->numberBetween($min = 1, $max = 100),
         'satuan' => $satuan,
-        'kemasan' => $faker->numberBetween($min = 1, $max = 10) * 10 . " " . $satuan,
+        'kemasan' => $satuan,
         'deskripsi' => $faker->text($maxNbChars = 100)    ,
         'komposisi' => $faker->text($maxNbChars = 20),
         'dosis' => $faker->text($maxNbChars = 20),

@@ -2,7 +2,7 @@
   <div class="wrapper-sub-kategori">
     <br />
     <h1 class="m-0 text-dark">Admin Info</h1>
-    <form enctype="multipart/form-data" @submit.prevent="addData()">
+    <form enctype="multipart/form-data">
       <div class="card-body">
         <div class="form-group">
           <label for="">Nama Kontak</label>
@@ -56,15 +56,26 @@
 
       <!-- /.card-body -->
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Tambahkan</button>
+        <VueLoadingButton
+          class="btn btn-primary"
+          :styled="true"
+          :loading="isLoading"
+          @click.native="addData"
+        />
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import VueLoadingButton from "vue-loading-button";
+import Loading from "vue-loading-overlay";
 export default {
   name: "Info",
+  components: {
+    VueLoadingButton: VueLoadingButton,
+    Loading: Loading,
+  },
   data() {
     return {
       info: {},
@@ -74,6 +85,7 @@ export default {
         nomor2: "",
       },
       errors: {},
+      isLoading: true,
     };
   },
   mounted() {
@@ -81,6 +93,7 @@ export default {
   },
   methods: {
     loadInfo() {
+      this.isLoading = false;
       axios
         .get("/api/admin/info")
         .then((result) => {
@@ -94,6 +107,7 @@ export default {
     addData() {
       this.errors = {};
       if (this.info.length == 0) {
+        this.isLoading = true;
         axios
           .post("/api/admin/info/addInfo", {
             nama: this.form.nama,
@@ -105,8 +119,14 @@ export default {
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
-          });
+          })
+          .finally(() =>
+            setInterval(() => {
+              this.isLoading = false;
+            }, 3000)
+          );
       } else {
+        this.isLoading = true;
         axios
           .post("/api/admin/info/updateInfo", {
             nama: this.form.nama,
@@ -118,7 +138,12 @@ export default {
           })
           .catch(({ response }) => {
             this.errors = response.data.errors;
-          });
+          })
+          .finally(() =>
+            setInterval(() => {
+              this.isLoading = false;
+            }, 3000)
+          );
       }
     },
   },

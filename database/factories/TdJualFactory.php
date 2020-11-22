@@ -13,9 +13,13 @@ $factory->define(Td_Jual::class, function (Faker $faker) {
     $check = null;
     do {
         $idobat = $faker->randomElement(Obat::all()->pluck("id"));
-        $jumlah = $faker->numberBetween($min = 1, $max = 10);
-        $check = Obat::find($idobat);
-    } while ($check->stok < $jumlah);
+        $jumlah=$faker->numberBetween($min = 1, $max = 10);
+        $check=Obat::find($idobat);
+    } while ($check->stok<=$jumlah);
+
+    $obatUpdate=Obat::where("id",$idobat)->first();
+    $obatUpdate->stok=$obatUpdate->stok - $jumlah;
+    $obatUpdate->save();
     return [
         "tipe_produk" => "obat",
         "id_product" => $idobat,

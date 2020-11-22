@@ -48,7 +48,7 @@ export default {
   methods: {
     loadData() {
       axios
-        .get("/lihatCart")
+        .get("/api/lihatCart")
         .then((result) => {
           this.listCart = result.data;
           this.grandTotal = 0;
@@ -65,11 +65,12 @@ export default {
     },
     bayar() {
       axios
-        .post("/makeTransaction", {
+        .post("/api/makeTransaction", {
           grandTotal: this.grandTotal,
         })
         .then((result) => {
           this.loadData();
+          this.$emit("hapus-cart");
         })
         .catch((err) => {});
     },

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateArtikelsTable extends Migration
@@ -19,7 +20,8 @@ class CreateArtikelsTable extends Migration
             $table->string("content", 500);
             $table->string("gambar", 255)->nullable();
             $table->string("slug", 50);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
             $table->softDeletes();
         });
     }
