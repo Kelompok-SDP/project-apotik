@@ -293,15 +293,17 @@ class LaporanController extends Controller
                 }
             }
         } else {
-            // $dataObat =DB::table("th_juals")
-            // ->select(DB::raw("sum(td_juals.subtotal) as subtotal,th_juals.tanggal as tanggal"))
-            // ->join("td_juals",  "th_juals.id","td_juals.id_th_jual")
-            // ->groupBy("td_juals.id_th_jual", "th_juals.tanggal")
-            // ;
-            // if($tipe == 1){
-
-            // }
+            $dataObat =DB::table("th_juals")
+            ->select(DB::raw("sum(td_juals.subtotal) as subtotal,th_juals.created_at as tanggal"))
+            ->join("td_juals",  "th_juals.id","td_juals.id_th_jual")
+            ->groupBy("td_juals.id_th_jual", "th_juals.created_at");
         }
+
+        // if($tipedata == 1 || $tipedata == 2){
+        //     $dataObat->paginate($jumlah);
+        // }else{
+        //     $dataObat->get();
+        // }
 
         return $dataObat->paginate($jumlah);
     }
@@ -595,18 +597,7 @@ class LaporanController extends Controller
             } else {
                 $dataObat->where('users.nama', 'LIKE', "%$keyword");
             }
-        } else {
-            // $dataObat =DB::table("th_juals")
-            // ->select(DB::raw("sum(td_juals.subtotal) as subtotal,th_juals.tanggal as tanggal"))
-            // ->join("td_juals",  "th_juals.id","td_juals.id_th_jual")
-            // ->groupBy("td_juals.id_th_jual", "th_juals.tanggal")
-            // ;
-            // if($tipe == 1){
-
-            // }
         }
-
-
 
         return $dataObat->paginate($jumlah);
     }

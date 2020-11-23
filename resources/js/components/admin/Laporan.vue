@@ -224,6 +224,9 @@
 
                     <!-- master pendapatan -->
                     <div class="row" v-if="tipeData ==3 ">
+                        <div class="col-12">
+                             <chart :chart-data="datacollection"></chart>
+                        </div>
 
                     </div>
                 </div>
@@ -231,12 +234,14 @@
          </div>
 
 </template>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
-<script>
 
+<script>
+import chart from "./chart";
 export default {
     name:"Laporan",
+     components: {
+       chart: chart,
+    },
     data(){
         return{
             Data : [],
@@ -254,9 +259,12 @@ export default {
             keywords :"",
             pagination: [],
             url: "/api/admin/laporan",
-
+            labelschart : [],
+            dataschart : [],
+            datacollection : null,
         };
     },
+
     mounted(){
         this.loadData();
         this.thisDate();
@@ -267,6 +275,12 @@ export default {
                  this.Data = response.data.data;
                  this.pagination = response.data;
                  console.log(this.Data);
+                 console.log(this.tipeData);
+                 //console.log(this.labelschart);
+                    if(this.tipeData ==3){
+                        this.addArray(this.Data);
+                        this.fillData();
+                    }
              });
         },
         fetchPaginate(url) {
@@ -335,16 +349,33 @@ export default {
         },
         gantiLaporan(event){
             this.tipeData = event;
-            if(this.tipeData == 3){
-                this.showChart();
-            }
             this.changePage();
         },
         gantiAcuan(event){
             this.search = event.target.value;
         },
-        showChart(){
+        addArray(obs){
+            for(var i=0; i<obs.length;i++){
+                this.labelschart.push(obs[i].tanggal);
+                this.dataschart.push(obs[i].subtotal);
+            }
+
         }
+        ,
+        fillData () {
+            this.datacollection = {
+            // Data for the y-axis of the chart
+            labels: this.labelschart,
+                datasets: [
+                    {
+                        label: 'Data One',
+                        backgroundColor: '#00FFFF',
+                        // Data for the x-axis of the chart
+                        data: this.dataschart
+                    }
+                ]
+            }
+        },
 
     }
 
