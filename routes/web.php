@@ -9,8 +9,6 @@ Route::group(['middleware' => ['ValidAdmin']], function () {
     })->where(['param1' => 'admin', 'param2' => '.*']);
 });
 
-
-
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');
     Route::post('/makeTransaction', 'Api\CartPageController@makeTransaction');
