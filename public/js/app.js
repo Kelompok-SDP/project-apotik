@@ -4261,6 +4261,9 @@ __webpack_require__.r(__webpack_exports__);
       this.search = event.target.value;
     },
     addArray: function addArray(obs) {
+      this.labelschart = [];
+      this.dataschart = [];
+
       for (var i = 0; i < obs.length; i++) {
         this.labelschart.push(obs[i].tanggal);
         this.dataschart.push(obs[i].subtotal);
@@ -4271,7 +4274,7 @@ __webpack_require__.r(__webpack_exports__);
         // Data for the y-axis of the chart
         labels: this.labelschart,
         datasets: [{
-          label: 'Data One',
+          label: 'Laporan Pendapatan',
           backgroundColor: '#00FFFF',
           // Data for the x-axis of the chart
           data: this.dataschart

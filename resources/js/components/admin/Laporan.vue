@@ -355,6 +355,8 @@ export default {
             this.search = event.target.value;
         },
         addArray(obs){
+            this.labelschart = [];
+            this.dataschart = [];
             for(var i=0; i<obs.length;i++){
                 this.labelschart.push(obs[i].tanggal);
                 this.dataschart.push(obs[i].subtotal);
@@ -368,10 +370,10 @@ export default {
             labels: this.labelschart,
                 datasets: [
                     {
-                        label: 'Data One',
+                        label: 'Laporan Pendapatan',
                         backgroundColor: '#00FFFF',
                         // Data for the x-axis of the chart
-                        data: this.dataschart
+                        data: this.dataschart,
                     }
                 ]
             }
