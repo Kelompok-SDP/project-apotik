@@ -4261,6 +4261,9 @@ __webpack_require__.r(__webpack_exports__);
       this.search = event.target.value;
     },
     addArray: function addArray(obs) {
+      this.labelschart = [];
+      this.dataschart = [];
+
       for (var i = 0; i < obs.length; i++) {
         this.labelschart.push(obs[i].tanggal);
         this.dataschart.push(obs[i].subtotal);
@@ -4271,7 +4274,7 @@ __webpack_require__.r(__webpack_exports__);
         // Data for the y-axis of the chart
         labels: this.labelschart,
         datasets: [{
-          label: 'Data One',
+          label: 'Laporan Pendapatan',
           backgroundColor: '#00FFFF',
           // Data for the x-axis of the chart
           data: this.dataschart
@@ -5264,6 +5267,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ObatRacikan",
   data: function data() {
@@ -5272,6 +5301,7 @@ __webpack_require__.r(__webpack_exports__);
       pagination: [],
       perPage: 5,
       url: "/api/admin/obatracikan",
+      keywords: "",
       detObatRacikans: [],
       detObats: [],
       manyObats: 1,
@@ -5304,6 +5334,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.url).then(function (response) {
         _this.obatracikans = response.data.data;
         _this.pagination = response.data;
+        _this.form.kode = "";
+        _this.form.nobatr = "";
+        _this.form.ndokter = "";
+        _this.form.keterangan = "";
       });
     },
     fetchPaginate: function fetchPaginate(url) {
@@ -5356,6 +5390,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/admin/obatracikan/create", formData).then(function (response) {
         _this3.isSuccess = true;
         console.log(selectedObats);
+
+        _this3.loadData();
       })["catch"](function (_ref) {
         var response = _ref.response;
         _this3.errors = response.data.errors;
@@ -5383,6 +5419,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     makeCombobox: function makeCombobox() {
       this.getObats();
+    },
+    search: function search() {
+      if (this.keywords.length > 0) {
+        this.url = "/api/admin/obatracikan/search/" + this.keywords + "/" + this.perPage;
+      } else {
+        this.url = "/api/admin/obatracikan";
+      }
+
+      this.loadData();
     }
   }
 });
@@ -5803,7 +5848,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -6690,6 +6734,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6701,11 +6754,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       contentArtikel: {},
-      tanggal: {}
+      tanggal: {},
+      listTag: [],
+      artikel_id: {}
     };
   },
   mounted: function mounted() {
-    this.loadContent();
+    this.loadContent(); //this.getTags();
   },
   methods: {
     loadContent: function loadContent() {
@@ -6717,6 +6772,20 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.contentArtikel.forEach(function (element) {
           _this.formatDate(element.created_at);
+
+          _this.artikel_id = element.id;
+        });
+
+        _this.getTags();
+      })["catch"](function (err) {});
+    },
+    getTags: function getTags() {
+      var _this2 = this;
+
+      axios.get("/api/artikel/getTag/" + this.artikel_id).then(function (result) {
+        _this2.listTag = result.data;
+        _this2.listUrl = _this2.listTag.map(function (t) {
+          return "/artikelpage/".concat(t.id);
         });
       })["catch"](function (err) {});
     },
@@ -7697,6 +7766,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["lokasi"],
@@ -7712,13 +7783,15 @@ __webpack_require__.r(__webpack_exports__);
         obat: false,
         alat: false
       },
-      listNotif: []
+      listNotif: [],
+      nightMode: false
     };
   },
   mounted: function mounted() {
     this.getLokasi();
     this.loadData();
     this.loadNotif();
+    this.nightMode = false;
   },
   methods: {
     getLokasi: function getLokasi() {
@@ -7754,7 +7827,12 @@ __webpack_require__.r(__webpack_exports__);
           _this2.listNotif = result.data;
           _this2.listNotif = _this2.listNotif.notifs;
         })["catch"](function (err) {});
-      }, 2000);
+      }, 1000);
+      var button = document.querySelector(".btn-toggle");
+      button.addEventListener("click", function () {
+        document.documentElement.classList.toggle("dark-mode");
+        _this2.nightMode = !_this2.nightMode;
+      });
     },
     formatNumber: function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -29833,7 +29911,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\n  margin-left: 3rem;\n}\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
 
 // exports
 
@@ -30004,7 +30082,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\r\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\r\n  font-weight: bold;\r\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
+exports.push([module.i, "\n.invert[data-v-82ff4d50] {\r\n  filter: invert(1) hue-rotate(180deg);\n}\n.icon-moon[data-v-82ff4d50] {\r\n  color: #041b04;\r\n  font-size: 2rem;\r\n  padding-top: 5px;\n}\n.icon-sun[data-v-82ff4d50] {\r\n  color: #fcda5f;\r\n  font-size: 2rem;\r\n  padding-top: 5px;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
 
 // exports
 
@@ -30023,7 +30101,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.unread[data-v-3869cd85] {\r\n  background: gray;\r\n  color: white;\n}\r\n", ""]);
+exports.push([module.i, "\n.unread[data-v-3869cd85] {\r\n  background: gray;\r\n  color: white;\n}\n.list[data-v-3869cd85] {\r\n  background: white;\n}\r\n", ""]);
 
 // exports
 
@@ -87892,7 +87970,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", id: "", placeholder: "Co:  Puyer" },
+                attrs: { type: "text", id: "", placeholder: "Co: Puyer" },
                 domProps: { value: _vm.keywords },
                 on: {
                   input: function($event) {
@@ -88956,6 +89034,73 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Banyak Data pada Tabel")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.perPage,
+                  expression: "perPage"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", id: "", placeholder: "Co: 2" },
+              domProps: { value: _vm.perPage },
+              on: {
+                change: _vm.changePage,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.perPage = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Search Nama Obat Racikan")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "", placeholder: "Co: John" },
+                domProps: { value: _vm.keywords },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.search } },
+                [_vm._v("Cari")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
         _c("table", { staticClass: "table table-bordered" }, [
           _vm._m(1),
           _vm._v(" "),
@@ -91183,7 +91328,7 @@ var render = function() {
           _vm._l(_vm.listTag, function(tag, index) {
             return _c(
               "div",
-              { key: tag.id, staticClass: "col-lg-3" },
+              { key: tag.id, staticClass: "col-lg-6" },
               [
                 _c(
                   "router-link",
@@ -91234,52 +91379,93 @@ var render = function() {
           "div",
           { staticClass: "mt-5" },
           _vm._l(_vm.contentArtikel, function(artikel) {
-            return _c("div", { key: artikel.id }, [
-              _c("h3", [_vm._v(_vm._s(artikel.title))]),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "h5",
-                {
+            return _c(
+              "div",
+              { key: artikel.id },
+              [
+                _c("h3", [_vm._v(_vm._s(artikel.title))]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._l(_vm.listTag, function(tag, index) {
+                  return _c(
+                    "button",
+                    {
+                      key: tag.id,
+                      staticClass: "btn btn-sm btn-danger col-1 p-0 m-0"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticStyle: { color: "white" },
+                          attrs: { to: _vm.listUrl[index] }
+                        },
+                        [_vm._v(_vm._s(tag.nama) + " ")]
+                      )
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    staticStyle: {
+                      color: "gray",
+                      "font-size": "15px",
+                      float: "right"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " + _vm._s(_vm.tanggal) + "\n          "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _c("hr"),
+                _vm._v(" "),
+                _c("img", {
                   staticStyle: {
-                    "font-style": "italic",
-                    color: "gray",
-                    "font-size": "15px"
+                    border: "5px solid danger",
+                    "border-radius": "25px"
+                  },
+                  attrs: {
+                    src: artikel.gambar,
+                    alt: "",
+                    srcset: "",
+                    width: "100%",
+                    height: "600px"
                   }
-                },
-                [
-                  _vm._v(
-                    "\n          Dibuat pada: " +
-                      _vm._s(_vm.tanggal) +
-                      "\n        "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("img", {
-                attrs: {
-                  src: artikel.gambar,
-                  alt: "",
-                  srcset: "",
-                  width: "100%",
-                  height: "600px"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticStyle: { "font-size": "20px" } }, [
-                _c("p", [
-                  _c("span", { staticStyle: { color: "red" } }, [
-                    _vm._v("UChicago Medicine")
-                  ]),
-                  _vm._v(
-                    " -\n            " +
-                      _vm._s(artikel.content) +
-                      "\n          "
-                  )
-                ])
-              ])
-            ])
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "font-size": "20px",
+                      "margin-left": "2vw",
+                      "margin-right": "2vw"
+                    }
+                  },
+                  [
+                    _c("p", [
+                      _c("span", { staticStyle: { color: "red" } }, [
+                        _vm._v("UChicago Medicine")
+                      ]),
+                      _vm._v(
+                        " -\n            " +
+                          _vm._s(artikel.content) +
+                          "\n          "
+                      )
+                    ])
+                  ]
+                )
+              ],
+              2
+            )
           }),
           0
         )
@@ -91317,9 +91503,9 @@ var render = function() {
     { staticClass: "card my-3 mx-1", staticStyle: { "max-width": "540px" } },
     [
       _c("div", { staticClass: "row no-gutters" }, [
-        _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [
+            _c("h5", { staticStyle: { "text-align": "center" } }, [
               _vm._v(_vm._s(_vm.tag.nama))
             ])
           ])
@@ -91927,7 +92113,7 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm.kontak.nomo2 != ""
+        _vm.kontak.nomor2
           ? _c("span", [_vm._v("Nomor HP Kedua: " + _vm._s(_vm.kontak.nomor2))])
           : _vm._e()
       ]),
@@ -92199,6 +92385,12 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("div", { staticClass: "col" }, [
+          _vm.nightMode
+            ? _c("li", { staticClass: "fas fa-sun btn-toggle icon-sun invert" })
+            : _c("li", { staticClass: "fas fa-moon btn-toggle icon-moon" })
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "col" }, [
           !_vm.isLogin.nama
             ? _c(
@@ -93065,6 +93257,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "list" },
     [
       _c("div", { staticClass: "dropdown-divider" }),
       _vm._v(" "),
