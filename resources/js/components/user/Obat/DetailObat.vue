@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar :lokasi="'obat'" />
+    <Navbar :lokasi="'alat'" />
     <div class="containerNew">
       <div>
         <span class="h4 text-uppercase">{{ obat.nama }} </span> <br />
@@ -62,28 +62,36 @@
               </router-link>
             </span>
           </p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Deskripsi</span>
-          <p class="font-weight-light">ini ini desc</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
-          <span class="font-weight-bold">Kategori</span>
-          <p class="font-weight-light">ini ini Kategori</p>
+          <span class="font-weight-bold">Satuan</span>
+          <p class="font-weight-light">{{ obat.satuan }}</p>
+          <span class="font-weight-bold">Kemasan</span>
+          <p class="font-weight-light">{{ obat.kemasan }}</p>
+          <span v-if="obat.komposisi != null">
+            <span class="font-weight-bold">Komposisi</span>
+            <p class="font-weight-light">{{ obat.komposisi }}</p>
+          </span>
+          <span v-if="obat.dosis != null">
+            <span class="font-weight-bold">Dosis</span>
+            <p class="font-weight-light">{{ obat.dosis }}</p>
+          </span>
+          <span v-if="obat.segmentasi != null">
+            <span class="font-weight-bold">Segmentasi</span>
+            <p class="font-weight-light">{{ obat.segmentasi }}</p>
+          </span>
+            <span class="font-weight-bold">Manufaktur</span>
+            <p class="font-weight-light">{{ obat.manufaktur }}</p>
         </div>
         <div class="col-lg-3">
           <p class="h4">PRODUK SEJENIS</p>
           <div class="row" v-for="dataObat in listObat" :key="dataObat.id">
             <ProdukRelated
               :data="dataObat"
+              v-on:load-data="loadData"
+            ></ProdukRelated>
+          </div>
+          <div class="row" v-for="dataAlat in listAlat" :key="dataAlat.id">
+            <ProdukRelated
+              :data="dataAlat"
               v-on:load-data="loadData"
             ></ProdukRelated>
           </div>
@@ -114,6 +122,7 @@ export default {
       obat: {},
       listKategori: [],
       listObat: [],
+      listAlat: [],
       isLogin: {},
     };
   },
@@ -152,7 +161,8 @@ export default {
       axios
         .get("/api/obat/getRelated/" + this.listKategori[0].id)
         .then((result) => {
-          this.listObat = result.data;
+          this.listObat = result.data.obat;
+          this.listAlat = result.data.alat;
         })
         .catch((err) => {});
     },

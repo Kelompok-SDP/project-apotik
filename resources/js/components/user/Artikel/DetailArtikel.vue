@@ -66,7 +66,10 @@ export default {
       var bulan = date.getMonth();
       var tanggal = date.getDate();
       var hari = date.getDay();
-      var jam = date.getHours();
+      var jam = date.getHours()-7;
+      if(jam < 10){
+          jam = "0"+jam;
+      }
       var menit = date.getMinutes();
       var detik = date.getSeconds();
       switch (hari) {

@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Artikel;
-use App\Models\ObatKategori;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,15 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //kalo ada error dulu composer dumpautoload
+        // kalo ada error dulu composer dumpautoload
         // php artisan db:seed --database="mysql"
         $this->call([
-             UserSeeder::class,
+            UserSeeder::class,
             KategoriSeeder::class,
             ObatSeeder::class,
+            ObatKategoriSeeder::class,
+            AlatSeeder::class,
+            AlatKategoriSeeder::class,
             ThJualSeeder::class,
-             TagSeeder::class,
-             ArtikelSeeder::class
+            TagSeeder::class,
+            ArtikelSeeder::class
         ]);
     }
 }

@@ -455,6 +455,7 @@ export default {
           this.form.gambar = "";
           this.form.content = "";
           this.form.slug = "";
+          console.log(this.artikels);
         })
         .catch((err) => {
           console.log("err");

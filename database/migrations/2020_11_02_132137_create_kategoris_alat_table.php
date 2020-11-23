@@ -17,7 +17,7 @@ class CreateKategorisAlatTable extends Migration
             $table->string('id_kategori',10);
             $table->foreign('id_kategori')->references('id')->on('kategoris');
             $table->string('id_alat',10);
-            $table->foreign('id_alat')->references('id')->on('kategoris');
+            $table->foreign('id_alat')->references('id')->on('alat_kesehatans');
         });
     }
 

@@ -69,6 +69,7 @@ class CartPageController extends Controller
     {
         $isLogin = json_decode($request->cookie('isLogin'));
         $cartUser = session()->get('cartUser' . $isLogin->id);
+        dd($cartUser);
 
         $depan = date("dmy");
         $fakeobat =

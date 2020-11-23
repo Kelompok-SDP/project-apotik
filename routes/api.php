@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
-    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@UnbannedUser');
+    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@search');
     Route::post('/ban', 'Api\UserController@bannedUser');
     Route::post('/unban', 'Api\UserController@UnbannedUser');
 });
@@ -107,6 +107,13 @@ Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/updateInfo', 'Api\InfoController@updateInfo');
 });
 
+Route::group(['prefix' => 'alat'], function () {
+
+    Route::get('/produk', 'Api\AlatKesehatanController@show');
+    Route::get('/getDetail/{id}', 'Api\AlatKesehatanController@getDetail');
+    Route::get('/kategori', 'Api\AlatKesehatanController@showsAll');
+    Route::get('/kategori/{slug}', 'Api\AlatKesehatanController@showDetail');
+});
 Route::group(['prefix'=> 'admin/laporan'], function(){
     Route::get('/', 'Api\LaporanController@showFirst');
     Route::get('/changePaginate/{jumlah}/{tipe}/{secara}/{orderby}/{tanggalhari}/{tipedata}', 'Api\LaporanController@changePaginate');

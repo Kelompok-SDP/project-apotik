@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Alat_Kesehatan;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -14,6 +15,18 @@ class AlatKesehatanController extends Controller
     {
         // dd(Alat_Kesehatan::paginate(5));
         return Alat_Kesehatan::paginate(5);
+    }
+    public function showsAll()
+    {
+        $all_kategori = Kategori::orderBy('nama')->get();
+        return $all_kategori;
+    }
+    public function showDetail($slug)
+    {
+        $kategori = Kategori::where('slug', $slug)->first();
+        $obats = $kategori->alats()->get();
+        // dd($obats);
+        return compact(['kategori', 'obats']);
     }
 
     public function changePaginate($jumlah)
@@ -182,6 +195,7 @@ class AlatKesehatanController extends Controller
             'gambar.max' => 'ukuran maksimal gambar adalah 5,48mb'
         ]);
     }
+
 
 
 

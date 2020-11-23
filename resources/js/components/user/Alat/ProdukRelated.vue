@@ -8,7 +8,7 @@
       />
       <div class="col-8" style="word-break: break-all; white-space: normal">
         <div @click="getLink" style="cursor: pointer">
-          <router-link :to="'/obat/' + data.id">
+          <router-link :to="'/alat/' + data.id">
             <strong>{{ data.nama }} </strong>
           </router-link>
         </div>

@@ -21,7 +21,8 @@ class validLogin
             return redirect('/login');
         }
 
-
-        return $next($request);
+        $response = $next($request);
+        // return view('main');
+        return $response;
     }
 }
