@@ -257,7 +257,6 @@ export default {
         .catch((err) => {});
       document.getElementById("lanjutan").style.display = "none";
       document.getElementById("btnEdit").style.display = "inline";
-      document.getElementById("email").disabled = true;
       document.getElementById("nama").disabled = true;
       document.getElementById("tlp").disabled = true;
 
@@ -276,7 +275,6 @@ export default {
     editData() {
       document.getElementById("lanjutan").style.display = "inline";
       document.getElementById("btnEdit").style.display = "none";
-      document.getElementById("email").disabled = false;
       document.getElementById("nama").disabled = false;
       document.getElementById("tlp").disabled = false;
     },

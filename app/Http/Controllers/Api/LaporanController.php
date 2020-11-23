@@ -453,10 +453,10 @@ class LaporanController extends Controller
             }
 
             if ($search == 0) {
-                $dataObat->where('td_juals.id_product', 'LIKE', "%$keyword");
+                $dataObat->where('td_juals.id_product', 'LIKE', "%$keyword%");
             } else {
 
-                $dataObat->where('obats.nama', 'LIKE', "%$keyword");
+                $dataObat->where('obats.nama', 'LIKE', "%$keyword%");
             }
         } else if ($tipedata == 2) {
             $dataObat = DB::table("th_juals")
@@ -593,9 +593,9 @@ class LaporanController extends Controller
             }
 
             if ($search == 0) {
-                $dataObat->where('th_juals.id_user', 'LIKE', "%$keyword");
+                $dataObat->where('th_juals.id_user', 'LIKE', "%$keyword%");
             } else {
-                $dataObat->where('users.nama', 'LIKE', "%$keyword");
+                $dataObat->where('users.nama', 'LIKE', "%$keyword%");
             }
         }
 

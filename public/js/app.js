@@ -8253,7 +8253,6 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {});
       document.getElementById("lanjutan").style.display = "none";
       document.getElementById("btnEdit").style.display = "inline";
-      document.getElementById("email").disabled = true;
       document.getElementById("nama").disabled = true;
       document.getElementById("tlp").disabled = true;
       this.pass = "";
@@ -8273,7 +8272,6 @@ __webpack_require__.r(__webpack_exports__);
     editData: function editData() {
       document.getElementById("lanjutan").style.display = "inline";
       document.getElementById("btnEdit").style.display = "none";
-      document.getElementById("email").disabled = false;
       document.getElementById("nama").disabled = false;
       document.getElementById("tlp").disabled = false;
     },
