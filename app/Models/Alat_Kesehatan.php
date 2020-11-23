@@ -20,4 +20,9 @@ class Alat_Kesehatan extends Model
     protected $keyType = 'string';
 
     use SoftDeletes;
+
+    public function kategoris()
+    {
+        return $this->belongsToMany(Kategori::class, 'kategoris_alat', 'id_alat', 'id_kategori');
+    }
 }

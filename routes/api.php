@@ -107,6 +107,13 @@ Route::group(['prefix' => 'admin/info'], function () {
     Route::post('/updateInfo', 'Api\InfoController@updateInfo');
 });
 
+Route::group(['prefix' => 'alat'], function () {
+
+    Route::get('/produk', 'Api\AlatKesehatanController@show');
+    Route::get('/getDetail/{id}', 'Api\AlatKesehatanController@getDetail');
+    Route::get('/kategori', 'Api\AlatKesehatanController@showsAll');
+    Route::get('/kategori/{slug}', 'Api\AlatKesehatanController@showDetail');
+});
 Route::group(['prefix'=> 'admin/laporan'], function(){
     Route::get('/', 'Api\LaporanController@showFirst');
     Route::get('/changePaginate/{jumlah}/{tipe}/{secara}/{orderby}/{tanggalhari}/{tipedata}', 'Api\LaporanController@changePaginate');

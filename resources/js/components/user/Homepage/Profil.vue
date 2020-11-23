@@ -42,23 +42,6 @@
                 {{ errors.noHp[0] }}
               </span>
             </div>
-            <div class="form-group">
-              <label for="">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                id="email"
-                placeholder="Kode"
-                v-model="email"
-                disabled
-              />
-              <span
-                class="invalid-feedback d-block"
-                v-if="errors.hasOwnProperty('email')"
-              >
-                {{ errors.email[0] }}
-              </span>
-            </div>
             <input type="hidden" name="" v-model="iduser" />
             <div class="form-group">
               <label for="">Role</label>
@@ -264,7 +247,7 @@ export default {
         .get("/api/profilUser")
         .then((result) => {
           this.isLogin = result.data.userLogin;
-          this.htrans = result.data.dataHtrans;
+          this.htrans = result.data.dataHtrans.data;
           this.nama = this.isLogin.nama;
           this.email = this.isLogin.email;
           this.notlp = this.isLogin.noHp;

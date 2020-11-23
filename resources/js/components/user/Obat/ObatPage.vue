@@ -24,7 +24,7 @@ import Navbar from "../Homepage/Navbar";
 import KategoriCard from "./KategoriCard";
 import Footer from "../Homepage/Footer";
 export default {
-  name: "ObatPage",
+  name: "AlatPage",
   components: {
     Navbar: Navbar,
     KategoriCard: KategoriCard,

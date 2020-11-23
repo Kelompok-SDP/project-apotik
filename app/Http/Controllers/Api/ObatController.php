@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alat_Kesehatan;
 use App\Models\Kategori;
 use App\Models\Obat;
 use App\Models\Td_Jual;
@@ -269,6 +270,9 @@ class ObatController extends Controller
     public function getDetail($id)
     {
         $obat = Obat::find($id);
+        if($obat==null){
+            $obat= Alat_Kesehatan::find($id);
+        }
         $listKategori = $obat->kategoris()->get();
         return compact(['obat', 'listKategori']);
     }
@@ -277,6 +281,8 @@ class ObatController extends Controller
     {
 
         $kategori = Kategori::find($id);
-        return $kategori->obats()->get();
+        $obat=$kategori->obats()->get();
+        $alat=$kategori->alats()->get();
+        return compact(['obat','alat']);
     }
 }

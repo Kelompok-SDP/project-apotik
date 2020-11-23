@@ -29,7 +29,7 @@
 import Navbar from "../Homepage/Navbar";
 import Produk from "../Homepage/Produk";
 export default {
-  name: "KategoriPage",
+  name: "AlatKategoriPage",
   components: {
     Navbar: Navbar,
     Produk: Produk,
@@ -46,8 +46,9 @@ export default {
   methods: {
     loadKategori() {
       axios
-        .get("/kategori/" + this.$route.params.slug)
+        .get("/api/alat/kategori/" + this.$route.params.slug)
         .then((result) => {
+            // console.log($result);
           this.kategori = result.data.kategori;
           this.listObat = result.data.obats;
         })

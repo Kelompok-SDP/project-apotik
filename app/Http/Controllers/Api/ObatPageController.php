@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Alat_Kesehatan;
 use App\Models\Kategori;
 use App\Models\Obat;
 use Illuminate\Http\Request;
@@ -26,6 +27,9 @@ class ObatPageController extends Controller
     public function addCart(Request $request)
     {
         $obat = Obat::find($request->id);
+        if($obat==null){
+            $obat=Alat_Kesehatan::find($request->id);
+        }
         $isLogin = json_decode($request->cookie('isLogin'));
 
         $obat['jumlah'] = '1';

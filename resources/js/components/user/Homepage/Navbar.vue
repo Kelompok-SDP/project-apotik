@@ -27,7 +27,7 @@
         >
       </div>
       <div class="p-2 mx-4" v-bind:class="{ active: cssLokasi.alat }">
-        <router-link to="/produk" class="navbar-text"
+        <router-link to="/alat/produk" class="navbar-text"
           >Alat Kesehatan</router-link
         >
       </div>

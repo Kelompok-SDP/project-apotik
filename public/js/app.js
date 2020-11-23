@@ -6307,6 +6307,182 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Homepage/Navbar */ "./resources/js/components/user/Homepage/Navbar.vue");
+/* harmony import */ var _Homepage_Produk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Homepage/Produk */ "./resources/js/components/user/Homepage/Produk.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "AlatKategoriPage",
+  components: {
+    Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Produk: _Homepage_Produk__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      kategori: {},
+      listObat: {}
+    };
+  },
+  mounted: function mounted() {
+    this.loadKategori();
+  },
+  methods: {
+    loadKategori: function loadKategori() {
+      var _this = this;
+
+      axios.get("/api/alat/kategori/" + this.$route.params.slug).then(function (result) {
+        // console.log($result);
+        _this.kategori = result.data.kategori;
+        _this.listObat = result.data.obats;
+      })["catch"](function (err) {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Homepage/Navbar */ "./resources/js/components/user/Homepage/Navbar.vue");
+/* harmony import */ var _KategoriCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KategoriCard */ "./resources/js/components/user/Alat/KategoriCard.vue");
+/* harmony import */ var _Homepage_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Homepage/Footer */ "./resources/js/components/user/Homepage/Footer.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ObatPage",
+  components: {
+    Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"],
+    KategoriCard: _KategoriCard__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Footer: _Homepage_Footer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      listKategori: {},
+      listUrl: []
+    };
+  },
+  mounted: function mounted() {
+    this.loadKategori();
+  },
+  methods: {
+    loadKategori: function loadKategori() {
+      var _this = this;
+
+      axios.get("/api/kategori").then(function (result) {
+        _this.listKategori = result.data;
+        _this.listUrl = _this.listKategori.map(function (k) {
+          return "/alat/produk/" + k.slug;
+        });
+      })["catch"](function (err) {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "KategoriCard",
+  props: {
+    kategori: Object
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Artikel/ArtikelPage.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Artikel/ArtikelPage.vue?vue&type=script&lang=js& ***!
@@ -7860,23 +8036,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Profil",
@@ -7910,7 +8069,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get("/api/profilUser").then(function (result) {
         _this.isLogin = result.data.userLogin;
-        _this.htrans = result.data.dataHtrans;
+        _this.htrans = result.data.dataHtrans.data;
         _this.nama = _this.isLogin.nama;
         _this.email = _this.isLogin.email;
         _this.notlp = _this.isLogin.noHp;
@@ -8228,6 +8387,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8245,6 +8412,7 @@ __webpack_require__.r(__webpack_exports__);
       obat: {},
       listKategori: [],
       listObat: [],
+      listAlat: [],
       isLogin: {}
     };
   },
@@ -8276,7 +8444,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get("/api/obat/getRelated/" + this.listKategori[0].id).then(function (result) {
-        _this2.listObat = result.data;
+        _this2.listObat = result.data.obat;
+        _this2.listAlat = result.data.alat;
       })["catch"](function (err) {});
     }
   }
@@ -8429,7 +8598,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ObatPage",
+  name: "AlatPage",
   components: {
     Navbar: _Homepage_Navbar__WEBPACK_IMPORTED_MODULE_0__["default"],
     KategoriCard: _KategoriCard__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -52690,6 +52859,169 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("Navbar", { attrs: { lokasi: "obat" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "mt-5" }, [
+          _c("img", {
+            staticClass: "rounded-circle",
+            attrs: {
+              src: _vm.kategori.gambar,
+              alt: "",
+              srcset: "",
+              width: "32px",
+              height: "32px"
+            }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "h4" }, [_vm._v(_vm._s(_vm.kategori.nama))])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.listObat, function(obat, index) {
+            return _c("Produk", {
+              key: index,
+              staticClass: "col-lg-3",
+              attrs: { dataProduk: obat }
+            })
+          }),
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("Navbar", { attrs: { lokasi: "alat" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("h4", [_vm._v("Alat Kesehatan Berdasarkan Kategori")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "row mt-4" },
+          _vm._l(_vm.listKategori, function(kategori, index) {
+            return _c(
+              "div",
+              { key: kategori.id, staticClass: "col-lg-3" },
+              [
+                _c(
+                  "router-link",
+                  { attrs: { to: _vm.listUrl[index] } },
+                  [_c("KategoriCard", { attrs: { kategori: kategori } })],
+                  1
+                )
+              ],
+              1
+            )
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("Footer")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "card my-3 mx-1", staticStyle: { "max-width": "540px" } },
+    [
+      _c("div", { staticClass: "row no-gutters" }, [
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("img", {
+            staticClass: "card-img rounded-circle",
+            staticStyle: {},
+            attrs: { src: _vm.kategori.gambar, alt: "gambar kategori" }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("h5", { staticClass: "card-title" }, [
+              _vm._v(_vm._s(_vm.kategori.nama))
+            ])
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Artikel/ArtikelPage.vue?vue&type=template&id=4e0f743f&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/user/Artikel/ArtikelPage.vue?vue&type=template&id=4e0f743f& ***!
@@ -53726,7 +54058,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "navbar-text", attrs: { to: "/produk" } },
+              { staticClass: "navbar-text", attrs: { to: "/alat/produk" } },
               [_vm._v("Alat Kesehatan")]
             )
           ],
@@ -54170,51 +54502,6 @@ var render = function() {
                             _vm._v(
                               "\n              " +
                                 _vm._s(_vm.errors.noHp[0]) +
-                                "\n            "
-                            )
-                          ]
-                        )
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { attrs: { for: "" } }, [_vm._v("Email")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.email,
-                          expression: "email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "email",
-                        placeholder: "Kode",
-                        disabled: ""
-                      },
-                      domProps: { value: _vm.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.email = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.hasOwnProperty("email")
-                      ? _c(
-                          "span",
-                          { staticClass: "invalid-feedback d-block" },
-                          [
-                            _vm._v(
-                              "\n              " +
-                                _vm._s(_vm.errors.email[0]) +
                                 "\n            "
                             )
                           ]
@@ -54811,7 +55098,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Navbar", { attrs: { lokasi: "obat" } }),
+      _c("Navbar", { attrs: { lokasi: "alat" } }),
       _vm._v(" "),
       _c("div", { staticClass: "containerNew" }, [
         _c("div", [
@@ -54937,68 +55224,62 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
+            _c("span", { staticClass: "font-weight-bold" }, [_vm._v("Satuan")]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.satuan))
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
+              _vm._v("Kemasan")
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.kemasan))
             ]),
+            _vm._v(" "),
+            _vm.obat.komposisi != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Komposisi")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.komposisi))
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.obat.dosis != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Dosis")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.dosis))
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.obat.segmentasi != null
+              ? _c("span", [
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("Segmentasi")
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "font-weight-light" }, [
+                    _vm._v(_vm._s(_vm.obat.segmentasi))
+                  ])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
+              _vm._v("Manufaktur")
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Deskripsi")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini desc")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "font-weight-bold" }, [
-              _vm._v("Kategori")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "font-weight-light" }, [
-              _vm._v("ini ini Kategori")
+              _vm._v(_vm._s(_vm.obat.manufaktur))
             ])
           ]),
           _vm._v(" "),
@@ -55015,6 +55296,20 @@ var render = function() {
                   [
                     _c("ProdukRelated", {
                       attrs: { data: dataObat },
+                      on: { "load-data": _vm.loadData }
+                    })
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.listAlat, function(dataAlat) {
+                return _c(
+                  "div",
+                  { key: dataAlat.id, staticClass: "row" },
+                  [
+                    _c("ProdukRelated", {
+                      attrs: { data: dataAlat },
                       on: { "load-data": _vm.loadData }
                     })
                   ],
@@ -71304,12 +71599,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_user_Artikel_ArtikelPage_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/user/Artikel/ArtikelPage.vue */ "./resources/js/components/user/Artikel/ArtikelPage.vue");
 /* harmony import */ var _components_user_Artikel_DetailArtikel_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/user/Artikel/DetailArtikel.vue */ "./resources/js/components/user/Artikel/DetailArtikel.vue");
 /* harmony import */ var _components_user_Obat_ObatPage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/user/Obat/ObatPage */ "./resources/js/components/user/Obat/ObatPage.vue");
-/* harmony import */ var _components_user_Obat_KategoriPage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/user/Obat/KategoriPage */ "./resources/js/components/user/Obat/KategoriPage.vue");
-/* harmony import */ var _components_user_Artikel_TagPage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/user/Artikel/TagPage */ "./resources/js/components/user/Artikel/TagPage.vue");
-/* harmony import */ var _components_user_Homepage_Profil_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/user/Homepage/Profil.vue */ "./resources/js/components/user/Homepage/Profil.vue");
-/* harmony import */ var _components_user_Cart_CartPage_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/user/Cart/CartPage.vue */ "./resources/js/components/user/Cart/CartPage.vue");
-/* harmony import */ var _components_user_Obat_DetailObat_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/user/Obat/DetailObat.vue */ "./resources/js/components/user/Obat/DetailObat.vue");
-/* harmony import */ var _components_user_NotifPage_NotifPage_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/user/NotifPage/NotifPage.vue */ "./resources/js/components/user/NotifPage/NotifPage.vue");
+/* harmony import */ var _components_user_Alat_AlatPage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/user/Alat/AlatPage */ "./resources/js/components/user/Alat/AlatPage.vue");
+/* harmony import */ var _components_user_Obat_KategoriPage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/user/Obat/KategoriPage */ "./resources/js/components/user/Obat/KategoriPage.vue");
+/* harmony import */ var _components_user_Alat_AlatKategoriPage__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/user/Alat/AlatKategoriPage */ "./resources/js/components/user/Alat/AlatKategoriPage.vue");
+/* harmony import */ var _components_user_Artikel_TagPage__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/user/Artikel/TagPage */ "./resources/js/components/user/Artikel/TagPage.vue");
+/* harmony import */ var _components_user_Homepage_Profil_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/user/Homepage/Profil.vue */ "./resources/js/components/user/Homepage/Profil.vue");
+/* harmony import */ var _components_user_Cart_CartPage_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/user/Cart/CartPage.vue */ "./resources/js/components/user/Cart/CartPage.vue");
+/* harmony import */ var _components_user_Obat_DetailObat_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/user/Obat/DetailObat.vue */ "./resources/js/components/user/Obat/DetailObat.vue");
+/* harmony import */ var _components_user_NotifPage_NotifPage_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/user/NotifPage/NotifPage.vue */ "./resources/js/components/user/NotifPage/NotifPage.vue");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -71324,6 +71621,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"], vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+
 
 
 
@@ -71362,21 +71661,29 @@ var routes = [{
   path: '/produk',
   component: _components_user_Obat_ObatPage__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
+  name: 'AlatPage',
+  path: '/alat/produk',
+  component: _components_user_Alat_AlatPage__WEBPACK_IMPORTED_MODULE_13__["default"]
+}, {
   name: 'KategoriPage',
   path: '/produk/:slug',
-  component: _components_user_Obat_KategoriPage__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_user_Obat_KategoriPage__WEBPACK_IMPORTED_MODULE_14__["default"]
+}, {
+  name: 'AlatKategoriPage',
+  path: '/alat/produk/:slug',
+  component: _components_user_Alat_AlatKategoriPage__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
   name: 'TagPage',
   path: '/artikelpage/:id',
-  component: _components_user_Artikel_TagPage__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _components_user_Artikel_TagPage__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   name: 'DetailObat',
   path: '/obat/:id',
-  component: _components_user_Obat_DetailObat_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _components_user_Obat_DetailObat_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   name: 'CartPage',
   path: '/lihatCart',
-  component: _components_user_Cart_CartPage_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _components_user_Cart_CartPage_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   name: 'Register',
   path: '/register',
@@ -71392,11 +71699,15 @@ var routes = [{
 }, {
   name: 'Profil',
   path: '/profilUser',
-  component: _components_user_Homepage_Profil_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _components_user_Homepage_Profil_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+}, {
+  name: 'Profil',
+  path: '/profilUser',
+  component: _components_user_Homepage_Profil_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   name: 'NotifPage',
   path: '/notifpage',
-  component: _components_user_NotifPage_NotifPage_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _components_user_NotifPage_NotifPage_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   name: 'PageNotFound',
   path: '*',
@@ -72618,6 +72929,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sidebar_vue_vue_type_template_id_54bfa98a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Sidebar_vue_vue_type_template_id_54bfa98a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatKategoriPage.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatKategoriPage.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlatKategoriPage.vue?vue&type=template&id=f7e2582a& */ "./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a&");
+/* harmony import */ var _AlatKategoriPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlatKategoriPage.vue?vue&type=script&lang=js& */ "./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AlatKategoriPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user/Alat/AlatKategoriPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatKategoriPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlatKategoriPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatKategoriPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlatKategoriPage.vue?vue&type=template&id=f7e2582a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatKategoriPage.vue?vue&type=template&id=f7e2582a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatKategoriPage_vue_vue_type_template_id_f7e2582a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatPage.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatPage.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AlatPage.vue?vue&type=template&id=2106afe5& */ "./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5&");
+/* harmony import */ var _AlatPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AlatPage.vue?vue&type=script&lang=js& */ "./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AlatPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user/Alat/AlatPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlatPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5& ***!
+  \***************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./AlatPage.vue?vue&type=template&id=2106afe5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/AlatPage.vue?vue&type=template&id=2106afe5&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AlatPage_vue_vue_type_template_id_2106afe5___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/KategoriCard.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/user/Alat/KategoriCard.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./KategoriCard.vue?vue&type=template&id=68f1022e& */ "./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e&");
+/* harmony import */ var _KategoriCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./KategoriCard.vue?vue&type=script&lang=js& */ "./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _KategoriCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user/Alat/KategoriCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KategoriCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./KategoriCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_KategoriCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./KategoriCard.vue?vue&type=template&id=68f1022e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/user/Alat/KategoriCard.vue?vue&type=template&id=68f1022e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_KategoriCard_vue_vue_type_template_id_68f1022e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
