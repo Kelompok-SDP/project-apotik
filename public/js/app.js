@@ -7600,6 +7600,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["lokasi"],
@@ -7615,13 +7617,15 @@ __webpack_require__.r(__webpack_exports__);
         obat: false,
         alat: false
       },
-      listNotif: []
+      listNotif: [],
+      nightMode: false
     };
   },
   mounted: function mounted() {
     this.getLokasi();
     this.loadData();
     this.loadNotif();
+    this.nightMode = false;
   },
   methods: {
     getLokasi: function getLokasi() {
@@ -7657,7 +7661,12 @@ __webpack_require__.r(__webpack_exports__);
           _this2.listNotif = result.data;
           _this2.listNotif = _this2.listNotif.notifs;
         })["catch"](function (err) {});
-      }, 2000);
+      }, 1000);
+      var button = document.querySelector(".btn-toggle");
+      button.addEventListener("click", function () {
+        document.documentElement.classList.toggle("dark-mode");
+        _this2.nightMode = !_this2.nightMode;
+      });
     },
     formatNumber: function formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -13725,7 +13734,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\nrouter-link[data-v-82ff4d50] {\r\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen,\r\n    Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif;\r\n  font-weight: bold;\r\n  color: red;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
+exports.push([module.i, "\n.invert[data-v-82ff4d50] {\r\n  filter: invert(1) hue-rotate(180deg);\n}\n.icon-moon[data-v-82ff4d50] {\r\n  color: #041b04;\r\n  font-size: 2rem;\r\n  padding-top: 5px;\n}\n.icon-sun[data-v-82ff4d50] {\r\n  color: #fcda5f;\r\n  font-size: 2rem;\r\n  padding-top: 5px;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar {\r\n  width: 0.5rem;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-track {\r\n  background: #1e1e24;\n}\n.notifs[data-v-82ff4d50]::-webkit-scrollbar-thumb {\r\n  background: #6649b8;\n}\n.active[data-v-82ff4d50] {\r\n  border-bottom: 2px solid red;\n}\n.dropbtn[data-v-82ff4d50] {\r\n  background-color: #29374681;\r\n  color: white;\r\n  padding: 12px;\r\n  font-size: 14px;\r\n  border: none;\r\n  cursor: pointer;\r\n  border-radius: 3px;\n}\n.dropdown[data-v-82ff4d50] {\r\n  position: relative;\r\n  display: inline-block;\n}\n.dropdown-content[data-v-82ff4d50] {\r\n  display: none;\r\n  position: absolute;\r\n  background-color: #f9f9f9;\r\n  min-width: 160px;\r\n  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);\r\n  z-index: 1;\n}\n.dropdown-content a[data-v-82ff4d50] {\r\n  color: black;\r\n  padding: 12px 16px;\r\n  text-decoration: none;\r\n  display: block;\n}\n.dropdown-content a[data-v-82ff4d50]:hover {\r\n  background-color: #f1f1f1;\n}\n.dropdown:hover .dropdown-content[data-v-82ff4d50] {\r\n  display: block;\n}\n.dropdown:hover .dropbtn[data-v-82ff4d50] {\r\n  background-color: #3d5c7f;\n}\r\n", ""]);
 
 // exports
 
@@ -13744,7 +13753,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.unread[data-v-3869cd85] {\r\n  background: gray;\r\n  color: white;\n}\r\n", ""]);
+exports.push([module.i, "\n.unread[data-v-3869cd85] {\r\n  background: gray;\r\n  color: white;\n}\n.list[data-v-3869cd85] {\r\n  background: white;\n}\r\n", ""]);
 
 // exports
 
@@ -53795,7 +53804,7 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm.kontak.nomo2 != ""
+        _vm.kontak.nomor2
           ? _c("span", [_vm._v("Nomor HP Kedua: " + _vm._s(_vm.kontak.nomor2))])
           : _vm._e()
       ]),
@@ -54067,6 +54076,12 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex justify-content-between" }, [
+        _c("div", { staticClass: "col" }, [
+          _vm.nightMode
+            ? _c("li", { staticClass: "fas fa-sun btn-toggle icon-sun invert" })
+            : _c("li", { staticClass: "fas fa-moon btn-toggle icon-moon" })
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "col" }, [
           !_vm.isLogin.nama
             ? _c(
@@ -54933,6 +54948,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "list" },
     [
       _c("div", { staticClass: "dropdown-divider" }),
       _vm._v(" "),
