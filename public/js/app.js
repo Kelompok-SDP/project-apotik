@@ -7485,6 +7485,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7509,6 +7510,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.kontak.nomor1 = _this.dataInfo[0].nomor1;
         _this.kontak.nomor2 = _this.dataInfo[0].nomor2;
       })["catch"](function (err) {});
+    },
+    ApiWa: function ApiWa() {
+      window.open("https://api.whatsapp.com/send?phone=" + this.kontak.nomor1 + "&text=Halo Dengan " + this.kontak.nama + " Di Sini");
     }
   }
 });
@@ -7827,7 +7831,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.listNotif = result.data;
           _this2.listNotif = _this2.listNotif.notifs;
         })["catch"](function (err) {});
-      }, 1000);
+      }, 2000);
       var button = document.querySelector(".btn-toggle");
       button.addEventListener("click", function () {
         document.documentElement.classList.toggle("dark-mode");
@@ -29890,7 +29894,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\n   display: none;\n}\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\r\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\r\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\r\n   display: none;\n}\r\n", ""]);
 
 // exports
 
@@ -30004,7 +30008,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-54bfa98a] {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.nav[data-v-54bfa98a] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -92107,7 +92111,12 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("span", [_vm._v("Nomor HP Pertama: " + _vm._s(_vm.kontak.nomor1))]),
+        _c("span", [
+          _vm._v("Nomor HP Pertama: "),
+          _c("span", { on: { click: _vm.ApiWa } }, [
+            _vm._v(_vm._s(_vm.kontak.nomor1))
+          ])
+        ]),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -113636,8 +113645,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
