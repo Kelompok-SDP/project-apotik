@@ -7312,6 +7312,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7336,6 +7337,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.kontak.nomor1 = _this.dataInfo[0].nomor1;
         _this.kontak.nomor2 = _this.dataInfo[0].nomor2;
       })["catch"](function (err) {});
+    },
+    ApiWa: function ApiWa() {
+      window.open("https://api.whatsapp.com/send?phone=" + this.kontak.nomor1 + "&text=Halo Dengan " + this.kontak.nama + " Di Sini");
     }
   }
 });
@@ -53784,7 +53788,12 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("span", [_vm._v("Nomor HP Pertama: " + _vm._s(_vm.kontak.nomor1))]),
+        _c("span", [
+          _vm._v("Nomor HP Pertama: "),
+          _c("span", { on: { click: _vm.ApiWa } }, [
+            _vm._v(_vm._s(_vm.kontak.nomor1))
+          ])
+        ]),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),

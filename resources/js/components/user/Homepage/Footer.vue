@@ -2,7 +2,8 @@
   <footer class="page-footer font-small bg-primary text-white mt-5">
     <div class="footer-copyright text-center py-3">
       <span>Kontak Apotik: {{ kontak.nama }}</span> <br />
-      <span>Nomor HP Pertama: {{ kontak.nomor1 }}</span> <br />
+      <!-- format nomor 62+nohp -->
+      <span >Nomor HP Pertama: <span @click="ApiWa">{{ kontak.nomor1 }}</span></span> <br />
       <span v-if="kontak.nomo2 != ''">Nomor HP Kedua: {{ kontak.nomor2 }}</span>
     </div>
     <div class="footer-copyright text-center py-3">
@@ -39,6 +40,10 @@ export default {
         })
         .catch((err) => {});
     },
+    ApiWa(){
+        window.open("https://api.whatsapp.com/send?phone="+this.kontak.nomor1+"&text=Halo Dengan "+this.kontak.nama+" Di Sini");
+
+    }
   },
 };
 </script>
