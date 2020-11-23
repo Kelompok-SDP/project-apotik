@@ -3,14 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 
-
 Route::group(['middleware' => ['ValidAdmin']], function () {
     Route::get('/{param1}/{param2?}', function () {
         return view('main');
     })->where(['param1' => 'admin', 'param2' => '.*']);
 });
-
-
 
 Route::group(['middleware' => ['validLogin']], function () {
     Route::post('/addCart', 'Api\ObatPageController@addCart');

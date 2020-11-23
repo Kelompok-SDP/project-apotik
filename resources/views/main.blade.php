@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ url('/template/admin/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="/template/admin/css/AdminLTE 2 _ ChartJS_files/_all-skins.min.css">
     <title>Project FAI</title>
 </head>
 <body>
@@ -19,4 +20,5 @@
 </body>
 <script src="{{ url('/template/admin/js/jquery.min.js') }}"></script>
 <script src="{{ url('/template/admin/js/adminlte.js') }}"></script>
+
 </html>
