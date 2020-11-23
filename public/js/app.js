@@ -5221,6 +5221,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ObatRacikan",
   data: function data() {
@@ -5229,6 +5255,7 @@ __webpack_require__.r(__webpack_exports__);
       pagination: [],
       perPage: 5,
       url: "/api/admin/obatracikan",
+      keywords: "",
       detObatRacikans: [],
       detObats: [],
       manyObats: 1,
@@ -5261,6 +5288,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.url).then(function (response) {
         _this.obatracikans = response.data.data;
         _this.pagination = response.data;
+        _this.form.kode = "";
+        _this.form.nobatr = "";
+        _this.form.ndokter = "";
+        _this.form.keterangan = "";
       });
     },
     fetchPaginate: function fetchPaginate(url) {
@@ -5313,6 +5344,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post("/api/admin/obatracikan/create", formData).then(function (response) {
         _this3.isSuccess = true;
         console.log(selectedObats);
+
+        _this3.loadData();
       })["catch"](function (_ref) {
         var response = _ref.response;
         _this3.errors = response.data.errors;
@@ -5340,6 +5373,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     makeCombobox: function makeCombobox() {
       this.getObats();
+    },
+    search: function search() {
+      if (this.keywords.length > 0) {
+        this.url = "/api/admin/obatracikan/search/" + this.keywords + "/" + this.perPage;
+      } else {
+        this.url = "/api/admin/obatracikan";
+      }
+
+      this.loadData();
     }
   }
 });
@@ -5760,7 +5802,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -6593,6 +6634,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6604,11 +6654,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       contentArtikel: {},
-      tanggal: {}
+      tanggal: {},
+      listTag: [],
+      artikel_id: {}
     };
   },
   mounted: function mounted() {
-    this.loadContent();
+    this.loadContent(); //this.getTags();
   },
   methods: {
     loadContent: function loadContent() {
@@ -6620,6 +6672,20 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.contentArtikel.forEach(function (element) {
           _this.formatDate(element.created_at);
+
+          _this.artikel_id = element.id;
+        });
+
+        _this.getTags();
+      })["catch"](function (err) {});
+    },
+    getTags: function getTags() {
+      var _this2 = this;
+
+      axios.get("/api/artikel/getTag/" + this.artikel_id).then(function (result) {
+        _this2.listTag = result.data;
+        _this2.listUrl = _this2.listTag.map(function (t) {
+          return "/artikelpage/".concat(t.id);
         });
       })["catch"](function (err) {});
     },
@@ -13478,7 +13544,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-a1454dde] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-a1454dde] {\n  margin-left: 3rem;\n}\n", ""]);
 
 // exports
 
@@ -13554,7 +13620,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\n  margin-left: 3rem;\n}\n", ""]);
 
 // exports
 
@@ -13706,7 +13772,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\na[data-v-6785ea14] {\r\n  color: white;\r\n  text-decoration: none;\n}\r\n", ""]);
+exports.push([module.i, "\na[data-v-6785ea14] {\n  color: white;\n  text-decoration: none;\n}\n", ""]);
 
 // exports
 
@@ -49760,7 +49826,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", id: "", placeholder: "Co:  Puyer" },
+                attrs: { type: "text", id: "", placeholder: "Co: Puyer" },
                 domProps: { value: _vm.keywords },
                 on: {
                   input: function($event) {
@@ -50824,6 +50890,73 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Banyak Data pada Tabel")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.perPage,
+                  expression: "perPage"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", id: "", placeholder: "Co: 2" },
+              domProps: { value: _vm.perPage },
+              on: {
+                change: _vm.changePage,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.perPage = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group col-sm" }, [
+            _c("label", { attrs: { for: "" } }, [
+              _vm._v("Search Nama Obat Racikan")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "", placeholder: "Co: John" },
+                domProps: { value: _vm.keywords },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", on: { click: _vm.search } },
+                [_vm._v("Cari")]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
         _c("table", { staticClass: "table table-bordered" }, [
           _vm._m(1),
           _vm._v(" "),
@@ -53051,7 +53184,7 @@ var render = function() {
           _vm._l(_vm.listTag, function(tag, index) {
             return _c(
               "div",
-              { key: tag.id, staticClass: "col-lg-3" },
+              { key: tag.id, staticClass: "col-lg-6" },
               [
                 _c(
                   "router-link",
@@ -53102,52 +53235,93 @@ var render = function() {
           "div",
           { staticClass: "mt-5" },
           _vm._l(_vm.contentArtikel, function(artikel) {
-            return _c("div", { key: artikel.id }, [
-              _c("h3", [_vm._v(_vm._s(artikel.title))]),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "h5",
-                {
+            return _c(
+              "div",
+              { key: artikel.id },
+              [
+                _c("h3", [_vm._v(_vm._s(artikel.title))]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _vm._l(_vm.listTag, function(tag, index) {
+                  return _c(
+                    "button",
+                    {
+                      key: tag.id,
+                      staticClass: "btn btn-sm btn-danger col-1 p-0 m-0"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticStyle: { color: "white" },
+                          attrs: { to: _vm.listUrl[index] }
+                        },
+                        [_vm._v(_vm._s(tag.nama) + " ")]
+                      )
+                    ],
+                    1
+                  )
+                }),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    staticStyle: {
+                      color: "gray",
+                      "font-size": "15px",
+                      float: "right"
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " + _vm._s(_vm.tanggal) + "\n          "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _c("hr"),
+                _vm._v(" "),
+                _c("img", {
                   staticStyle: {
-                    "font-style": "italic",
-                    color: "gray",
-                    "font-size": "15px"
+                    border: "5px solid danger",
+                    "border-radius": "25px"
+                  },
+                  attrs: {
+                    src: artikel.gambar,
+                    alt: "",
+                    srcset: "",
+                    width: "100%",
+                    height: "600px"
                   }
-                },
-                [
-                  _vm._v(
-                    "\n          Dibuat pada: " +
-                      _vm._s(_vm.tanggal) +
-                      "\n        "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("img", {
-                attrs: {
-                  src: artikel.gambar,
-                  alt: "",
-                  srcset: "",
-                  width: "100%",
-                  height: "600px"
-                }
-              }),
-              _vm._v(" "),
-              _c("div", { staticStyle: { "font-size": "20px" } }, [
-                _c("p", [
-                  _c("span", { staticStyle: { color: "red" } }, [
-                    _vm._v("UChicago Medicine")
-                  ]),
-                  _vm._v(
-                    " -\n            " +
-                      _vm._s(artikel.content) +
-                      "\n          "
-                  )
-                ])
-              ])
-            ])
+                }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticStyle: {
+                      "font-size": "20px",
+                      "margin-left": "2vw",
+                      "margin-right": "2vw"
+                    }
+                  },
+                  [
+                    _c("p", [
+                      _c("span", { staticStyle: { color: "red" } }, [
+                        _vm._v("UChicago Medicine")
+                      ]),
+                      _vm._v(
+                        " -\n            " +
+                          _vm._s(artikel.content) +
+                          "\n          "
+                      )
+                    ])
+                  ]
+                )
+              ],
+              2
+            )
           }),
           0
         )
@@ -53185,9 +53359,9 @@ var render = function() {
     { staticClass: "card my-3 mx-1", staticStyle: { "max-width": "540px" } },
     [
       _c("div", { staticClass: "row no-gutters" }, [
-        _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [
+            _c("h5", { staticStyle: { "text-align": "center" } }, [
               _vm._v(_vm._s(_vm.tag.nama))
             ])
           ])
