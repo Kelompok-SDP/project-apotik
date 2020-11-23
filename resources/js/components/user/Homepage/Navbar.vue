@@ -175,7 +175,7 @@ export default {
             this.listNotif = this.listNotif.notifs;
           })
           .catch((err) => {});
-      }, 1000);
+      }, 2000);
       let button = document.querySelector(".btn-toggle");
       button.addEventListener("click", () => {
         document.documentElement.classList.toggle("dark-mode");
