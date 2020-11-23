@@ -101,7 +101,6 @@
             >Page {{ pagination.current_page }} of {{ pagination.last_page }}
           </span>
         </div>
-
         <h2 v-if="users.length == 0" class="text-center mt-2">
           Belum ada data user
         </h2>
@@ -150,6 +149,7 @@ export default {
                 this.form.nama = "";
                 this.form.noHp = "";
                 this.form.email = "";
+                console.log("Jumlah: "+this.users.length);
             });
         },
         fetchPaginate(url) {
@@ -199,9 +199,9 @@ export default {
         },
         search() {
             if (this.keywords.length > 0) {
+                console.log("masuk");
                 this.url =
                 "/api/admin/user/search/" + this.keywords + "/" + this.perPage;
-                console.log(this.url);
             } else {
                 this.url = "/api/admin/user";
             }

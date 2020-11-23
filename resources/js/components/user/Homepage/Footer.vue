@@ -4,7 +4,7 @@
       <span>Kontak Apotik: {{ kontak.nama }}</span> <br />
       <!-- format nomor 62+nohp -->
       <span >Nomor HP Pertama: <span @click="ApiWa">{{ kontak.nomor1 }}</span></span> <br />
-      <span v-if="kontak.nomo2 != ''">Nomor HP Kedua: {{ kontak.nomor2 }}</span>
+      <span v-if="kontak.nomor2 != ''">Nomor HP Kedua: {{ kontak.nomor2 }}</span>
     </div>
     <div class="footer-copyright text-center py-3">
       © 2020 Copyright:

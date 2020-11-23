@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="list">
     <div class="dropdown-divider"></div>
     <router-link to="/notifpage" class="dropdown-item" :class="isUnread">
       <strong>Transaksi {{ tanggal }} </strong> <br />
@@ -30,5 +30,8 @@ export default {
 .unread {
   background: gray;
   color: white;
+}
+.list {
+  background: white;
 }
 </style>

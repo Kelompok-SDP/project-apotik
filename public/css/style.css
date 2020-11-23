@@ -13,8 +13,26 @@ body::-webkit-scrollbar-thumb {
 body {
     color: #222;
     background: #fff;
+    transition: background 2s;
 }
 
 a {
     color: #0033cc;
+}
+
+
+.dark-mode {
+    filter: invert(1) hue-rotate(180deg);
+    transition: filter 2s, background 2s;
+}
+
+.dark-mode img,
+picture,
+video {
+    filter: invert(1) hue-rotate(180deg);
+    transition: filter 2s, background 2s;
+}
+
+.dark-mode .invert {
+    filter: invert(1) hue-rotate(180deg);
 }

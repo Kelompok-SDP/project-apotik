@@ -1,3 +1,4 @@
+
 <template>
     <div class="wrapper-sub-kategori">
          <br />
@@ -10,7 +11,7 @@
                 <button class="btn btn-primary btn-click" @click="gantiLaporan(3)">Laporan Pendapatan </button>
              </div>
              <div class="card-body">
-                 <div class="row">
+                 <div class="row" v-if="tipeData == 1 ||tipeData ==2">
                      <div class="form-group col-sm">
                             <label for="">Banyak Data pada Tabel</label>
                             <input
@@ -47,11 +48,11 @@
                             </div>
                         </div>
                  </div>
-                 <div class="row">
+                 <div class="row"  v-if="tipeData == 1 ||tipeData ==2">
                         <div class="form-group col-sm">
                             <label for="">Order By</label>
                             <div class="input-group">
-                                <select class="form-control"  v-model="key" @change="onChangeOrderBy($event)">
+                                <select class="form-control"  @change="onChangeOrderBy($event)">
                                     <option v-for="(data, index) in arrorderBy" :key="index" :value="index">
                                     {{ data }}
                                     </option>
@@ -219,15 +220,28 @@
                                 Belum ada data
                                 </h2>
                     </div>
+
+
+                    <!-- master pendapatan -->
+                    <div class="row" v-if="tipeData ==3 ">
+                        <div class="col-12">
+                             <chart :chart-data="datacollection"></chart>
+                        </div>
+
+                    </div>
                 </div>
              </div>
          </div>
 
 </template>
-<script>
 
+<script>
+import chart from "./chart";
 export default {
     name:"Laporan",
+     components: {
+       chart: chart,
+    },
     data(){
         return{
             Data : [],
@@ -245,9 +259,12 @@ export default {
             keywords :"",
             pagination: [],
             url: "/api/admin/laporan",
-            key:""
+            labelschart : [],
+            dataschart : [],
+            datacollection : null,
         };
     },
+
     mounted(){
         this.loadData();
         this.thisDate();
@@ -258,6 +275,12 @@ export default {
                  this.Data = response.data.data;
                  this.pagination = response.data;
                  console.log(this.Data);
+                 console.log(this.tipeData);
+                 //console.log(this.labelschart);
+                    if(this.tipeData ==3){
+                        this.addArray(this.Data);
+                        this.fillData();
+                    }
              });
         },
         fetchPaginate(url) {
@@ -331,7 +354,30 @@ export default {
         gantiAcuan(event){
             this.search = event.target.value;
         },
+        addArray(obs){
+            this.labelschart = [];
+            this.dataschart = [];
+            for(var i=0; i<obs.length;i++){
+                this.labelschart.push(obs[i].tanggal);
+                this.dataschart.push(obs[i].subtotal);
+            }
 
+        }
+        ,
+        fillData () {
+            this.datacollection = {
+            // Data for the y-axis of the chart
+            labels: this.labelschart,
+                datasets: [
+                    {
+                        label: 'Laporan Pendapatan',
+                        backgroundColor: '#00FFFF',
+                        // Data for the x-axis of the chart
+                        data: this.dataschart,
+                    }
+                ]
+            }
+        },
 
     }
 

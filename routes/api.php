@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
-    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@UnbannedUser');
+    Route::get('/search/{keyword}/{jumlah}', 'Api\UserController@search');
     Route::post('/ban', 'Api\UserController@bannedUser');
     Route::post('/unban', 'Api\UserController@UnbannedUser');
 });
@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin/obatracikan'], function () {
     Route::get('/changePaginate/{jumlah}', 'Api\ObatRacikansController@changePaginate');
     Route::get('/showDetail/{id}', 'Api\ObatRacikansController@showDetail');
     Route::get('/showObat', 'Api\ObatRacikansController@showAllObat');
+    Route::get('/search/{keyword}/{jumlah}', 'Api\ObatRacikansController@search');
     Route::post('/generate', 'Api\ObatRacikansController@generate');
     Route::post('/create', 'Api\ObatRacikansController@insert');
 });

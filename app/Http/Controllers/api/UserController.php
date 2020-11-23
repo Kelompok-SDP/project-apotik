@@ -17,7 +17,8 @@ class UserController extends Controller
 {
     public function showAll()
     {
-        return User::paginate(5);
+        $user = User::orderBy('nama', 'ASC')->paginate(5);
+        return $user;
     }
 
     public function changePaginate($jumlah)

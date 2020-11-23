@@ -9,6 +9,32 @@
       </div>
 
       <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm">
+            <label for="">Banyak Data pada Tabel</label>
+            <input
+              type="number"
+              class="form-control"
+              id=""
+              placeholder="Co: 2"
+              v-model="perPage"
+              @change="changePage"
+            />
+          </div>
+          <div class="form-group col-sm">
+            <label for="">Search Nama Obat Racikan</label>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                id=""
+                placeholder="Co: John"
+                v-model="keywords"
+              />
+              <button class="btn btn-primary" @click="search">Cari</button>
+            </div>
+          </div>
+        </div>
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -242,6 +268,7 @@ export default {
         pagination: [],
         perPage: 5,
         url: "/api/admin/obatracikan",
+        keywords: "",
         detObatRacikans: [],
         detObats: [],
         manyObats: 1,
@@ -272,6 +299,10 @@ export default {
             axios.get(this.url).then((response) => {
                 this.obatracikans = response.data.data;
                 this.pagination = response.data;
+                this.form.kode = "";
+                this.form.nobatr = "";
+                this.form.ndokter = "";
+                this.form.keterangan = "";
             });
         },
         fetchPaginate(url) {
@@ -323,6 +354,7 @@ export default {
                 .then((response) => {
                     this.isSuccess = true;
                     console.log(selectedObats);
+                    this.loadData();
                 })
                 .catch(({ response }) => {
                     this.errors = response.data.errors;
@@ -351,6 +383,15 @@ export default {
         },
         makeCombobox() {
             this.getObats();
+        },
+        search() {
+            if (this.keywords.length > 0) {
+                this.url =
+                "/api/admin/obatracikan/search/" + this.keywords + "/" + this.perPage;
+            } else {
+                this.url = "/api/admin/obatracikan";
+            }
+            this.loadData();
         },
     },
 };
