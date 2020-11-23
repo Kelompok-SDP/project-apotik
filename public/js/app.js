@@ -4153,8 +4153,7 @@ __webpack_require__.r(__webpack_exports__);
       perPage: 5,
       keywords: "",
       pagination: [],
-      url: "/api/admin/laporan",
-      key: ""
+      url: "/api/admin/laporan"
     };
   },
   mounted: function mounted() {
@@ -13550,7 +13549,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\r\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\r\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\r\n   display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\n   display: none;\n}\n", ""]);
 
 // exports
 
@@ -13569,7 +13568,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\r\n  margin-left: 3rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-0ad2c9b1] {\n  margin-left: 3rem;\n}\n", ""]);
 
 // exports
 
@@ -13664,7 +13663,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-54bfa98a] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav[data-v-54bfa98a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -49173,7 +49172,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
-        _vm.tipeData == 1 || _vm.tipedata == 2
+        _vm.tipeData == 1 || _vm.tipeData == 2
           ? _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "form-group col-sm" }, [
                 _c("label", { attrs: { for: "" } }, [
@@ -49271,7 +49270,7 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.tipeData == 1 || _vm.tipedata == 2
+        _vm.tipeData == 1 || _vm.tipeData == 2
           ? _c("div", { staticClass: "row" }, [
               _c("div", { staticClass: "form-group col-sm" }, [
                 _c("label", { attrs: { for: "" } }, [_vm._v("Order By")]),
@@ -49280,34 +49279,11 @@ var render = function() {
                   _c(
                     "select",
                     {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.key,
-                          expression: "key"
-                        }
-                      ],
                       staticClass: "form-control",
                       on: {
-                        change: [
-                          function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.key = $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          },
-                          function($event) {
-                            return _vm.onChangeOrderBy($event)
-                          }
-                        ]
+                        change: function($event) {
+                          return _vm.onChangeOrderBy($event)
+                        }
                       }
                     },
                     _vm._l(_vm.arrorderBy, function(data, index) {
@@ -75289,8 +75265,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

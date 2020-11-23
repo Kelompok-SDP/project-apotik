@@ -11,7 +11,7 @@
                 <button class="btn btn-primary btn-click" @click="gantiLaporan(3)">Laporan Pendapatan </button>
              </div>
              <div class="card-body">
-                 <div class="row" v-if="tipeData == 1 ||tipedata ==2">
+                 <div class="row" v-if="tipeData == 1 ||tipeData ==2">
                      <div class="form-group col-sm">
                             <label for="">Banyak Data pada Tabel</label>
                             <input
@@ -48,11 +48,11 @@
                             </div>
                         </div>
                  </div>
-                 <div class="row"  v-if="tipeData == 1 ||tipedata ==2">
+                 <div class="row"  v-if="tipeData == 1 ||tipeData ==2">
                         <div class="form-group col-sm">
                             <label for="">Order By</label>
                             <div class="input-group">
-                                <select class="form-control"  v-model="key" @change="onChangeOrderBy($event)">
+                                <select class="form-control"  @change="onChangeOrderBy($event)">
                                     <option v-for="(data, index) in arrorderBy" :key="index" :value="index">
                                     {{ data }}
                                     </option>
@@ -254,7 +254,7 @@ export default {
             keywords :"",
             pagination: [],
             url: "/api/admin/laporan",
-            key:""
+
         };
     },
     mounted(){

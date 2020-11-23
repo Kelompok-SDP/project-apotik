@@ -68,31 +68,31 @@ class LaporanController extends Controller
                 if ($secara == 0) {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                     //ascending
                 } else {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                 }
             } else if ($tipe == 2) { //nampilin per bulan sesuai created_at
@@ -198,31 +198,31 @@ class LaporanController extends Controller
                 if ($secara == 0) {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                     //ascending
                 } else {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                 }
             } else if ($tipe == 2) { //nampilin per bulan sesuai tanggal
@@ -355,31 +355,31 @@ class LaporanController extends Controller
                 if ($secara == 0) {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                     //ascending
                 } else {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'asc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at", $date);
                     }
                 }
             } else if ($tipe == 2) { //nampilin per bulan sesuai tanggal
@@ -489,34 +489,37 @@ class LaporanController extends Controller
                 }
             } else if ($tipe == 1) { //nampilin per hari sesuai tanggal
                 $date = date_format(date_create($tanggalhari), "Y-m-d");
+                $hari = intval(date_format(date_create($tanggalhari), "d"));
+                $bulan = intval(date_format(date_create($tanggalhari), "m"));
+                $tahun = intval(date_format(date_create($tanggalhari), "Y"));
                 if ($secara == 0) {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'desc')
-                            ->where("created_at", $date);
+                            ->whereDate("created_at",$date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'desc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'desc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'desc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     }
                     //ascending
                 } else {
                     if ($orderby == 0) { //tanggal
                         $dataObat->orderBy('created_at', 'asc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     } else if ($orderby == 1) { //id
                         $dataObat->orderBy('id', 'asc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     } else if ($orderby == 2) { //nama
                         $dataObat->orderBy('nama', 'asc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     } else { //jumlah
                         $dataObat->orderBy('jum', 'asc')
-                            ->where("created_at", $date);
+                        ->whereDate("created_at",$date);
                     }
                 }
             } else if ($tipe == 2) { //nampilin per bulan sesuai tanggal
