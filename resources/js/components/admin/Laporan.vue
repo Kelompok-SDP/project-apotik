@@ -1,3 +1,4 @@
+
 <template>
     <div class="wrapper-sub-kategori">
          <br />
@@ -10,7 +11,7 @@
                 <button class="btn btn-primary btn-click" @click="gantiLaporan(3)">Laporan Pendapatan </button>
              </div>
              <div class="card-body">
-                 <div class="row">
+                 <div class="row" v-if="tipeData == 1 ||tipedata ==2">
                      <div class="form-group col-sm">
                             <label for="">Banyak Data pada Tabel</label>
                             <input
@@ -47,7 +48,7 @@
                             </div>
                         </div>
                  </div>
-                 <div class="row">
+                 <div class="row"  v-if="tipeData == 1 ||tipedata ==2">
                         <div class="form-group col-sm">
                             <label for="">Order By</label>
                             <div class="input-group">
@@ -219,11 +220,19 @@
                                 Belum ada data
                                 </h2>
                     </div>
+
+
+                    <!-- master pendapatan -->
+                    <div class="row" v-if="tipeData ==3 ">
+
+                    </div>
                 </div>
              </div>
          </div>
 
 </template>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
 <script>
 
 export default {
@@ -326,12 +335,16 @@ export default {
         },
         gantiLaporan(event){
             this.tipeData = event;
+            if(this.tipeData == 3){
+                this.showChart();
+            }
             this.changePage();
         },
         gantiAcuan(event){
             this.search = event.target.value;
         },
-
+        showChart(){
+        }
 
     }
 
