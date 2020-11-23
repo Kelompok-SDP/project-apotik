@@ -56,7 +56,7 @@ export default {
         .get(`/api/artikel/getTag/${this.dataProduk.id}`)
         .then((result) => {
           this.listTag = result.data;
-          this.listUrl = this.listTag.map((t) => `/artikel/tag/${t.id}`);
+          this.listUrl = this.listTag.map((t) => `/artikelpage/${t.id}`);
         })
         .catch((err) => {});
     },

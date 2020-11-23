@@ -150,6 +150,7 @@ export default {
                 this.form.nama = "";
                 this.form.noHp = "";
                 this.form.email = "";
+                console.log("Jumlah: "+this.users.length);
             });
         },
         fetchPaginate(url) {
@@ -199,9 +200,9 @@ export default {
         },
         search() {
             if (this.keywords.length > 0) {
+                console.log("masuk");
                 this.url =
                 "/api/admin/user/search/" + this.keywords + "/" + this.perPage;
-                console.log(this.url);
             } else {
                 this.url = "/api/admin/user";
             }

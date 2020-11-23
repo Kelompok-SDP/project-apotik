@@ -27,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'admin/user'], function () {
     Route::get('/', 'Api\UserController@showAll');
     Route::get('/changePaginate/{jumlah}', 'Api\UserController@changePaginate');
-    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@UnbannedUser');
+    Route::post('/search/{keyword}/{jumlah}', 'Api\UserController@search');
     Route::post('/ban', 'Api\UserController@bannedUser');
     Route::post('/unban', 'Api\UserController@UnbannedUser');
 });
