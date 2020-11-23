@@ -5,18 +5,27 @@
       <div class="mt-5">
         <div v-for="artikel in contentArtikel" :key="artikel.id">
           <h3>{{ artikel.title }}</h3>
-          <br />
-          <h5 style="font-style: italic; color: gray; font-size: 15px">
-            Dibuat pada: {{ tanggal }}
-          </h5>
-          <img
+          <br>
+            <button
+            class="btn btn-sm btn-danger col-1 p-0 m-0"
+            v-for="(tag, index) in listTag"
+            :key="tag.id"
+            >
+            <router-link v-bind:to="listUrl[index]" style="color: white;">{{ tag.nama }} </router-link>
+            </button>
+            <h5 style="color: gray; font-size: 15px; float: right;">
+                {{ tanggal }}
+            </h5>
+          <br><hr>
+          <img style="border:5px solid danger; border-radius: 25px"
             v-bind:src="artikel.gambar"
             alt=""
             srcset=""
             width="100%"
             height="600px"
+
           />
-          <div style="font-size: 20px">
+          <div style="font-size: 20px; margin-left: 2vw; margin-right: 2vw;">
             <p>
               <span style="color: red">UChicago Medicine</span> -
               {{ artikel.content }}
@@ -42,10 +51,13 @@ export default {
     return {
       contentArtikel: {},
       tanggal: {},
+      listTag: [],
+      artikel_id: {},
     };
   },
   mounted() {
     this.loadContent();
+    //this.getTags();
   },
   methods: {
     loadContent() {
@@ -55,8 +67,21 @@ export default {
           this.contentArtikel = result.data;
           this.tanggal = result.data;
           this.contentArtikel.forEach((element) => {
-            this.formatDate(element.created_at);
+              this.formatDate(element.created_at);
+              this.artikel_id = element.id;
           });
+          this.getTags();
+
+        })
+        .catch((err) => {});
+    },
+    getTags() {
+        axios
+        .get("/api/artikel/getTag/" + this.artikel_id)
+        .then((result) => {
+            this.listTag = result.data;
+            this.listUrl = this.listTag.map((t) => `/artikelpage/${t.id}`);
+
         })
         .catch((err) => {});
     },

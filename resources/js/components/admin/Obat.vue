@@ -27,7 +27,7 @@
                 type="text"
                 class="form-control"
                 id=""
-                placeholder="Co:  Puyer"
+                placeholder="Co: Puyer"
                 v-model="keywords"
               />
               <button class="btn btn-primary" @click="search">Cari</button>

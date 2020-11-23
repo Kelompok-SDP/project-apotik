@@ -55,6 +55,7 @@ class InvoicePaid extends Notification
     public function toDatabase()
     {
         $current = Carbon::now();
+        $current->setlocale('Asia/Jakarta');
         $dt = Carbon::parse($current)->format("d F Y");
         return [
             'tanggal' => $dt,

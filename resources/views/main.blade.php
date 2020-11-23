@@ -16,7 +16,7 @@
     <title>Project FAI</title>
 </head>
 <body>
-    <div id="app" class="dark-theme || light-theme"></div>
+    <div id="app" class="dark-mode"></div>
 </body>
 <script src="{{ url('/template/admin/js/jquery.min.js') }}"></script>
 <script src="{{ url('/template/admin/js/adminlte.js') }}"></script>

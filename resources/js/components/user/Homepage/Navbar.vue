@@ -33,9 +33,11 @@
       </div>
     </div>
 
-    <!-- <button class="btn btn-primary btn-toggle">Switch To Dark Mode</button> -->
-
     <div class="d-flex justify-content-between">
+      <div class="col">
+        <li class="fas fa-sun btn-toggle icon-sun invert" v-if="nightMode"></li>
+        <li class="fas fa-moon btn-toggle icon-moon" v-else></li>
+      </div>
       <div class="col">
         <button class="btn btn-secondary" v-if="!isLogin.nama">
           <router-link to="/login" class="text-light">Login</router-link>
@@ -129,12 +131,14 @@ export default {
         alat: false,
       },
       listNotif: [],
+      nightMode: false,
     };
   },
   mounted() {
     this.getLokasi();
     this.loadData();
     this.loadNotif();
+    this.nightMode = false;
   },
   methods: {
     getLokasi() {
@@ -171,7 +175,12 @@ export default {
             this.listNotif = this.listNotif.notifs;
           })
           .catch((err) => {});
-      }, 2000);
+      }, 1000);
+      let button = document.querySelector(".btn-toggle");
+      button.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark-mode");
+        this.nightMode = !this.nightMode;
+      });
     },
     formatNumber(num) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -189,11 +198,18 @@ export default {
 </script>
 
 <style scoped>
-router-link {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: bold;
-  color: red;
+.invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+.icon-moon {
+  color: #041b04;
+  font-size: 2rem;
+  padding-top: 5px;
+}
+.icon-sun {
+  color: #fcda5f;
+  font-size: 2rem;
+  padding-top: 5px;
 }
 .notifs::-webkit-scrollbar {
   width: 0.5rem;

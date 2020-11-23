@@ -101,7 +101,6 @@
             >Page {{ pagination.current_page }} of {{ pagination.last_page }}
           </span>
         </div>
-
         <h2 v-if="users.length == 0" class="text-center mt-2">
           Belum ada data user
         </h2>

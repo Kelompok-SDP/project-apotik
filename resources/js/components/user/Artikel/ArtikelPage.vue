@@ -5,7 +5,7 @@
         <h4>Artikel Berdasarkan Tag</h4>
         <div class="row mt-4">
             <div
-            class="col-lg-3"
+            class="col-lg-6"
             v-for="(tag, index) in listTag"
             :key="tag.id"
             >
