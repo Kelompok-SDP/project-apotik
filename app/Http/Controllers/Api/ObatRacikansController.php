@@ -13,7 +13,7 @@ class ObatRacikansController extends Controller
 {
     public function showAll()
     {
-        return Th_Obat_Racikans::paginate(5);
+        return Th_Obat_Racikans::orderBy('nama', 'ASC')->paginate(5);
     }
 
     public function showDetail($id)
@@ -114,9 +114,10 @@ class ObatRacikansController extends Controller
 
         $rowUp = Th_Obat_Racikans::find($request->id);
         $rowUp->update(["total" => $total]);
+    }
 
-
-
-
+    public function search($keywords, $jumlah)
+    {
+        return Th_Obat_Racikans::where('nama', 'LIKE', "$keywords%")->paginate($jumlah);
     }
 }
