@@ -110,7 +110,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <tr v-for="(data, index) in Data" :key="data.tanggal">
+                                                <tr v-for="(data, index) in Data" :key="index">
                                                     <td>{{ index+1 }}</td>
                                                     <td>{{ data.id }}</td>
                                                     <td>{{ data.nama }}</td>
@@ -179,7 +179,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                <tr v-for="(data, index) in Data" :key="data.tanggal">
+                                                <tr v-for="(data, index) in Data" :key="index">
                                                     <td>{{ index+1 }}</td>
                                                     <td>{{ data.id }}</td>
                                                     <td>{{ data.nama }}</td>

@@ -87692,7 +87692,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.Data, function(data, index) {
-                    return _c("tr", { key: data.tanggal }, [
+                    return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(data.id))]),
@@ -87817,7 +87817,7 @@ var render = function() {
                 _c(
                   "tbody",
                   _vm._l(_vm.Data, function(data, index) {
-                    return _c("tr", { key: data.tanggal }, [
+                    return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(index + 1))]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(data.id))]),
