@@ -8,7 +8,7 @@
              <div class="card-header">
                 <button class="btn btn-primary btn-click" @click="gantiLaporan(1)">Laporan Obat </button>
                 <button class="btn btn-primary btn-click" @click="gantiLaporan(2)">Laporan Customer </button>
-                <button class="btn btn-primary btn-click" @click="gantiLaporan(3)">Laporan Pendapatan </button>
+                <button class="btn btn-primary btn-click" @click="gantiLaporan(3)">Chart</button>
              </div>
              <div class="card-body">
                  <div class="row" v-if="tipeData == 1 ||tipeData ==2">
@@ -92,7 +92,8 @@
 
 
                  </div>
-                 <div  class="row" v-if="tipeData ==1">
+                <div  class="row" v-if="tipeData ==1">
+                 <!-- <div  class="row" id="tipe1"> -->
                                  <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -165,6 +166,7 @@
 
                     <!-- master laporan Customer -->
                     <div  class="row" v-if="tipeData ==2">
+                    <!-- <div  class="row" id="tipe2"> -->
                                  <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -223,9 +225,40 @@
 
 
                     <!-- master pendapatan -->
-                    <div class="row" v-if="tipeData ==3 ">
+                    <!-- <div class="row" v-if="tipeData ==3 "> -->
+                    <div class="row" id="tipe3" style="display:none">
                         <div class="col-12">
-                             <chart :chart-data="datacollection"></chart>
+                            <div class="row">
+                                <div class="form-group col-sm">
+                                    <label for="">Banyak Data pada Chart</label>
+                                    <input
+                                    type="number"
+                                    class="form-control"
+                                    id=""
+                                    placeholder="Co: 2"
+                                    v-model="perPage"
+                                    @change="changePage"
+                                    />
+                                </div>
+                            </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm">
+                                                <label for="">Secara</label>
+                                                <div class="input-group">
+                                                    <select class="form-control"  id="#tag-orderBy" @change="onChangeisiTipe($event)">
+                                                        <option v-for="(data, index) in isiTipeChart" :key="index" :value="index">
+                                                        {{ data }}
+                                                        </option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-12">
+                                                <chart :chart-data="datacollection"></chart>
+                                            </div>
+                                    </div>
                         </div>
 
                     </div>
@@ -253,7 +286,7 @@ export default {
             Tipe :0,
             secara:0,
             orderBy :0,
-            tipeData : 1, //1 -> item, 2 -> Customer, 3-> pendapatan
+            tipeData : 1, //1 -> item, 2 -> Customer, 3-> chart
             tanggalHari :null,
             perPage: 5,
             keywords :"",
@@ -262,16 +295,20 @@ export default {
             labelschart : [],
             dataschart : [],
             datacollection : null,
+            judulChart : "Grafik Pendapatan Perhari",
+            tipeChart : 0, // 0 -> pendapatan  hari terakhir, 1 -> obat yang paling banyak terjual, 2 -> obat paling sedikit terjual, 3 -> customer yang paling sering beli
+            isiTipeChart : ["Grafik Pendapatan Perhari", "Grafik Obat yang paling laku (desc)", "Grafik Obat yang paling laku (asc)","Grafik Customer yang paling Sering membeli "]
         };
     },
 
     mounted(){
-        this.loadData();
+        this.changePage();
         this.thisDate();
     },
     methods: {
         loadData(){
              axios.get(this.url).then((response) => {
+                 this.Data = [];
                  this.Data = response.data.data;
                  this.pagination = response.data;
                  console.log(this.Data);
@@ -279,7 +316,7 @@ export default {
                  //console.log(this.labelschart);
                     if(this.tipeData ==3){
                         this.addArray(this.Data);
-                        this.fillData();
+                        //this.fillData();
                     }
              });
         },
@@ -306,17 +343,17 @@ export default {
             this.pagination = pagination;
         },
         changePage() {
-            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
             this.loadData();
         },
         onChangeOrderBy(event){
             this.orderBy = event.target.value;
-            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
             this.loadData();
         },
          onChangeSecara(event){
             this.secara = event.target.value;
-            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
             this.loadData();
         },
         onChangeTipe(event){
@@ -327,12 +364,12 @@ export default {
                 document.getElementById("datepicker").disabled = false;
             }
             this.tanggalHari = document.getElementById("datepicker").value;
-            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
             this.loadData();
         },
         onChange2(){
             this.tanggalHari = document.getElementById("datepicker").value;
-            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+            this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
             this.loadData();
         },
         search(){
@@ -342,13 +379,20 @@ export default {
                 "/api/admin/laporan/search/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.Search+"/"+this.keywords;
                 console.log(this.url);
             } else {
-                this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData;
+                this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
 
             }
             this.loadData();
         },
         gantiLaporan(event){
             this.tipeData = event;
+            if(this.tipeData == 3) {
+                this.perPage = 5;
+                document.getElementById("tipe3").style.display = "inline";
+            }else{
+
+                document.getElementById("tipe3").style.display = "none";
+            }
             this.changePage();
         },
         gantiAcuan(event){
@@ -357,10 +401,19 @@ export default {
         addArray(obs){
             this.labelschart = [];
             this.dataschart = [];
-            for(var i=0; i<obs.length;i++){
-                this.labelschart.push(obs[i].tanggal);
-                this.dataschart.push(obs[i].subtotal);
+            if(this.tipeChart == 0){
+                 for(var i=0; i<obs.length;i++){
+                    this.labelschart.push(obs[i].tanggal);
+                    this.dataschart.push(obs[i].subtotal);
+                }
+            } else{
+                 for(var i=0; i<obs.length;i++){
+                    this.labelschart.push(obs[i].nama);
+                    this.dataschart.push(obs[i].jum);
+                }
             }
+
+            this.fillData();
 
         }
         ,
@@ -370,7 +423,7 @@ export default {
             labels: this.labelschart,
                 datasets: [
                     {
-                        label: 'Laporan Pendapatan',
+                        label:this.judulChart,
                         backgroundColor: '#00FFFF',
                         // Data for the x-axis of the chart
                         data: this.dataschart,
@@ -378,6 +431,12 @@ export default {
                 ]
             }
         },
+        onChangeisiTipe(event){
+            this.tipeChart = event.target.value;
+            this.judulChart = this.isiTipeChart[this.tipeChart];
+             this.url = "/api/admin/laporan/changePaginate/" + this.perPage+"/"+this.Tipe+"/"+this.secara+"/"+this.orderBy+"/"+this.tanggalHari+"/"+this.tipeData+"/"+this.tipeChart;
+            this.loadData();
+        }
 
     }
 

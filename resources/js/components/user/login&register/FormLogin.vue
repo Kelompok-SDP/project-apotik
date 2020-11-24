@@ -27,10 +27,16 @@
         <br />
       </div>
       <span class="label-input100">Password</span>
-      <input class="input100" type="text" v-model="form.password" />
+      <input class="input100" type="password" id="inputPass" v-model="form.password" />
       <span class="focus-input100"></span>
-    </div>
 
+
+    </div>
+     <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox"  @click="show" style="margin-right:12px"> Show password
+            </label>
+        </div>
     <div class="container-login100-form-btn">
       <div class="wrap-login100-form-btn">
         <div class="login100-form-bgbtn"></div>
@@ -77,6 +83,14 @@ export default {
           this.errors = response.data.errors;
         });
     },
+    show() {
+		var x = document.getElementById("inputPass");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
   },
 };
 </script>

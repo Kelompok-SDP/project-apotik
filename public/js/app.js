@@ -4137,6 +4137,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Laporan",
@@ -4155,7 +4188,7 @@ __webpack_require__.r(__webpack_exports__);
       secara: 0,
       orderBy: 0,
       tipeData: 1,
-      //1 -> item, 2 -> Customer, 3-> pendapatan
+      //1 -> item, 2 -> Customer, 3-> chart
       tanggalHari: null,
       perPage: 5,
       keywords: "",
@@ -4163,11 +4196,15 @@ __webpack_require__.r(__webpack_exports__);
       url: "/api/admin/laporan",
       labelschart: [],
       dataschart: [],
-      datacollection: null
+      datacollection: null,
+      judulChart: "Grafik Pendapatan Perhari",
+      tipeChart: 0,
+      // 0 -> pendapatan  hari terakhir, 1 -> obat yang paling banyak terjual, 2 -> obat paling sedikit terjual, 3 -> customer yang paling sering beli
+      isiTipeChart: ["Grafik Pendapatan Perhari", "Grafik Obat yang paling laku (desc)", "Grafik Obat yang paling laku (asc)", "Grafik Customer yang paling Sering membeli "]
     };
   },
   mounted: function mounted() {
-    this.loadData();
+    this.changePage();
     this.thisDate();
   },
   methods: {
@@ -4175,15 +4212,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get(this.url).then(function (response) {
+        _this.Data = [];
         _this.Data = response.data.data;
         _this.pagination = response.data;
         console.log(_this.Data);
         console.log(_this.tipeData); //console.log(this.labelschart);
 
         if (_this.tipeData == 3) {
-          _this.addArray(_this.Data);
+          _this.addArray(_this.Data); //this.fillData();
 
-          _this.fillData();
         }
       });
     },
@@ -4210,17 +4247,17 @@ __webpack_require__.r(__webpack_exports__);
       this.pagination = pagination;
     },
     changePage: function changePage() {
-      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       this.loadData();
     },
     onChangeOrderBy: function onChangeOrderBy(event) {
       this.orderBy = event.target.value;
-      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       this.loadData();
     },
     onChangeSecara: function onChangeSecara(event) {
       this.secara = event.target.value;
-      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       this.loadData();
     },
     onChangeTipe: function onChangeTipe(event) {
@@ -4233,12 +4270,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.tanggalHari = document.getElementById("datepicker").value;
-      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       this.loadData();
     },
     onChange2: function onChange2() {
       this.tanggalHari = document.getElementById("datepicker").value;
-      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       this.loadData();
     },
     search: function search() {
@@ -4248,13 +4285,21 @@ __webpack_require__.r(__webpack_exports__);
         this.url = "/api/admin/laporan/search/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.Search + "/" + this.keywords;
         console.log(this.url);
       } else {
-        this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData;
+        this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
       }
 
       this.loadData();
     },
     gantiLaporan: function gantiLaporan(event) {
       this.tipeData = event;
+
+      if (this.tipeData == 3) {
+        this.perPage = 5;
+        document.getElementById("tipe3").style.display = "inline";
+      } else {
+        document.getElementById("tipe3").style.display = "none";
+      }
+
       this.changePage();
     },
     gantiAcuan: function gantiAcuan(event) {
@@ -4264,22 +4309,37 @@ __webpack_require__.r(__webpack_exports__);
       this.labelschart = [];
       this.dataschart = [];
 
-      for (var i = 0; i < obs.length; i++) {
-        this.labelschart.push(obs[i].tanggal);
-        this.dataschart.push(obs[i].subtotal);
+      if (this.tipeChart == 0) {
+        for (var i = 0; i < obs.length; i++) {
+          this.labelschart.push(obs[i].tanggal);
+          this.dataschart.push(obs[i].subtotal);
+        }
+      } else {
+        for (var i = 0; i < obs.length; i++) {
+          this.labelschart.push(obs[i].nama);
+          this.dataschart.push(obs[i].jum);
+        }
       }
+
+      this.fillData();
     },
     fillData: function fillData() {
       this.datacollection = {
         // Data for the y-axis of the chart
         labels: this.labelschart,
         datasets: [{
-          label: 'Laporan Pendapatan',
+          label: this.judulChart,
           backgroundColor: '#00FFFF',
           // Data for the x-axis of the chart
           data: this.dataschart
         }]
       };
+    },
+    onChangeisiTipe: function onChangeisiTipe(event) {
+      this.tipeChart = event.target.value;
+      this.judulChart = this.isiTipeChart[this.tipeChart];
+      this.url = "/api/admin/laporan/changePaginate/" + this.perPage + "/" + this.Tipe + "/" + this.secara + "/" + this.orderBy + "/" + this.tanggalHari + "/" + this.tipeData + "/" + this.tipeChart;
+      this.loadData();
     }
   }
 });
@@ -8907,6 +8967,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FormLogin",
   data: function data() {
@@ -8938,6 +9004,15 @@ __webpack_require__.r(__webpack_exports__);
         var response = _ref.response;
         _this.errors = response.data.errors;
       });
+    },
+    show: function show() {
+      var x = document.getElementById("inputPass");
+
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
     }
   }
 });
@@ -29894,7 +29969,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\r\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\r\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\r\n   display: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.wrapper-sub-kategori[data-v-661a40d0] {\n  margin-left: 3rem;\n}\n.btn-primary[data-v-661a40d0]{\n    margin: 2;\n}\n.ui-datepicker-calendar[data-v-661a40d0] {\n   display: none;\n}\n", ""]);
 
 // exports
 
@@ -30008,7 +30083,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.nav[data-v-54bfa98a] {\r\n  cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.nav[data-v-54bfa98a] {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -87368,7 +87443,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Laporan Pendapatan ")]
+          [_vm._v("Chart")]
         )
       ]),
       _vm._v(" "),
@@ -87840,16 +87915,94 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm.tipeData == 3
-          ? _c("div", { staticClass: "row" }, [
-              _c(
-                "div",
-                { staticClass: "col-12" },
-                [_c("chart", { attrs: { "chart-data": _vm.datacollection } })],
-                1
-              )
+        _c(
+          "div",
+          {
+            staticClass: "row",
+            staticStyle: { display: "none" },
+            attrs: { id: "tipe3" }
+          },
+          [
+            _c("div", { staticClass: "col-12" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group col-sm" }, [
+                  _c("label", { attrs: { for: "" } }, [
+                    _vm._v("Banyak Data pada Chart")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.perPage,
+                        expression: "perPage"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number", id: "", placeholder: "Co: 2" },
+                    domProps: { value: _vm.perPage },
+                    on: {
+                      change: _vm.changePage,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.perPage = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-group col-sm" }, [
+                  _c("label", { attrs: { for: "" } }, [_vm._v("Secara")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _c(
+                      "select",
+                      {
+                        staticClass: "form-control",
+                        attrs: { id: "#tag-orderBy" },
+                        on: {
+                          change: function($event) {
+                            return _vm.onChangeisiTipe($event)
+                          }
+                        }
+                      },
+                      _vm._l(_vm.isiTipeChart, function(data, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: index } },
+                          [
+                            _vm._v(
+                              "\n                                                    " +
+                                _vm._s(data) +
+                                "\n                                                    "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-12" },
+                  [
+                    _c("chart", { attrs: { "chart-data": _vm.datacollection } })
+                  ],
+                  1
+                )
+              ])
             ])
-          : _vm._e()
+          ]
+        )
       ])
     ])
   ])
@@ -92120,7 +92273,7 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm.kontak.nomor2
+        _vm.kontak.nomor2 != ""
           ? _c("span", [_vm._v("Nomor HP Kedua: " + _vm._s(_vm.kontak.nomor2))])
           : _vm._e()
       ]),
@@ -94002,7 +94155,7 @@ var render = function() {
             }
           ],
           staticClass: "input100",
-          attrs: { type: "text" },
+          attrs: { type: "password", id: "inputPass" },
           domProps: { value: _vm.form.password },
           on: {
             input: function($event) {
@@ -94015,6 +94168,17 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("span", { staticClass: "focus-input100" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "checkbox mb-3" }, [
+        _c("label", [
+          _c("input", {
+            staticStyle: { "margin-right": "12px" },
+            attrs: { type: "checkbox" },
+            on: { click: _vm.show }
+          }),
+          _vm._v(" Show password\n          ")
+        ])
       ]),
       _vm._v(" "),
       _c(
@@ -113645,8 +113809,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Kuliah\Semester_5\project-apotik\web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\project-apotik\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

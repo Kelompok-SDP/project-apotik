@@ -10,25 +10,18 @@ use Illuminate\Support\Facades\DB;
 class LaporanController extends Controller
 {
     //
-
-    public function showFirst()
-    {
-        $dataObat = DB::table("td_juals")
-            ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama as nama,obats.gambar as gambar,obats.harga as harga, obats.harga* sum(td_juals.jumlah) as totalharga, th_juals.created_at as tanggal"))
-            ->join("obats", "td_juals.id_product", "obats.id")
-            ->join("th_juals",  "th_juals.id", "td_juals.id_th_jual")
-            ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga", "th_juals.created_at")
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
-        return $dataObat;
-    }
-
-    public function changePaginate($jumlah, $tipe, $secara, $orderby, $tanggalhari, $tipedata)
+    public function changePaginate($jumlah, $tipe, $secara, $orderby, $tanggalhari, $tipedata,$tipeChart)
     {
         //tipe -> semua, perhari, perbulan, pertahun
-        //tipedata -> obat, customer, pendapatan
+        //tipedata -> obat, customer, chart
         //secara -> asc, desc
         //order by -> tanggal, id, nama, jum
+        //tipeCHart -> hanya berguna untuk di tipedata ke 3
+        //  0 ->  pendapatan  hari terakhir;
+        //  1 ->  obat terlaris
+        //  2 ->  obat paling tidak laku
+        //  3 ->  customer yang paling sering beli
+
         $dataObat = null;
 
         //obat
@@ -293,27 +286,41 @@ class LaporanController extends Controller
                 }
             }
         } else {
-            $dataObat =DB::table("th_juals")
-            ->select(DB::raw("sum(td_juals.subtotal) as subtotal,th_juals.created_at as tanggal"))
-            ->join("td_juals",  "th_juals.id","td_juals.id_th_jual")
-            ->groupBy("td_juals.id_th_jual", "th_juals.created_at");
+            if($tipeChart ==0){
+                $dataObat =DB::table("th_juals")
+                    ->select(DB::raw("sum(td_juals.subtotal) as subtotal,th_juals.created_at as tanggal"))
+                    ->join("td_juals",  "th_juals.id","td_juals.id_th_jual")
+                    ->groupBy("td_juals.id_th_jual", "th_juals.created_at")
+                    ->orderBy('created_at', 'desc');
+            }else if($tipeChart == 1){
+                $dataObat = DB::table("td_juals")
+                ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama,obats.gambar,obats.harga"))
+                ->join("obats", "td_juals.id_product", "obats.id")
+                ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga")
+                ->orderBy('jum', 'desc');
+            } else if($tipeChart == 2){
+                $dataObat =  DB::table("td_juals")
+                ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama,obats.gambar,obats.harga"))
+                ->join("obats", "td_juals.id_product", "obats.id")
+                ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga")
+                ->orderBy('jum', 'asc');
+            } else{
+                $dataObat = DB::table("th_juals")
+                ->select(DB::raw("count(th_juals.id_user) as jum,users.nama"))
+                ->join("users", "th_juals.id_user", "users.id")
+                ->groupBy("th_juals.id_user","users.nama")
+                ->orderBy('jum', 'desc');
+            }
         }
-
-        // if($tipedata == 1 || $tipedata == 2){
-        //     $dataObat->paginate($jumlah);
-        // }else{
-        //     $dataObat->get();
-        // }
 
         return $dataObat->paginate($jumlah);
     }
-
 
     public function search($jumlah, $tipe, $secara, $orderby, $tanggalhari, $tipedata, $search, $keyword)
     {
 
         //tipe -> semua, perhari, perbulan, pertahun
-        //tipedata -> obat, customer, pendapatan
+        //tipedata -> obat, customer, chart
         //secara -> asc, desc
         //order by -> tanggal, id, nama, jum
         //search -> id, nama
