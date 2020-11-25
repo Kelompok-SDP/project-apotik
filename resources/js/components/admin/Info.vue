@@ -98,9 +98,9 @@ export default {
         .get("/api/admin/info")
         .then((result) => {
           this.info = result.data;
-          this.form.nama = this.info[0].nama;
-          this.form.nomor1 = this.info[0].nomor1;
-          this.form.nomor2 = this.info[0].nomor2;
+          this.form.nama = this.info.nama;
+          this.form.nomor1 = this.info.nomor1;
+          this.form.nomor2 = this.info.nomor2;
         })
         .catch((err) => {});
     },
