@@ -52,7 +52,7 @@ class UserController extends Controller
         $request->validate([
             'email' => ['required', 'email', 'unique:users,email'],
             'nama' => ['required', 'min:3'],
-            'noHp' => ['required', 'max:19', 'unique:users,noHp'],
+            'noHp' => ['required', 'min:12', 'max:19', 'unique:users,noHp'],
             'password' => ['required', 'confirmed']
         ], [
             'email.unique' => ':attribute sudah pernah dipakai',
@@ -66,7 +66,7 @@ class UserController extends Controller
         ]);
 
         $data = $request->all();
-
+        $data['noHp'] = "62" . substr($data['noHp'], 1, strlen($data['noHp']));
         $namaDepan = substr($request->nama, 0, 2);
         $namaDepan = strtoupper($namaDepan);
         $newIndex = User::selectRaw('IFNULL(max(SUBSTRING(`id`,3,3)),0)+1 as newIndex')
