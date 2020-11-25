@@ -36,7 +36,7 @@ class AlatKesehatanController extends Controller
 
     public function search($keywords, $jumlah)
     {
-        return Alat_Kesehatan::where('name', 'LIKE', "$keywords%")->paginate($jumlah);
+        return Alat_Kesehatan::where('name', 'LIKE', "%$keywords%")->paginate($jumlah);
     }
 
     public function create(Request $request)
@@ -99,6 +99,14 @@ class AlatKesehatanController extends Controller
             'keterangan' => $request->keterangan,
             'slug' =>Str::slug($request->nama),
         ]);
+
+
+        $arrkategori = explode(",", $request->kategoris);
+
+        $newKategori = Alat_Kesehatan::find($newId);
+        foreach ($arrkategori as $tag) {
+            $newKategori->kategoris()->attach($tag);
+        }
 
     }
 
@@ -164,6 +172,15 @@ class AlatKesehatanController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            DB::table('obats_kategoris')
+                ->where('id_obats', $request->id)
+                ->delete();
+
+            $arrKategori = explode(",", $request->kategoris);
+            foreach ($arrKategori as $value) {
+                $alat_kesehatan->kategoris()->attach($value);
+            }
         } else {
             $alat_kesehatan->update([
                 'nama' => $request->nama,
@@ -175,6 +192,15 @@ class AlatKesehatanController extends Controller
                 'manufaktur' => $request->manufaktur,
                 'keterangan' => $request->keterangan,
             ]);
+
+            DB::table('obats_kategoris')
+                ->where('id_obats', $request->id)
+                ->delete();
+
+            $arrKategori = explode(",", $request->kategoris);
+            foreach ($arrKategori as $value) {
+                $alat_kesehatan->kategoris()->attach($value);
+            }
         }
 
     }

@@ -404,7 +404,7 @@
 
 
 
-        <div class="form-group">
+                <div class="form-group">
                   <label for="">Banyaknya Kategori</label> <br />
                   <div v-if="form.tp ==2">
                         <label for="" >Kategori sebelumnya :</label>
@@ -444,7 +444,7 @@
                     </option>
                   </select>
                 </div>
-                </div>
+            </div>
                 <div class="card-footer">
               <button type="submit" class="btn btn-primary">
                   <span v-if="form.tp ==1">Tambahkan</span>

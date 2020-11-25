@@ -25,4 +25,5 @@ class Alat_Kesehatan extends Model
     {
         return $this->belongsToMany(Kategori::class, 'kategoris_alat', 'id_alat', 'id_kategori');
     }
+    
 }

@@ -175,6 +175,7 @@
                             v-model="form.stok"
                             />
                         </div>
+
                         <div class="form-group col-sm">
                             <label for="">Satuan Alat Kesehatan</label>
                             <input
@@ -187,6 +188,7 @@
                         </div>
                     </div>
 
+
                     <div class="form-group">
                         <label for="">Manufaktur Alat Kesehatan</label>
                         <input
@@ -196,6 +198,47 @@
                         v-model="form.manufaktur"
                         />
                     </div>
+                        <div class="form-group">
+
+                    <label for="">Banyaknya Kategori</label> <br />
+                        <div v-if="form.tp ==2">
+                                <label for="" >Kategori sebelumnya :</label>
+                                <span
+                                    class="btn btn-sm btn-danger mr-2"
+
+                                    v-for="kategories in Kategoris"
+                                    :key="kategories"
+                                >
+                                    {{ kategories }}
+                                </span>
+                        </div>
+                        <br />
+                        <input
+                            type="number"
+                            class="form-control"
+                            id=""
+                            placeholder="Co: 2"
+                            v-model="manykategori"
+                            @change="makeCombobox"
+                        />
+                        <span
+                            class="invalid-feedback d-block"
+                            v-if="errors.hasOwnProperty('kategories')"
+                        >
+                            {{ errors.kategories[0] }}
+                        </span>
+                        <div
+                        class="form-group"
+                        v-for="i in parseInt(manykategori)"
+                        :key="i"
+                        >
+                        <select class="form-control tag-pilihan-insert" id="">
+                            <option v-for="kategori in kategories" :key="kategori.id" :value="kategori.id">
+                            {{ kategori.nama }}
+                            </option>
+                        </select>
+                        </div>
+                        </div>
                     <div class="form-group">
                         <label for="">Kemasan Alat Kesehatan</label>
                         <input
@@ -330,6 +373,47 @@
                         v-model="editForm.manufaktur"
                         />
                     </div>
+                        <div class="form-group">
+
+                    <label for="">Banyaknya Kategori</label> <br />
+                        <div v-if="form.tp ==2">
+                                <label for="" >Kategori sebelumnya :</label>
+                                <span
+                                    class="btn btn-sm btn-danger mr-2"
+
+                                    v-for="kategories in Kategoris"
+                                    :key="kategories"
+                                >
+                                    {{ kategories }}
+                                </span>
+                        </div>
+                        <br />
+                        <input
+                            type="number"
+                            class="form-control"
+                            id=""
+                            placeholder="Co: 2"
+                            v-model="manykategori"
+                            @change="makeCombobox"
+                        />
+                        <span
+                            class="invalid-feedback d-block"
+                            v-if="errors.hasOwnProperty('kategories')"
+                        >
+                            {{ errors.kategories[0] }}
+                        </span>
+                        <div
+                        class="form-group"
+                        v-for="i in parseInt(manykategori)"
+                        :key="i"
+                        >
+                        <select class="form-control tag-pilihan-update" id="">
+                            <option v-for="kategori in kategories" :key="kategori.id" :value="kategori.id">
+                            {{ kategori.nama }}
+                            </option>
+                        </select>
+                        </div>
+                        </div>
                     <div class="form-group">
                         <label for="">Kemasan Alat Kesehatan</label>
                         <input
@@ -393,6 +477,8 @@ export default {
       alat_Kesehatans: [],
       pagination: [],
       tagsUpdate: [],
+      Kategoris : [],
+      kategories : [],
       perPage: 5,
       url: "/api/admin/alatkesehatan",
       keywords: "",
@@ -424,15 +510,17 @@ export default {
       isLoading: false,
       isSuccess: false,
       manyTags: 1,
+      manykategori :1,
     };
   },
   mounted() {
     this.loadData();
+    this.getKategoris();
   },
   methods: {
     loadData() {
       axios
-        .get("/api/admin/alatkesehatan")
+        .get(this.url)
         .then((result) => {
             this.alat_Kesehatans = result.data.data;
             this.makePagination(result.data) ;
@@ -448,6 +536,17 @@ export default {
         .catch((err) => {
           console.log("err");
         });
+    },
+    makeCombobox() {
+      this.getKategoris();
+    },
+    getKategoris() {
+      axios
+        .get("/api/admin/obat/kategori")
+        .then((result) => {
+          this.kategories = result.data;
+        })
+        .catch((err) => {});
     },
     fetchPaginate(url) {
       this.url = url;
@@ -500,17 +599,18 @@ export default {
       formData.append("manufaktur", this.form.manufaktur);
       formData.append("kemasan", this.form.kemasan);
       formData.append("keterangan", this.form.keterangan);
+      var selectedTags = $(".tag-pilihan-insert")
+                        .map((_, el) => el.value)
+                        .get();
+
+                    formData.append("kategoris", selectedTags);
 
       axios
         .post("/api/admin/alatkesehatan", formData)
         .then((response) => {
           this.isSuccess = true;
           this.loadData();
-        })
-        .catch(({ response }) => {
-          this.errors = response.data.errors;
-        })
-        .finally(() => (this.isLoading = false));
+        });
     },
     updateData() {
       this.errors = {};
@@ -528,6 +628,11 @@ export default {
       formData.append("manufaktur", this.editForm.manufaktur);
       formData.append("kemasan", this.editForm.kemasan);
       formData.append("keterangan", this.editForm.keterangan);
+      var selectedTags = $(".tag-pilihan-update")
+                        .map((_, el) => el.value)
+                        .get();
+
+                    formData.append("kategoris", selectedTags);
 
       axios
         .post("/api/admin/alatkesehatan/update", formData)
