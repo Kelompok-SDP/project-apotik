@@ -9,15 +9,22 @@
         <div class="carousel-item active">
           <img
             class="d-block w-100"
-            src="https://i.pinimg.com/originals/1f/cb/62/1fcb62bbb729a4a2290193c6d3f685d9.jpg"
+            v-bind:src="carousel[0].gambar"
             alt="First slide"
           />
         </div>
         <div class="carousel-item">
           <img
             class="d-block w-100"
-            src="https://wallpaperaccess.com/full/1810115.jpg"
+            v-bind:src="carousel[1].gambar"
             alt="Second slide"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            class="d-block w-100"
+            v-bind:src="carousel[2].gambar"
+            alt="Third slide"
           />
         </div>
       </div>
@@ -46,7 +53,28 @@
 <script>
 export default {
   name: "Carousel",
+
+  data() {
+    return {
+      carousel: [],
+    };
+  },
+  mounted() {
+    this.loadCarousel();
+  },
+  methods: {
+    loadCarousel() {
+      axios
+        .get("/api/carousel")
+        .then((result) => {
+          this.carousel = result.data.data;
+          console.log(this.carousel[0].gambar);
+        })
+        .catch((err) => {});
+    },
+  },
 };
+
 </script>
 
 <style>

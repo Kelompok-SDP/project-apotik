@@ -143,6 +143,7 @@ Route::post('/register', 'Api\UserController@register');
 Route::post('/login', 'Api\UserController@login');
 Route::get('/home', 'Api\UserController@home');
 Route::get('/produk', 'Api\ObatController@show');
+Route::get('/carousel', 'Api\ObatController@carousel');
 
 Route::get('/getDtrans/{id}', 'Api\ProfilController@getDtrans');
 Route::post('/profilUser/update', 'Api\ProfilController@profilUpdate');

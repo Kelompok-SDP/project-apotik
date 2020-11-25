@@ -285,4 +285,16 @@ class ObatController extends Controller
         $alat=$kategori->alats()->get();
         return compact(['obat','alat']);
     }
+
+    public function carousel()
+    {
+        $dataObat = DB::table("td_juals")
+        ->select(DB::raw("sum(td_juals.jumlah) as jum,td_juals.id_product as id,obats.nama,obats.gambar,obats.harga"))
+        ->join("obats", "td_juals.id_product", "obats.id")
+        ->groupBy("td_juals.id_product", "obats.nama", "obats.gambar", "obats.harga")
+        ->orderBy('jum', 'desc')
+        ->paginate(3);
+
+        return $dataObat;
+    }
 }
