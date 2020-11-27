@@ -18,7 +18,9 @@
 <body>
     <div id="app" class="dark-mode"></div>
 </body>
+
 <script src="{{ url('/template/admin/js/jquery.min.js') }}"></script>
 <script src="{{ url('/template/admin/js/adminlte.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+</script>
 </html>

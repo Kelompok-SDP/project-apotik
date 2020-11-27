@@ -7,7 +7,7 @@
         v-for="(product, index) in products"
         v-bind:key="index"
       >
-        <Produk :dataProduk="product"></Produk>
+        <Produk class="produk" :dataProduk="product"></Produk>
       </div>
     </div>
   </div>
@@ -37,6 +37,10 @@ export default {
           this.listUrl = this.products.map((k) => "/api/obat/" + k.id);
         })
         .catch((err) => {});
+      gsap.to(".produk", {
+        opacity: 0,
+        duration: 10,
+      });
     },
   },
 };

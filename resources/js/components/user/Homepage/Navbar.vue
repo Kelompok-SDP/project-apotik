@@ -168,14 +168,17 @@ export default {
     },
     loadNotif() {
       setInterval(() => {
-        axios
-          .get("/api/notifUser")
-          .then((result) => {
-            this.listNotif = result.data;
-            this.listNotif = this.listNotif.notifs;
-          })
-          .catch((err) => {});
+        if (this.isLogin.nama) {
+          axios
+            .get("/api/notifUser")
+            .then((result) => {
+              this.listNotif = result.data;
+              this.listNotif = this.listNotif.notifs;
+            })
+            .catch((err) => {});
+        }
       }, 2000);
+
       let button = document.querySelector(".btn-toggle");
       button.addEventListener("click", () => {
         document.documentElement.classList.toggle("dark-mode");

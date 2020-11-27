@@ -68,13 +68,12 @@ export default {
         .get("/api/carousel")
         .then((result) => {
           this.carousel = result.data.data;
-          console.log(this.carousel[0].gambar);
+          // console.log(this.carousel[0].gambar);
         })
         .catch((err) => {});
     },
   },
 };
-
 </script>
 
 <style>
