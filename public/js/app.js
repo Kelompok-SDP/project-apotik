@@ -7624,11 +7624,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Carousel",
   data: function data() {
     return {
-      carousel: []
+      carousel: [],
+      positon: 0
     };
   },
   mounted: function mounted() {
@@ -7641,6 +7646,16 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/api/carousel").then(function (result) {
         _this.carousel = result.data.data; // console.log(this.carousel[0].gambar);
       })["catch"](function (err) {});
+    },
+    next: function next() {
+      if (this.positon < 3) {
+        this.positon++;
+      }
+    },
+    prev: function prev() {
+      if (this.positon >= 0) {
+        this.positon--;
+      }
     }
   }
 });
@@ -91732,7 +91747,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("Navbar", { attrs: { lokasi: "obat" } }),
+      _c("Navbar", { attrs: { lokasi: "alat" } }),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "mt-5" }, [
@@ -92599,86 +92614,71 @@ var render = function() {
         attrs: { id: "carouselExampleControls", "data-ride": "carousel" }
       },
       [
-        _c("div", { staticClass: "carousel-inner" }, [
-          _c("div", { staticClass: "carousel-item active" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: { src: _vm.carousel[0].gambar, alt: "First slide" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "carousel-item" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: { src: _vm.carousel[1].gambar, alt: "Second slide" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "carousel-item" }, [
-            _c("img", {
-              staticClass: "d-block w-100",
-              attrs: { src: _vm.carousel[2].gambar, alt: "Third slide" }
-            })
-          ])
-        ]),
+        _c(
+          "div",
+          {
+            staticClass: "carousel-inner",
+            class: { active: _vm.positon == 0 }
+          },
+          _vm._l(_vm.carousel, function(car, index) {
+            return _c("div", { key: index, staticClass: "carousel-item" }, [
+              _c("img", {
+                staticClass: "d-block w-100",
+                attrs: { src: car.gambar, alt: "First slide" }
+              })
+            ])
+          }),
+          0
+        ),
         _vm._v(" "),
-        _vm._m(0),
+        _c(
+          "a",
+          {
+            staticClass: "carousel-control-prev",
+            attrs: {
+              href: "#carouselExampleControls",
+              role: "button",
+              "data-slide": "prev"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-prev-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "sr-only", on: { click: _vm.prev } }, [
+              _vm._v("Previous")
+            ])
+          ]
+        ),
         _vm._v(" "),
-        _vm._m(1)
+        _c(
+          "a",
+          {
+            staticClass: "carousel-control-next",
+            attrs: {
+              href: "#carouselExampleControls",
+              role: "button",
+              "data-slide": "next"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-next-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "sr-only", on: { click: _vm.next } }, [
+              _vm._v("Next")
+            ])
+          ]
+        )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "carousel-control-prev",
-        attrs: {
-          href: "#carouselExampleControls",
-          role: "button",
-          "data-slide": "prev"
-        }
-      },
-      [
-        _c("span", {
-          staticClass: "carousel-control-prev-icon",
-          attrs: { "aria-hidden": "true" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "sr-only" }, [_vm._v("Previous")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "carousel-control-next",
-        attrs: {
-          href: "#carouselExampleControls",
-          role: "button",
-          "data-slide": "next"
-        }
-      },
-      [
-        _c("span", {
-          staticClass: "carousel-control-next-icon",
-          attrs: { "aria-hidden": "true" }
-        }),
-        _vm._v(" "),
-        _c("span", { staticClass: "sr-only" }, [_vm._v("Next")])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

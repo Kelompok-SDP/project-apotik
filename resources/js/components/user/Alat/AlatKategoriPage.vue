@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar lokasi="obat" />
+    <Navbar lokasi="alat" />
     <div class="container">
       <div class="mt-5">
         <img

@@ -76,7 +76,7 @@ class UserController extends Controller
         $data['id'] = $id;
         $data['password'] = Hash::make($request->password);
         User::create($data);
-        var_dump($request->email);
+        // var_dump($request->email);
         Mail::to($request->email)->send(new SuccessRegistrasi($id));
     }
 
